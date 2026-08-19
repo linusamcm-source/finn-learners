@@ -1,7 +1,5 @@
-# learner-dash task runner.
-#   just            list recipes
-#   just setup      install node + python deps
-#   just dev        run the API and the SPA together
+# learner-dash task runner. `just` lists every recipe;
+# README.md documents what each one does in more detail.
 
 set shell := ["bash", "-uc"]
 
@@ -30,9 +28,11 @@ build:
     npx tsc -p tsconfig.json --noEmit
     npx vite build
 
+# Typecheck without emitting anything.
 typecheck:
     npx tsc -p tsconfig.json --noEmit
 
+# Run the test suite.
 test:
     node --experimental-strip-types --test tests/*.test.ts
 
@@ -40,22 +40,20 @@ test:
 # Content pipeline
 # ---------------------------------------------------------------------------
 
-# Phase 1: download the handbook and extract it to content/handbook.json.
-# Needs network access to transport.tas.gov.au.
+# Phase 1: download the handbook into content/handbook.json (needs network).
 ingest:
     cd ingest && uv run ingest_handbook.py
 
 # Re-extract from an already-downloaded PDF, skipping the download.
+# The path is resolved before cd'ing, so relative paths work from anywhere.
 ingest-local pdf:
-    cd ingest && uv run ingest_handbook.py --pdf {{pdf}}
+    cd ingest && uv run ingest_handbook.py --pdf {{absolute_path(pdf)}}
 
-# Check questions and scenarios: schema, duplicate ids, and whether each
-# ruleRef resolves to a real chapter and page in the ingested handbook.
+# Check questions and scenarios: schema, ids, and handbook rule references.
 verify-content:
     node --experimental-strip-types scripts/verify-content.ts
 
-# Fill in ruleRef page numbers from content/handbook.json where they can be
-# matched unambiguously. Writes back to content/questions.json.
+# Fill in ruleRef page numbers from an ingested content/handbook.json.
 reconcile-refs:
     node --experimental-strip-types scripts/reconcile-refs.ts
 
@@ -66,7 +64,6 @@ content: verify-content
 reset-db:
     rm -f data/learner-dash.db data/learner-dash.db-wal data/learner-dash.db-shm
 
-# Fill the database with plausible sessions so the parent view has something
-# to draw. Development aid only.
+# Fill the database with demo practice history, so the parent view has data.
 seed-demo:
     node --experimental-strip-types scripts/seed-demo.ts

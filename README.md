@@ -26,6 +26,70 @@ To see the parent view with data in it before any real practice has happened:
 just seed-demo
 ```
 
+## Commands
+
+Everything runs through [`just`](https://just.systems). `just` on its own lists
+the recipes; this is the same list with a bit more context.
+
+### Setup and running
+
+| Command | What it does |
+| --- | --- |
+| `just setup` | `npm install`, plus `uv sync` for the ingestion script. Run once. |
+| `just dev` | API on :8787 and the Vite dev server on :5173, together. The usual way to work. |
+| `just serve` | API server only, on :8787. Also serves `dist/` if you have built it. |
+| `just web` | Vite dev server only, on :5173. Needs `just serve` running alongside it. |
+| `just build` | Typecheck, then build the SPA into `dist/`. |
+
+### Checks
+
+| Command | What it does |
+| --- | --- |
+| `just test` | The full suite — feed engine, scenario geometry, stats, and content invariants. |
+| `just typecheck` | TypeScript only, no build. |
+| `just verify-content` | Checks the question bank and scenarios: schema, duplicate ids, topic coverage, answer key balance, and whether each `ruleRef` resolves against an ingested handbook. Exits non-zero only on something the app would serve wrongly. |
+| `just content` | Alias for `verify-content`. |
+
+### Content pipeline
+
+| Command | What it does |
+| --- | --- |
+| `just ingest` | Phase 1. Downloads the Tasmanian Road Rules Handbook and extracts it to `content/handbook.json` plus diagrams in `assets/handbook/`. Needs network access to transport.tas.gov.au. |
+| `just ingest-local <pdf>` | Same extraction from a PDF you already have — use this when the download fails. Example: `just ingest-local ~/Downloads/handbook.pdf`. |
+| `just reconcile-refs` | Fills in `ruleRef` page numbers from `content/handbook.json` where a section matches unambiguously, and leaves the rest null. Writes back to `content/questions.json`. Run `just ingest` first. |
+
+### Database
+
+| Command | What it does |
+| --- | --- |
+| `just seed-demo` | Fills the database with plausible practice history so the parent view has something to draw. Development aid — it writes to the same database the app uses. |
+| `just reset-db` | Deletes `data/learner-dash.db`. **Destroys all progress**, so run it before `just seed-demo` if you want the demo data on its own. |
+
+### Typical sequences
+
+Working on the app:
+
+```sh
+just setup
+just dev
+```
+
+Bringing the real handbook in and tying the questions to it:
+
+```sh
+just ingest            # or: just ingest-local ~/Downloads/handbook.pdf
+just reconcile-refs
+just verify-content
+```
+
+Before committing:
+
+```sh
+just test
+just typecheck
+just verify-content
+```
+
 ## How it fits together
 
 ```
@@ -39,7 +103,7 @@ scripts/         content verification, rule-reference reconciliation, demo seed
 tests/           feed engine, geometry, stats, and checks over the content itself
 ```
 
-`just --list` shows every task.
+Every task is listed under [Commands](#commands) above.
 
 ### Plain TypeScript, no framework
 

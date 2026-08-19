@@ -11,3 +11,8 @@ ingest/downloads/
 __pycache__/
 .DS_Store
 ingest/fixtures/
+
+# Derived from the Crown-copyright handbook PDF, so not committed. Both are
+# rebuilt by `just ingest`; assets/handbook/.gitkeep keeps the directory.
+content/handbook.json
+assets/handbook/*.png
