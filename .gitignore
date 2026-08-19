@@ -1,0 +1,13 @@
+node_modules/
+dist/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# Ingestion working files: the handbook PDF is downloaded, not vendored.
+ingest/.venv/
+ingest/downloads/
+__pycache__/
+.DS_Store
+ingest/fixtures/

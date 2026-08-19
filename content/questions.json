@@ -1,0 +1,3602 @@
+[
+  {
+    "id": "q-speed-001",
+    "topic": "speed-limits",
+    "text": "You are driving in a built-up area and there are no speed limit signs. What is the maximum speed you may travel?",
+    "options": [
+      "40 km/h",
+      "50 km/h",
+      "60 km/h",
+      "70 km/h"
+    ],
+    "correctIndex": 1,
+    "explanation": "The default limit in a built-up area is 50 km/h. It applies whenever there are no signs saying otherwise, so you will not always see a sign confirming it.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-002",
+    "topic": "speed-limits",
+    "text": "You are on a rural road outside any built-up area and there are no speed limit signs. What is the maximum speed you may travel?",
+    "options": [
+      "80 km/h",
+      "90 km/h",
+      "100 km/h",
+      "110 km/h"
+    ],
+    "correctIndex": 2,
+    "explanation": "The default limit outside built-up areas is 100 km/h. Roads signed at 110 km/h are the exception and are always signposted.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-003",
+    "topic": "speed-limits",
+    "text": "What does a speed limit sign actually tell you?",
+    "options": [
+      "The average speed expected over the road",
+      "The speed you should aim to travel at",
+      "The maximum speed allowed in good conditions",
+      "The minimum safe speed for that road"
+    ],
+    "correctIndex": 2,
+    "explanation": "A speed limit is a maximum, not a target. In rain, fog, heavy traffic or poor light the safe speed is lower, and you can still be charged for driving too fast for the conditions while under the posted limit.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-004",
+    "topic": "speed-limits",
+    "text": "What is the speed limit in a shared zone?",
+    "options": [
+      "10 km/h",
+      "20 km/h",
+      "30 km/h",
+      "40 km/h"
+    ],
+    "correctIndex": 0,
+    "explanation": "A shared zone is 10 km/h. Pedestrians share the roadway with vehicles in a shared zone, and you must give way to them.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-005",
+    "topic": "speed-limits",
+    "text": "You are approaching a curve with a yellow advisory speed sign showing 45. What does it mean?",
+    "options": [
+      "A legal speed limit of 45 km/h that you must not exceed",
+      "A recommended maximum for the curve in good conditions",
+      "The speed limit for heavy vehicles only",
+      "The minimum speed you must maintain through the curve"
+    ],
+    "correctIndex": 1,
+    "explanation": "Yellow advisory signs recommend a safe speed for the hazard ahead; they are not enforceable limits on their own. The posted speed limit still applies, and in the wet you should be slower than the advisory speed.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-006",
+    "topic": "speed-limits",
+    "text": "You are passing a stationary emergency vehicle displaying flashing blue or red lights. What must you do?",
+    "options": [
+      "Stop completely until the emergency vehicle moves off",
+      "Maintain the posted speed limit and stay in your lane",
+      "Sound your horn to acknowledge the crew",
+      "Slow to 40 km/h and give the vehicle and its crew a wide berth"
+    ],
+    "correctIndex": 3,
+    "explanation": "You must slow to 40 km/h when passing a stationary emergency vehicle with flashing lights, and move over to give the crew room if it is safe to do so. Resume the normal limit once you are clear of the scene.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-007",
+    "topic": "speed-limits",
+    "text": "Roadworks signs show a reduced speed limit but you cannot see any workers. What speed applies?",
+    "options": [
+      "The reduced limit shown on the roadworks signs",
+      "Whatever speed feels safe for the road surface",
+      "The normal limit, provided you drive carefully",
+      "The normal limit, because the workers have gone"
+    ],
+    "correctIndex": 0,
+    "explanation": "Roadworks speed limits are legally enforceable and apply whether or not workers are present. Loose surfaces, changed line markings and equipment remain hazards after the crew has left.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-008",
+    "topic": "speed-limits",
+    "text": "How does braking distance change if you double your speed?",
+    "options": [
+      "It roughly quadruples",
+      "It stays about the same",
+      "It roughly doubles",
+      "It roughly triples"
+    ],
+    "correctIndex": 0,
+    "explanation": "Braking distance rises with the square of speed, so doubling your speed roughly quadruples the distance needed to stop. This is on top of the reaction distance travelled before you touch the brake.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-009",
+    "topic": "speed-limits",
+    "text": "What is the minimum following distance you should keep behind the vehicle in front in dry conditions?",
+    "options": [
+      "Two seconds",
+      "Six seconds",
+      "Four seconds",
+      "One second"
+    ],
+    "correctIndex": 0,
+    "explanation": "Two seconds is the minimum in good conditions. Pick a fixed object, and if you reach it before counting two seconds after the vehicle ahead passed it, you are too close. Double it to at least four seconds in rain or poor visibility.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-010",
+    "topic": "speed-limits",
+    "text": "It is raining heavily and the posted limit is 100 km/h. What speed should you drive?",
+    "options": [
+      "Whatever speed keeps you with the traffic flow",
+      "Slower than 100 km/h, at a speed suited to the conditions",
+      "100 km/h, since that is the legal limit",
+      "Exactly 80 km/h, the standard wet weather limit"
+    ],
+    "correctIndex": 1,
+    "explanation": "The posted limit applies to good conditions. In heavy rain, grip and visibility drop and stopping distances lengthen, so you must slow down. There is no separate posted wet-weather limit — the judgement is yours.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-011",
+    "topic": "speed-limits",
+    "text": "You pass a sign showing 80 in a red circle. Where does that limit end?",
+    "options": [
+      "At the next speed limit sign showing a different limit",
+      "At the next intersection",
+      "When you leave the built-up area",
+      "After one kilometre"
+    ],
+    "correctIndex": 0,
+    "explanation": "A speed limit continues until another speed limit sign changes it. Intersections, town boundaries and distance travelled do not end it by themselves.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-012",
+    "topic": "speed-limits",
+    "text": "You are in the right lane of a 90 km/h multi-lane road, travelling at 90 km/h. A driver behind is tailgating you. What should you do?",
+    "options": [
+      "Brake sharply to warn them off",
+      "Move left when it is safe and let them pass",
+      "Speed up to put distance between you",
+      "Hold your speed and position, since you are at the limit"
+    ],
+    "correctIndex": 1,
+    "explanation": "Move left and let them go. Keeping left when practical is the rule on multi-lane roads, and being deliberately in someone's way makes an aggressive driver more dangerous, not less. Never brake-check a tailgater.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-013",
+    "topic": "speed-limits",
+    "text": "Which of these has the greatest effect on how badly someone is injured if you hit them?",
+    "options": [
+      "The colour of your vehicle",
+      "How new your vehicle is",
+      "The speed at impact",
+      "The time of day"
+    ],
+    "correctIndex": 2,
+    "explanation": "Impact speed matters most, because the energy in a crash rises with the square of speed. A pedestrian hit at 50 km/h is far more likely to be killed than one hit at 30 km/h.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-014",
+    "topic": "speed-limits",
+    "text": "What is reaction distance?",
+    "options": [
+      "The distance travelled while you see a hazard and move your foot to the brake",
+      "The gap you should leave behind another vehicle",
+      "The distance at which headlights let you see a hazard",
+      "The distance the car travels once the brakes are applied"
+    ],
+    "correctIndex": 0,
+    "explanation": "Reaction distance is the ground covered between spotting a hazard and the brakes taking effect. At 60 km/h you cover about 17 metres per second, so even a sharp reaction uses up a car length or three before you slow at all.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-015",
+    "topic": "speed-limits",
+    "text": "You are driving at night on an unlit road with low beam headlights. How should you choose your speed?",
+    "options": [
+      "By matching the vehicle in front",
+      "As fast as the road surface allows",
+      "So you can stop within the distance you can see to be clear",
+      "By the posted speed limit alone"
+    ],
+    "correctIndex": 2,
+    "explanation": "Never drive faster than your stopping distance within the lit road ahead. Low beam typically shows 50 to 60 metres, which is less than the stopping distance at 100 km/h, so unlit rural roads at night often call for well under the posted limit.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-016",
+    "topic": "speed-limits",
+    "text": "A speed limit sign shows 40 with 'SCHOOL ZONE' and times below it. When does the 40 km/h limit apply?",
+    "options": [
+      "All day, every day",
+      "Only when children are visible",
+      "Only during school terms, at any hour",
+      "During the signposted times on school days"
+    ],
+    "correctIndex": 3,
+    "explanation": "The limit applies during the times shown on the sign, on school days, whether or not you can see any children. Children step out from between parked cars, so do not treat an empty footpath as the all-clear.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-017",
+    "topic": "speed-limits",
+    "text": "You are travelling downhill on a long, steep grade in a heavily loaded car. How should you control your speed?",
+    "options": [
+      "Select a lower gear and use the brakes intermittently",
+      "Coast in neutral to save fuel",
+      "Ride the brakes continuously the whole way down",
+      "Switch off the engine and freewheel"
+    ],
+    "correctIndex": 0,
+    "explanation": "A lower gear lets the engine do most of the braking. Continuous braking overheats the brakes and they fade; coasting in neutral or with the engine off removes engine braking and, in many cars, power steering.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-018",
+    "topic": "speed-limits",
+    "text": "Traffic around you is travelling at 70 km/h in a signed 60 km/h zone. What speed may you legally drive?",
+    "options": [
+      "65 km/h, allowing for speedometer error",
+      "Any speed, provided you keep up with traffic",
+      "Up to 60 km/h",
+      "70 km/h, to match the traffic flow"
+    ],
+    "correctIndex": 2,
+    "explanation": "The posted limit binds you regardless of what other drivers are doing. Matching a speeding traffic flow is not a defence.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-019",
+    "topic": "speed-limits",
+    "text": "You are approaching a crest and cannot see the road beyond it. What should you do?",
+    "options": [
+      "Move to the right to see further ahead",
+      "Ease off and be ready to stop for anything hidden beyond the crest",
+      "Accelerate to clear the crest quickly",
+      "Maintain speed, since the limit has not changed"
+    ],
+    "correctIndex": 1,
+    "explanation": "A crest hides stopped vehicles, stock and oncoming traffic on your side of the road. Slow enough to stop within the distance you can actually see, and stay left — moving right puts you head-on with anything coming over.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-020",
+    "topic": "speed-limits",
+    "text": "What is the effect of driving on gravel at the same speed you would use on sealed road?",
+    "options": [
+      "No difference, as long as the tyres are good",
+      "Grip is much lower, so braking and steering take far longer to take effect",
+      "Only braking is affected, not steering",
+      "Grip improves because the surface is rougher"
+    ],
+    "correctIndex": 1,
+    "explanation": "Loose gravel cuts grip sharply. Braking, steering and accelerating all need more room, and sudden inputs can slide the car. Slow down before a corner on gravel, not during it.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-021",
+    "topic": "speed-limits",
+    "text": "You see a sign with a number in a blue circle. What is it telling you?",
+    "options": [
+      "The maximum speed permitted",
+      "The speed limit for buses",
+      "A minimum speed you must maintain",
+      "An advisory speed for a curve"
+    ],
+    "correctIndex": 2,
+    "explanation": "A number in a blue circle is a minimum speed sign — you must not drive slower than that speed unless conditions make it unsafe. Maximum limits are shown in a red circle.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-speed-022",
+    "topic": "speed-limits",
+    "text": "You are following a heavy truck on a wet road. What following distance is appropriate?",
+    "options": [
+      "The usual two seconds",
+      "One car length for every 10 km/h",
+      "At least four seconds",
+      "Less than two seconds, so you can see past it"
+    ],
+    "correctIndex": 2,
+    "explanation": "Wet roads alone call for doubling the two-second gap. Behind a truck you also need the extra distance to see around it and to stay out of its spray, and the driver cannot see you at all if you sit close behind.",
+    "ruleRef": {
+      "chapter": "Speed limits",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-001",
+    "topic": "give-way",
+    "text": "You arrive at an intersection with no signs, no traffic lights and no line markings, at the same time as a car on your right. Who goes first?",
+    "options": [
+      "Whoever indicates first",
+      "You do, because you are on their left",
+      "The car on your right",
+      "Whoever arrived first"
+    ],
+    "correctIndex": 2,
+    "explanation": "At an uncontrolled intersection you give way to any vehicle approaching from your right. Arriving first does not give you priority.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-002",
+    "topic": "give-way",
+    "text": "You are turning right at an uncontrolled intersection. An oncoming car is going straight ahead. Who gives way?",
+    "options": [
+      "You give way to the oncoming car",
+      "The oncoming car, because you are turning",
+      "Neither, if you both have room to proceed",
+      "Whoever is travelling slower"
+    ],
+    "correctIndex": 0,
+    "explanation": "A driver turning right gives way to oncoming vehicles going straight ahead or turning left. Turning across a stream of traffic never gives you priority over it.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-003",
+    "topic": "give-way",
+    "text": "What must you do at a STOP sign?",
+    "options": [
+      "Stop only if another vehicle is approaching",
+      "Sound your horn and proceed",
+      "Stop completely at the stop line, then give way to all traffic",
+      "Slow down and proceed if the way is clear"
+    ],
+    "correctIndex": 2,
+    "explanation": "A stop sign requires a complete stop at the stop line — wheels stationary — every time, even on an empty road. You then give way to all traffic and pedestrians before proceeding.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-004",
+    "topic": "give-way",
+    "text": "What must you do at a GIVE WAY sign?",
+    "options": [
+      "Slow down, be ready to stop, and give way to traffic in or approaching the intersection",
+      "Come to a complete stop every time",
+      "Give way only to vehicles coming from your right",
+      "Proceed at normal speed if you can see it is clear"
+    ],
+    "correctIndex": 0,
+    "explanation": "A give way sign requires you to slow and be prepared to stop, then give way to all traffic in or approaching the intersection. You must stop if that is what giving way requires.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-005",
+    "topic": "give-way",
+    "text": "You are at a T-junction, driving on the road that ends. There are no signs or lights. What must you do?",
+    "options": [
+      "Proceed, since you arrived first",
+      "Give way only to vehicles on your right",
+      "Give way to all vehicles on the continuing road",
+      "Give way only to vehicles turning into your road"
+    ],
+    "correctIndex": 2,
+    "explanation": "At a T-junction the driver on the terminating road gives way to all traffic on the continuing road, from both directions.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-006",
+    "topic": "give-way",
+    "text": "Traffic lights turn green as you approach, but a car is still stopped in the middle of the intersection. What should you do?",
+    "options": [
+      "Wait until the intersection is clear before entering",
+      "Reverse to give them room",
+      "Sound your horn and drive around them",
+      "Proceed, since you have a green light"
+    ],
+    "correctIndex": 0,
+    "explanation": "A green light means you may proceed only if the intersection is clear. You must not enter an intersection unless you can get through without being trapped in it.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-007",
+    "topic": "give-way",
+    "text": "The traffic light turns yellow as you approach. What should you do?",
+    "options": [
+      "Stop if you can do so safely",
+      "Continue at the same speed, since yellow means caution",
+      "Accelerate to clear the intersection",
+      "Stop immediately regardless of what is behind you"
+    ],
+    "correctIndex": 0,
+    "explanation": "Yellow means stop if you can do so safely. You may only continue through if stopping would require braking so hard that it is unsafe, such as when a vehicle is close behind.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-008",
+    "topic": "give-way",
+    "text": "You are turning left at traffic lights with a green light. Pedestrians are crossing the road you are turning into. What must you do?",
+    "options": [
+      "Give way to the pedestrians",
+      "Sound your horn to warn them",
+      "Proceed, since your light is green",
+      "Give way only if they have started crossing"
+    ],
+    "correctIndex": 0,
+    "explanation": "A green light does not override pedestrians. When turning at an intersection you must give way to pedestrians crossing the road you are entering.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-009",
+    "topic": "give-way",
+    "text": "You are leaving a driveway and crossing the footpath to enter the road. Who must you give way to?",
+    "options": [
+      "Only traffic approaching from your right",
+      "Pedestrians on the footpath and all traffic on the road",
+      "Nobody, if you sound your horn first",
+      "Only vehicles on the road"
+    ],
+    "correctIndex": 1,
+    "explanation": "Coming out of a driveway or property you give way to everything: pedestrians on the footpath first, then all vehicles on the road. Reverse out only when you cannot safely drive out forwards.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-010",
+    "topic": "give-way",
+    "text": "Traffic lights at an intersection have failed completely and are showing nothing. How should you treat the intersection?",
+    "options": [
+      "Proceed as normal, since the lights are not working",
+      "Stop and wait for the lights to be repaired",
+      "Treat it as if each approach has a give way sign, and proceed with great care",
+      "As if it has no controls, giving way to the right"
+    ],
+    "correctIndex": 2,
+    "explanation": "When lights fail, treat the intersection as uncontrolled and approach as though facing a give way sign: slow, be ready to stop, and only proceed when it is clearly safe. Other drivers may assume they have priority.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-011",
+    "topic": "give-way",
+    "text": "You are facing a red traffic light with a green right-turn arrow. What may you do?",
+    "options": [
+      "Turn right or go straight ahead",
+      "Nothing, the red light overrides the arrow",
+      "Turn right or left",
+      "Turn right only, and only if the way is clear"
+    ],
+    "correctIndex": 3,
+    "explanation": "A green arrow permits movement in that direction only. The red light still stops every other movement, so you may turn right but not go straight ahead or turn left.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-012",
+    "topic": "give-way",
+    "text": "An ambulance approaches with lights and siren while you are stopped at a red light in the left lane. What should you do?",
+    "options": [
+      "Stay exactly where you are, since the light is red",
+      "Move out of its path if you can do so safely, even if that means crossing the stop line",
+      "Reverse away from the intersection",
+      "Drive through the red light immediately"
+    ],
+    "correctIndex": 1,
+    "explanation": "You must give way to an emergency vehicle with lights or siren, and you are permitted to move out of its way when it is safe to do so. Move deliberately and only far enough to clear a path — do not panic across the intersection.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-013",
+    "topic": "give-way",
+    "text": "Both you and an oncoming vehicle are turning right at an intersection, passing each other. How should you pass?",
+    "options": [
+      "Left side to left side, passing behind each other, unless signs or markings say otherwise",
+      "Whichever way is quicker",
+      "The larger vehicle turns first",
+      "Right side to right side, turning in front of each other"
+    ],
+    "correctIndex": 0,
+    "explanation": "Two vehicles turning right pass in front of each other, keeping to the left of the centre of the intersection, unless road markings direct otherwise. This keeps both drivers' views of oncoming traffic open.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-014",
+    "topic": "give-way",
+    "text": "You are at a give way sign wanting to turn left. A cyclist is riding along the road you want to enter. What must you do?",
+    "options": [
+      "Turn ahead of the cyclist, since bicycles are slower",
+      "Give way to the cyclist as you would to any vehicle",
+      "Give way only if the cyclist is in a bicycle lane",
+      "Sound your horn and proceed"
+    ],
+    "correctIndex": 1,
+    "explanation": "A bicycle is a vehicle and has the same right of way as a car. Cyclists are easy to misjudge — they are often travelling faster than they look.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-015",
+    "topic": "give-way",
+    "text": "You want to make a U-turn at an intersection where it is permitted. Who must you give way to?",
+    "options": [
+      "Nobody, since you are staying on the same road",
+      "Only traffic behind you",
+      "Only oncoming traffic",
+      "All other vehicles and pedestrians"
+    ],
+    "correctIndex": 3,
+    "explanation": "A driver making a U-turn gives way to everyone: all vehicles from every direction and all pedestrians. A U-turn is the lowest priority manoeuvre on the road.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-016",
+    "topic": "give-way",
+    "text": "You are entering a road from a slip lane. What must you do?",
+    "options": [
+      "Merge at whatever speed you are travelling",
+      "Stop completely before entering, every time",
+      "Expect traffic to make room for you",
+      "Give way to traffic already on the road you are entering"
+    ],
+    "correctIndex": 3,
+    "explanation": "Traffic on the road you are joining has priority. Match your speed to the traffic and slot into a gap; if there is no gap, you must give way, and that can mean stopping at the end of the slip lane.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-017",
+    "topic": "give-way",
+    "text": "You approach a level crossing where the lights are flashing red but no train is in sight. What must you do?",
+    "options": [
+      "Proceed slowly, since no train is visible",
+      "Cross only if a second vehicle waits with you",
+      "Stop and wait until the lights stop flashing",
+      "Stop, look both ways, then cross"
+    ],
+    "correctIndex": 2,
+    "explanation": "Flashing red lights at a level crossing mean stop and stay stopped until they cease. Trains are far faster and quieter than they appear, and a second train may follow the first.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-018",
+    "topic": "give-way",
+    "text": "Traffic is banked up beyond an intersection and the light is green. What should you do?",
+    "options": [
+      "Sound your horn at the queued traffic",
+      "Stay behind the stop line until you can clear the intersection",
+      "Enter the intersection and wait for the queue to move",
+      "Enter and turn left instead"
+    ],
+    "correctIndex": 1,
+    "explanation": "You must not enter an intersection unless you can drive right through it. Stopping in the middle blocks the cross traffic when their light turns green, and it is an offence.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-019",
+    "topic": "give-way",
+    "text": "You are turning right from a road with a painted median strip into a side street. Traffic is heavy. What is the safest approach?",
+    "options": [
+      "Wait in the median strip until the near lane is clear, if it is long enough to hold your car",
+      "Turn left instead and do a U-turn",
+      "Reverse back and try a different route",
+      "Cross both directions in one movement no matter what"
+    ],
+    "correctIndex": 0,
+    "explanation": "Where a median is wide enough to hold your vehicle clear of both traffic streams, you may cross in two stages. Never commit to crossing the second stream until you can complete it — being stranded across a lane is how right-turn crashes happen.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-020",
+    "topic": "give-way",
+    "text": "A vehicle is doing a three-point turn across the road ahead of you and is blocking your lane. What should you do?",
+    "options": [
+      "Reverse away",
+      "Slow down and wait for them to complete the turn",
+      "Overtake on the wrong side of the road",
+      "Sound your horn and squeeze past"
+    ],
+    "correctIndex": 1,
+    "explanation": "Wait. The driver turning must give way to you, but forcing the issue while they are committed across the road achieves nothing except a collision.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-021",
+    "topic": "give-way",
+    "text": "You are on a narrow road where an obstruction blocks your side of the carriageway. An oncoming vehicle is approaching. Who gives way?",
+    "options": [
+      "You do, because the obstruction is on your side",
+      "The oncoming vehicle, since you are already committed",
+      "Neither, both should proceed slowly",
+      "Whoever is closer to the obstruction"
+    ],
+    "correctIndex": 0,
+    "explanation": "If the obstruction is on your side of the road, the oncoming vehicle has right of way. You must wait until the road is clear before passing the obstruction.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-022",
+    "topic": "give-way",
+    "text": "You are stopped at a red light intending to turn left. There is no 'left turn on red permitted after stopping' sign. May you turn?",
+    "options": [
+      "Yes, after stopping and checking it is clear",
+      "No, you must wait for a green light or green arrow",
+      "Yes, provided you indicate first",
+      "Yes, if no pedestrians are present"
+    ],
+    "correctIndex": 1,
+    "explanation": "Turning left on a red light is only permitted where a sign specifically allows it. Without that sign a red light means stop and wait.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-023",
+    "topic": "give-way",
+    "text": "Two vehicles arrive at a four-way intersection where all four approaches have stop signs. You are on the left of the other vehicle. Who proceeds first?",
+    "options": [
+      "You do, because you are on the left",
+      "Whoever is going straight ahead",
+      "Whoever stopped first",
+      "The vehicle on your right"
+    ],
+    "correctIndex": 3,
+    "explanation": "Once both drivers have obeyed their stop signs, the ordinary give way rules resume: you give way to the vehicle on your right.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-024",
+    "topic": "give-way",
+    "text": "You are approaching an intersection where you have right of way, but a vehicle on the side road shows no sign of slowing. What should you do?",
+    "options": [
+      "Cover the brake, slow down and be ready to stop",
+      "Flash your headlights and continue",
+      "Sound your horn and continue",
+      "Maintain speed, since you have right of way"
+    ],
+    "correctIndex": 0,
+    "explanation": "Right of way is something other drivers give you, not something that protects you. When a vehicle is not behaving as expected, slow down and keep the option of stopping.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-025",
+    "topic": "give-way",
+    "text": "You are turning right at traffic lights on a green light with no arrow. Where should you wait?",
+    "options": [
+      "In the intersection, positioned to turn, giving way to oncoming traffic",
+      "Behind the stop line until the light turns yellow",
+      "On the far side of the intersection",
+      "In the left lane to keep the intersection clear"
+    ],
+    "correctIndex": 0,
+    "explanation": "On a full green you may enter the intersection and wait to turn, giving way to oncoming traffic. Keep your wheels straight so you are not pushed into oncoming traffic if hit from behind, and complete the turn when a gap appears or as the lights change.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-giveway-026",
+    "topic": "give-way",
+    "text": "A police officer is directing traffic at an intersection and signals you to proceed, but the traffic light is red. What should you do?",
+    "options": [
+      "Wait for the officer to turn the lights off",
+      "Follow the police officer's direction",
+      "Proceed only if other vehicles do",
+      "Obey the red light and wait"
+    ],
+    "correctIndex": 1,
+    "explanation": "Directions from a police officer or authorised traffic controller override traffic lights and signs.",
+    "ruleRef": {
+      "chapter": "Giving way",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-001",
+    "topic": "roundabouts",
+    "text": "When entering a roundabout, who must you give way to?",
+    "options": [
+      "Vehicles entering from the road opposite",
+      "Any vehicle already in the roundabout",
+      "Nobody, if you are going straight ahead",
+      "Vehicles approaching from your right only"
+    ],
+    "correctIndex": 1,
+    "explanation": "You give way to any vehicle already in the roundabout. In practice most of those come from your right, but the rule is about vehicles already circulating, not about direction.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-002",
+    "topic": "roundabouts",
+    "text": "You are turning left at a multi-lane roundabout. Which lane should you use and what should you signal?",
+    "options": [
+      "Either lane, signal left on exit only",
+      "Left lane, signal left on approach",
+      "Left lane, no signal needed",
+      "Right lane, signal left on approach"
+    ],
+    "correctIndex": 1,
+    "explanation": "Turning left: approach in the left lane, signal left on approach, and keep signalling left as you leave.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-003",
+    "topic": "roundabouts",
+    "text": "You are turning right at a multi-lane roundabout. Which lane should you use and what should you signal?",
+    "options": [
+      "Right lane, signal right on approach",
+      "Left lane, signal right on approach",
+      "Right lane, no signal on approach",
+      "Either lane, signal right on approach"
+    ],
+    "correctIndex": 0,
+    "explanation": "Turning right: approach in the right lane and signal right. Once you pass the exit before the one you want, change your signal to left.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-004",
+    "topic": "roundabouts",
+    "text": "You are going straight ahead at a roundabout. What should you signal on approach?",
+    "options": [
+      "Signal left",
+      "Signal right",
+      "Signal right, then left",
+      "No signal on approach, but signal left before exiting"
+    ],
+    "correctIndex": 3,
+    "explanation": "Going straight ahead needs no approach signal. You must still signal left before leaving the roundabout, if it is practical to do so.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-005",
+    "topic": "roundabouts",
+    "text": "When must you signal left at a roundabout?",
+    "options": [
+      "Never, roundabout exits do not require signals",
+      "Only when turning left",
+      "Only at multi-lane roundabouts",
+      "When leaving the roundabout, if it is practical to do so"
+    ],
+    "correctIndex": 3,
+    "explanation": "You must signal left when leaving a roundabout whenever it is practical. At a very small roundabout there may not be time between exits, which is what 'practical' allows for.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-006",
+    "topic": "roundabouts",
+    "text": "You are in the left lane of a two-lane roundabout going straight ahead. A vehicle in the right lane starts to move left across your path towards the same exit. What should you do?",
+    "options": [
+      "Sound the horn and maintain speed",
+      "Accelerate to get past them",
+      "Hold your line and your speed",
+      "Ease off and let them across, then continue"
+    ],
+    "correctIndex": 3,
+    "explanation": "You are entitled to your lane, but yielding costs you a second and avoids a crash. Roundabout sideswipes happen exactly here, so keep watching the vehicle beside you all the way round.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-007",
+    "topic": "roundabouts",
+    "text": "May you make a U-turn at a roundabout?",
+    "options": [
+      "Only where a sign specifically permits it",
+      "Yes, by continuing around and taking the exit you came from",
+      "No, never",
+      "Only at single-lane roundabouts"
+    ],
+    "correctIndex": 1,
+    "explanation": "You may turn around at a roundabout by driving right around and leaving by the road you entered from. Approach in the right lane, signal right, and signal left after passing the last exit before yours.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-008",
+    "topic": "roundabouts",
+    "text": "A cyclist is riding around a multi-lane roundabout in the left lane and does not move to the right lane to turn right. Is this permitted?",
+    "options": [
+      "Yes, a cyclist may turn right from the left lane of a roundabout",
+      "No, cyclists must follow the same lane rules as cars",
+      "Only on roundabouts with a bicycle lane",
+      "Only if the cyclist dismounts"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cyclists are allowed to stay in the left lane of a multi-lane roundabout and turn right from it. They must give way to any vehicle leaving the roundabout, and you should expect a cyclist on your left to keep circulating.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-009",
+    "topic": "roundabouts",
+    "text": "You are approaching a roundabout and can see it is completely clear. Must you stop?",
+    "options": [
+      "No, but you must slow and be ready to give way",
+      "Yes, unless you are turning left",
+      "No, you may enter at the full speed limit",
+      "Yes, always stop at a roundabout"
+    ],
+    "correctIndex": 0,
+    "explanation": "A roundabout is a give way situation, not a stop sign. If it is genuinely clear you may drive through, but you must approach at a speed that lets you give way if it is not.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-010",
+    "topic": "roundabouts",
+    "text": "A long vehicle in front of you is straddling both lanes as it goes around a roundabout. What should you do?",
+    "options": [
+      "Pass it on the right at speed",
+      "Sound the horn to make it keep left",
+      "Stay well back and do not attempt to pass alongside it",
+      "Overtake it on the inside"
+    ],
+    "correctIndex": 2,
+    "explanation": "Long vehicles need both lanes to get around and often display a 'Do Not Overtake Turning Vehicle' sign. The rear of the trailer sweeps across the inside lane, so anything beside it gets crushed.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-011",
+    "topic": "roundabouts",
+    "text": "You entered a roundabout intending to take the second exit but realise you should have taken the first. What should you do?",
+    "options": [
+      "Continue to the next exit, or go around again",
+      "Cut across to the first exit immediately",
+      "Brake and reverse to the first exit",
+      "Stop in the roundabout and wait for a gap"
+    ],
+    "correctIndex": 0,
+    "explanation": "Carry on. Cutting across an exit line, stopping or reversing in a roundabout puts you in front of traffic that is not expecting it. Going round a second time costs nothing.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-012",
+    "topic": "roundabouts",
+    "text": "Two vehicles arrive at a single-lane roundabout at the same moment, from opposite directions. Both are going straight ahead. What happens?",
+    "options": [
+      "Neither is in the roundabout yet, so each gives way to the vehicle on their right",
+      "The faster vehicle goes first",
+      "Both must stop and wait",
+      "Both may proceed, since their paths do not cross"
+    ],
+    "correctIndex": 3,
+    "explanation": "Going straight ahead from opposite directions, the two paths do not conflict — each vehicle passes through its own half. The give way rule matters where paths actually cross.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-013",
+    "topic": "roundabouts",
+    "text": "What does a roundabout sign with arrows and lane markings on the approach tell you?",
+    "options": [
+      "The speed limit for the roundabout",
+      "Which lanes may be used for which exits",
+      "That the roundabout is controlled by traffic lights",
+      "The number of exits"
+    ],
+    "correctIndex": 1,
+    "explanation": "Approach lane arrows and signs set which lane you must be in for the exit you want. They override the general left-lane / right-lane rule, so read them before you commit.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-014",
+    "topic": "roundabouts",
+    "text": "A pedestrian is crossing the road at the exit of a roundabout you are leaving. What must you do?",
+    "options": [
+      "Proceed, since you are already in the roundabout",
+      "Sound your horn to move them along",
+      "Give way only if they are on a marked crossing",
+      "Give way to the pedestrian"
+    ],
+    "correctIndex": 3,
+    "explanation": "Being in the roundabout does not give you priority over pedestrians on the road you are entering. Look at the exit before you take it, not just at the traffic beside you.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-015",
+    "topic": "roundabouts",
+    "text": "You are approaching a roundabout in the right lane intending to go straight ahead, and there are no lane arrows. Is this permitted?",
+    "options": [
+      "Only if the left lane is occupied",
+      "Yes, you may use either lane to go straight ahead unless signs or markings say otherwise",
+      "No, straight-ahead traffic must use the left lane",
+      "Only at roundabouts with more than four exits"
+    ],
+    "correctIndex": 1,
+    "explanation": "Without arrows or signs directing otherwise, you may go straight ahead from either lane. Leave from the lane that matches — from the right lane, exit into the right lane.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-016",
+    "topic": "roundabouts",
+    "text": "Traffic in a roundabout is queued and there is no room for your vehicle to clear the roundabout. What should you do?",
+    "options": [
+      "Wait at the entry line until there is room to get through",
+      "Enter anyway to hold your place",
+      "Take the first exit instead",
+      "Enter and stop in the roundabout"
+    ],
+    "correctIndex": 0,
+    "explanation": "Do not enter a roundabout unless you can get out of it. Stopping inside blocks every other approach.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-017",
+    "topic": "roundabouts",
+    "text": "When should you begin looking for a gap as you approach a roundabout?",
+    "options": [
+      "As soon as you enter the roundabout",
+      "Once you have stopped at the entry line",
+      "While still approaching, scanning to your right as you slow",
+      "Only after the vehicle in front has entered"
+    ],
+    "correctIndex": 2,
+    "explanation": "Scan to the right as you slow on approach. If the gap is there you keep rolling; if it is not, you are already at a speed where you can stop. Waiting until you have stopped to start looking holds up everyone behind.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-018",
+    "topic": "roundabouts",
+    "text": "A vehicle already in the roundabout is signalling left, indicating it will take the exit before yours. What should you do?",
+    "options": [
+      "Enter and give way once inside",
+      "Wait until you can see it actually beginning to leave",
+      "Enter immediately, since it is leaving",
+      "Sound your horn to confirm its intention"
+    ],
+    "correctIndex": 1,
+    "explanation": "A signal is an intention, not a guarantee. Drivers leave indicators on by mistake or change their minds. Wait until the vehicle's movement confirms it is leaving.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-019",
+    "topic": "roundabouts",
+    "text": "What is the correct road position when driving around a single-lane roundabout?",
+    "options": [
+      "As wide as possible, near the outer edge",
+      "Following the curve of the roundabout, keeping in the lane",
+      "As close to the central island as possible",
+      "Cutting straight across the centre if it is a small roundabout"
+    ],
+    "correctIndex": 1,
+    "explanation": "Follow the curve within the marked lane. Cutting across the central island of a small roundabout is an offence unless the island is a mountable one designed for long vehicles.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-020",
+    "topic": "roundabouts",
+    "text": "You are exiting a roundabout and a vehicle is waiting to enter from that exit road. Who has priority?",
+    "options": [
+      "You do — they must give way to vehicles in the roundabout",
+      "Whoever moves first",
+      "The waiting vehicle, since you are leaving",
+      "Neither, both should stop"
+    ],
+    "correctIndex": 0,
+    "explanation": "Vehicles entering give way to those already circulating. Signalling left as you leave tells the waiting driver they can go, which is why the exit signal matters.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-021",
+    "topic": "roundabouts",
+    "text": "An emergency vehicle with lights and siren approaches while you are in a roundabout. What should you do?",
+    "options": [
+      "Stop immediately where you are",
+      "Reverse out of the roundabout",
+      "Speed up to get out of the way",
+      "Leave the roundabout at the next exit, then pull over and stop"
+    ],
+    "correctIndex": 3,
+    "explanation": "Clear the roundabout first, then pull left and stop. Stopping inside the roundabout blocks the very path the emergency vehicle needs.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-roundabout-022",
+    "topic": "roundabouts",
+    "text": "You are in the right lane of a two-lane roundabout and want to take an exit that only the left lane may use. What should you do?",
+    "options": [
+      "Continue around and re-enter in the correct lane",
+      "Stop and wait for a gap in the left lane",
+      "Take the exit from the right lane, indicating early",
+      "Change lanes inside the roundabout and take the exit"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cutting across to an exit you are not positioned for is how roundabout collisions happen. Go around again and approach in the correct lane — the second lap is the cheap option.",
+    "ruleRef": {
+      "chapter": "Roundabouts",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-001",
+    "topic": "turns",
+    "text": "How long before a turn must you signal?",
+    "options": [
+      "Only if other vehicles are nearby",
+      "Immediately before you turn",
+      "Exactly three seconds",
+      "Long enough to give sufficient warning to other road users"
+    ],
+    "correctIndex": 3,
+    "explanation": "The rule is sufficient warning, which depends on speed and traffic. At speed that means well before you slow down; in a car park it may be a moment. Signal even when you think nobody is watching.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-002",
+    "topic": "turns",
+    "text": "How long must you signal before moving out from a parked position at the kerb?",
+    "options": [
+      "Long enough to warn others, and you must check your blind spot",
+      "At least five seconds",
+      "Only when traffic is heavy",
+      "No signal is required"
+    ],
+    "correctIndex": 0,
+    "explanation": "Signal for long enough to warn others, and check mirrors and blind spot before moving. Pulling out from the kerb means giving way to all traffic already on the road.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-003",
+    "topic": "turns",
+    "text": "Where should you position your vehicle to turn left from a two-way road?",
+    "options": [
+      "Wherever gives the smoothest line",
+      "Toward the centre line to swing wide",
+      "In the centre of your lane, well out from the kerb",
+      "As near as practical to the left side of the road"
+    ],
+    "correctIndex": 3,
+    "explanation": "Turn left from as near as practical to the left. Swinging out to the right first invites a vehicle or cyclist up your left side, which is exactly where you are about to turn.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-004",
+    "topic": "turns",
+    "text": "Where should you position your vehicle to turn right from a two-way road?",
+    "options": [
+      "Anywhere in your lane",
+      "In the middle of the road, just left of the centre line",
+      "On the right-hand side of the centre line",
+      "As near as practical to the left side"
+    ],
+    "correctIndex": 1,
+    "explanation": "Move as close as practical to the centre of the road, staying on your own side of the centre line. This lets traffic behind pass on your left while you wait for a gap.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-005",
+    "topic": "turns",
+    "text": "You are waiting to turn right and have stopped in the intersection with your wheels turned to the right. Why is this dangerous?",
+    "options": [
+      "It blocks the view of drivers behind",
+      "It wears out the steering",
+      "It is not dangerous, it saves time",
+      "If you are struck from behind you will be pushed into oncoming traffic"
+    ],
+    "correctIndex": 3,
+    "explanation": "Keep the wheels straight until you actually begin the turn. With them turned, a rear-end shunt pushes you head-on into the oncoming stream.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-006",
+    "topic": "turns",
+    "text": "When may you make a U-turn?",
+    "options": [
+      "Only at intersections with traffic lights",
+      "Where you have a clear view of approaching traffic and no sign prohibits it",
+      "Only on roads with a speed limit of 60 km/h or less",
+      "Anywhere, as long as it is safe"
+    ],
+    "correctIndex": 1,
+    "explanation": "A U-turn needs a clear view of approaching traffic in both directions, no prohibiting sign, and no unbroken centre line unless a break allows it. You must give way to everyone.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-007",
+    "topic": "turns",
+    "text": "When should you check your blind spot before changing lanes?",
+    "options": [
+      "Only on motorways",
+      "After signalling and checking mirrors, immediately before moving",
+      "Blind spot checks are unnecessary with modern mirrors",
+      "Before signalling"
+    ],
+    "correctIndex": 1,
+    "explanation": "Mirror, signal, mirror, head check, then move. The head check comes last because a motorcyclist or cyclist can arrive in the blind spot in the time between your first mirror check and the move.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-008",
+    "topic": "turns",
+    "text": "You are turning left and a bicycle rider is travelling straight ahead in a bicycle lane on your left. What must you do?",
+    "options": [
+      "Speed up to complete the turn first",
+      "Turn ahead of the cyclist",
+      "Sound your horn and turn",
+      "Give way to the cyclist before crossing the bicycle lane"
+    ],
+    "correctIndex": 3,
+    "explanation": "Crossing a bicycle lane to turn left means giving way to any cyclist in it. Turning across a rider on your inside is one of the most common ways cyclists are hurt.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-009",
+    "topic": "turns",
+    "text": "You are in a right-turn lane and change your mind, wanting to go straight ahead. What should you do?",
+    "options": [
+      "Go straight ahead from the turning lane",
+      "Move across into the through lane before the intersection",
+      "Complete the right turn and find another route",
+      "Stop and wait for a gap to move across"
+    ],
+    "correctIndex": 2,
+    "explanation": "Once you are in a turn lane you must go that way. Cutting across at the last moment is both illegal and unexpected by everyone around you.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-010",
+    "topic": "turns",
+    "text": "You are turning right into a road with two lanes in your direction. Which lane should you turn into?",
+    "options": [
+      "The right lane always",
+      "Either lane, unless signs or markings direct otherwise",
+      "The left lane always",
+      "Whichever lane has less traffic"
+    ],
+    "correctIndex": 1,
+    "explanation": "You may turn into either lane unless markings say otherwise, but you must not cross lanes mid-turn. Choose before you start and hold that line.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-011",
+    "topic": "turns",
+    "text": "When must you turn off your indicator?",
+    "options": [
+      "As soon as the manoeuvre is complete",
+      "When the next vehicle passes",
+      "After ten seconds",
+      "It cancels automatically, so you never need to"
+    ],
+    "correctIndex": 0,
+    "explanation": "Cancel it once the manoeuvre is done. Self-cancelling only works on a sharp enough turn, and an indicator left on tells everyone you are about to do something you are not.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-012",
+    "topic": "turns",
+    "text": "You are behind a long vehicle displaying a 'Do Not Overtake Turning Vehicle' sign, and it is signalling left but has swung out to the right. What should you do?",
+    "options": [
+      "Stay behind it until the turn is complete",
+      "Pass on its left, since it has moved right",
+      "Pass on its right",
+      "Sound your horn to tell it to keep left"
+    ],
+    "correctIndex": 0,
+    "explanation": "Long vehicles must swing wide to get around a corner, and the trailer cuts back across the space it just left. That sign makes it an offence to pass on either side while it is turning.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-013",
+    "topic": "turns",
+    "text": "What is the correct sequence before changing lanes?",
+    "options": [
+      "Check blind spot, move, then signal",
+      "Signal, move, then check mirrors",
+      "Move first, signal if another driver reacts",
+      "Check mirrors, signal, check blind spot, then move if clear"
+    ],
+    "correctIndex": 3,
+    "explanation": "Mirrors first so you know what is around you, then signal to give others warning, then a head check for the blind spot, then move. Signalling is a warning, not a right to move.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-014",
+    "topic": "turns",
+    "text": "You need to reverse out of a driveway into a busy street. What is the safest approach?",
+    "options": [
+      "Ask a passenger to stand in the road and stop traffic",
+      "Reverse out slowly with the radio off",
+      "Reverse out quickly to spend less time in the road",
+      "Drive in forwards when you arrive so you can drive out forwards"
+    ],
+    "correctIndex": 3,
+    "explanation": "Reversing into a road gives you the worst possible view of traffic and pedestrians. Where you can, reverse into the driveway on arrival so you leave facing out.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-015",
+    "topic": "turns",
+    "text": "You are making a hook turn at an intersection where one is required. Where do you wait?",
+    "options": [
+      "On the far side of the intersection",
+      "In the right lane, as for a normal right turn",
+      "In the far left of the intersection, until the lights on the road you are entering turn green",
+      "Behind the stop line in the left lane"
+    ],
+    "correctIndex": 2,
+    "explanation": "A hook turn is made from the left: you pull forward to the far left of the intersection and wait, then complete the right turn when the lights on the road you are entering go green. Signs mark the intersections where it applies.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-016",
+    "topic": "turns",
+    "text": "A car ahead is signalling left but has not slowed down and is nowhere near a side street. What should you assume?",
+    "options": [
+      "The indicator may have been left on by mistake — wait for the vehicle's behaviour to confirm it",
+      "The driver wants you to overtake",
+      "It will turn left immediately",
+      "The vehicle has a fault and will stop"
+    ],
+    "correctIndex": 0,
+    "explanation": "Judge other drivers by what the vehicle is doing, not by what its lights claim. Confirm with speed and road position before you act on someone else's signal.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-017",
+    "topic": "turns",
+    "text": "You are turning right across an oncoming lane and a large vehicle in that lane blocks your view of the traffic behind it. What should you do?",
+    "options": [
+      "Turn quickly while the large vehicle screens you",
+      "Wait until you can see clearly past it before turning",
+      "Edge out slowly into the oncoming lane to see",
+      "Turn if the large vehicle flashes its lights at you"
+    ],
+    "correctIndex": 1,
+    "explanation": "A gap you cannot see into is not a gap. Motorcycles and cars overtaking a slow vehicle come through exactly that blind space. Wait for a clear view, even if a driver waves you on.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-018",
+    "topic": "turns",
+    "text": "Where must you not make a U-turn?",
+    "options": [
+      "Anywhere on a two-lane road",
+      "Anywhere a bus route operates",
+      "Across an unbroken centre line, or where a No U-turn sign applies",
+      "Anywhere within a built-up area"
+    ],
+    "correctIndex": 2,
+    "explanation": "You may not U-turn across an unbroken (continuous) centre line, or where a No U-turn sign is displayed, or at traffic lights unless a sign permits it.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-019",
+    "topic": "turns",
+    "text": "You are merging where your lane ends and there are no lane lines marked. Who must give way?",
+    "options": [
+      "Whichever vehicle is travelling faster",
+      "You must give way to any vehicle whose front is ahead of yours",
+      "The vehicle behind always gives way",
+      "The vehicle in the ending lane gives way"
+    ],
+    "correctIndex": 1,
+    "explanation": "Where lines end and lanes merge, the rule is 'zip': give way to any vehicle already ahead of you. Match speed and blend into the gap rather than racing to the front.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-020",
+    "topic": "turns",
+    "text": "You are changing lanes where the lanes are separated by a broken white line. Who must give way?",
+    "options": [
+      "Neither vehicle",
+      "The vehicle already in the lane you are moving into",
+      "You must give way to traffic already in that lane",
+      "Whichever vehicle is behind"
+    ],
+    "correctIndex": 2,
+    "explanation": "Moving from a marked lane into another means giving way to anything already there. A gap that requires the other driver to brake was not a gap.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-021",
+    "topic": "turns",
+    "text": "Why should you avoid braking hard while already turning a corner?",
+    "options": [
+      "It wears the brake pads unevenly",
+      "It is illegal to brake mid-corner",
+      "It uses more fuel",
+      "The tyres are already using grip to steer, so braking can break traction"
+    ],
+    "correctIndex": 3,
+    "explanation": "A tyre has a fixed budget of grip and cornering is already spending it. Do your braking in a straight line before the corner, then steer through it on a light, steady throttle.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-turns-022",
+    "topic": "turns",
+    "text": "You are turning left out of a side street into a road where traffic is heavy. A driver on the main road flashes their headlights at you. What does that mean legally?",
+    "options": [
+      "It is a legal signal that you may proceed",
+      "It means they are about to turn",
+      "It has no legal meaning — you must still judge for yourself that it is safe",
+      "It is a warning that you must wait"
+    ],
+    "correctIndex": 2,
+    "explanation": "A flash of headlights carries no legal weight and only tells you about one driver. The vehicle in the next lane, or a motorcycle filtering past, has told you nothing. Judge the gap yourself.",
+    "ruleRef": {
+      "chapter": "Making turns",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-001",
+    "topic": "road-signs",
+    "text": "What shape and colour is a STOP sign?",
+    "options": [
+      "Yellow diamond with black lettering",
+      "Red triangle pointing down",
+      "Red octagon with white lettering",
+      "White circle with a red border"
+    ],
+    "correctIndex": 2,
+    "explanation": "A stop sign is a red octagon — the only eight-sided sign on the road, so it is recognisable even when dirty or seen from an angle.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-002",
+    "topic": "road-signs",
+    "text": "What do yellow diamond-shaped signs tell you?",
+    "options": [
+      "Information about services and destinations",
+      "A temporary roadworks condition",
+      "A legal instruction you must obey",
+      "A warning about a hazard or a change in road conditions ahead"
+    ],
+    "correctIndex": 3,
+    "explanation": "Yellow diamonds are warnings: a curve, a crest, an intersection, livestock, a change in the road. They tell you what to expect so you can adjust before you get there.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-003",
+    "topic": "road-signs",
+    "text": "What does a red circle or red border on a sign generally indicate?",
+    "options": [
+      "A warning of a hazard",
+      "Information",
+      "A prohibition or a limit you must obey",
+      "A tourist route"
+    ],
+    "correctIndex": 2,
+    "explanation": "Red on a regulatory sign means a restriction: a speed limit, no entry, no right turn, no parking. Disobeying it is an offence.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-004",
+    "topic": "road-signs",
+    "text": "What does an orange or yellow-orange diamond sign indicate?",
+    "options": [
+      "A tourist attraction",
+      "Roadworks or a temporary condition ahead",
+      "A permanent hazard",
+      "A school zone"
+    ],
+    "correctIndex": 1,
+    "explanation": "Orange signs mark roadworks and temporary conditions — loose gravel, workers ahead, changed traffic conditions. Any speed limit posted with them is legally enforceable.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-005",
+    "topic": "road-signs",
+    "text": "You see a sign showing a black cross on a yellow diamond, with a second sign showing crossed rails. What is ahead?",
+    "options": [
+      "A crossroads intersection",
+      "A pedestrian crossing",
+      "A railway level crossing",
+      "A hospital"
+    ],
+    "correctIndex": 2,
+    "explanation": "That is a level crossing. Slow, look both ways, and be ready to stop — never queue onto the tracks, and never start crossing unless you can clear the far side.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-006",
+    "topic": "road-signs",
+    "text": "What does a white sign with a red circle and a red diagonal line through a symbol mean?",
+    "options": [
+      "That activity is prohibited here",
+      "That activity is permitted here",
+      "The sign is advisory only",
+      "That activity is recommended"
+    ],
+    "correctIndex": 0,
+    "explanation": "A red circle with a diagonal stroke prohibits whatever is shown inside it — no U-turn, no parking, no trucks.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-007",
+    "topic": "road-signs",
+    "text": "A sign shows a picture of two children walking. What does it mean?",
+    "options": [
+      "A playground is nearby",
+      "Children are not permitted on this road",
+      "Watch for children — a school or children's crossing area ahead",
+      "A childcare centre is for sale"
+    ],
+    "correctIndex": 2,
+    "explanation": "It warns you to expect children near the road. Children move unpredictably and are short enough to be hidden by parked cars, so slow down and cover the brake.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-008",
+    "topic": "road-signs",
+    "text": "What does a sign showing a large arrow curving to the left on a black and white chevron pattern mean?",
+    "options": [
+      "Overtaking lane ahead",
+      "The road ends ahead",
+      "Left lane closed",
+      "A sharp change of direction — the road turns sharply left here"
+    ],
+    "correctIndex": 3,
+    "explanation": "Chevron alignment markers mark a sharp change of direction. Several in a row show the severity of the bend. Slow before you reach them, not in the middle of them.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-009",
+    "topic": "road-signs",
+    "text": "What does a NO ENTRY sign mean?",
+    "options": [
+      "You must not drive past this sign in that direction",
+      "Entry is restricted to local traffic",
+      "Entry permitted outside business hours",
+      "Enter with caution"
+    ],
+    "correctIndex": 0,
+    "explanation": "No entry means exactly that. It usually marks a one-way street from the wrong end, so driving past it puts you head-on into traffic.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-010",
+    "topic": "road-signs",
+    "text": "A sign shows the letter 'T' as a symbol. What does it mean?",
+    "options": [
+      "Toll road ahead",
+      "Truck route",
+      "Tourist route",
+      "The road ahead ends in a T-junction"
+    ],
+    "correctIndex": 3,
+    "explanation": "A T symbol on a yellow diamond warns that the road ends in a T-junction. You will have to turn left or right and give way to the road you are joining.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-011",
+    "topic": "road-signs",
+    "text": "What does a blue and white 'P' sign with times listed underneath mean?",
+    "options": [
+      "Parking is permitted, subject to the conditions and times shown",
+      "Parking is banned during those times",
+      "Passenger drop-off only",
+      "Police patrol during those hours"
+    ],
+    "correctIndex": 0,
+    "explanation": "A blue-and-white P sign permits parking under the stated conditions, such as '2P 8am-6pm' meaning a two-hour limit in those hours. A red-and-white sign prohibits instead.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-012",
+    "topic": "road-signs",
+    "text": "You see a yellow diamond sign showing a car with wavy lines under it. What is it warning about?",
+    "options": [
+      "A car wash",
+      "Speed humps",
+      "A slippery surface",
+      "A water crossing ahead"
+    ],
+    "correctIndex": 2,
+    "explanation": "The skidding-car symbol warns of a slippery surface. Reduce speed and avoid harsh braking, steering or acceleration over that stretch.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-013",
+    "topic": "road-signs",
+    "text": "What does a sign showing a kangaroo or wombat symbol on a yellow diamond mean?",
+    "options": [
+      "A wildlife park is nearby",
+      "Wildlife may be on the road, especially at dawn and dusk",
+      "Feeding wildlife is permitted",
+      "This is a wildlife sanctuary boundary"
+    ],
+    "correctIndex": 1,
+    "explanation": "Animals cross here. In Tasmania this is a serious risk on rural roads at dawn, dusk and night. Brake in a straight line rather than swerving — swerving for an animal has killed drivers.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-014",
+    "topic": "road-signs",
+    "text": "What does a KEEP LEFT sign on an island in the road mean?",
+    "options": [
+      "You must pass to the left of the island",
+      "Left turn only",
+      "Keep left unless overtaking",
+      "The left lane is closed"
+    ],
+    "correctIndex": 0,
+    "explanation": "It directs you around a specific obstruction — a traffic island or median — on the left side. It is a physical instruction about that island, not a general lane rule.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-015",
+    "topic": "road-signs",
+    "text": "A green sign with white lettering shows place names and distances. What kind of sign is it?",
+    "options": [
+      "A regulatory sign you must obey",
+      "A direction or information sign",
+      "A warning sign",
+      "A tourist attraction sign"
+    ],
+    "correctIndex": 1,
+    "explanation": "Green signs give directions and distances on main routes. Read them early — deciding your exit at the last second causes far more trouble than missing it.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-016",
+    "topic": "road-signs",
+    "text": "What does a sign reading 'ROAD SUBJECT TO FLOODING' with a depth indicator mean you should do when water is across the road?",
+    "options": [
+      "Drive through quickly to create a bow wave",
+      "Drive through slowly in a low gear",
+      "Follow the vehicle in front through",
+      "Do not enter the water unless you are certain of its depth and the road beneath"
+    ],
+    "correctIndex": 3,
+    "explanation": "Floodwater hides washouts and moves faster than it looks. A small depth of moving water floats a car. If you cannot see the road surface and be sure of the depth, turn around.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-017",
+    "topic": "road-signs",
+    "text": "What does a sign showing a truck on a steep downward slope mean?",
+    "options": [
+      "Truck parking area",
+      "A steep descent ahead — select a low gear",
+      "Trucks must stop",
+      "Trucks prohibited"
+    ],
+    "correctIndex": 1,
+    "explanation": "A steep descent is ahead. Choose a lower gear before the hill so engine braking controls your speed and the brakes stay cool.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-018",
+    "topic": "road-signs",
+    "text": "What does the sign 'GIVE WAY TO BUSES' mean?",
+    "options": [
+      "Overtaking buses is prohibited",
+      "Always stop when you see a bus",
+      "You must give way to a bus signalling to pull out from a bus stop, in a signposted area",
+      "Buses may use any lane"
+    ],
+    "correctIndex": 2,
+    "explanation": "In signposted areas you must give way to a bus signalling to move out from the kerb. The bus driver still has to move out safely.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-019",
+    "topic": "road-signs",
+    "text": "What does a sign showing a bicycle in a white circle with a red border mean?",
+    "options": [
+      "Watch for cyclists",
+      "Bicycle parking ahead",
+      "A bicycle lane begins",
+      "Bicycles are prohibited on this road"
+    ],
+    "correctIndex": 3,
+    "explanation": "A symbol in a red-bordered circle prohibits it. A bicycle lane is marked in green or with a blue sign instead.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-020",
+    "topic": "road-signs",
+    "text": "You see a rectangular white sign reading 'CLEARWAY' with times. What does it mean?",
+    "options": [
+      "The road is closed during those times",
+      "You must not stop or park on that length of road during those times",
+      "Overtaking is permitted during those times",
+      "The road is clear of hazards during those times"
+    ],
+    "correctIndex": 1,
+    "explanation": "A clearway bans stopping during the stated hours, even briefly to drop someone off. Vehicles left in a clearway are usually towed.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-021",
+    "topic": "road-signs",
+    "text": "What does a yellow diamond sign showing a merging arrow mean?",
+    "options": [
+      "A slip lane is ahead",
+      "An overtaking lane begins",
+      "A lane is ending and traffic must merge ahead",
+      "Two roads cross ahead"
+    ],
+    "correctIndex": 2,
+    "explanation": "A lane ends ahead and traffic must merge. Adjust your speed and position early to make a gap rather than arriving at the merge point alongside another vehicle.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-022",
+    "topic": "road-signs",
+    "text": "A sign shows a black circle with a diagonal black line on a white background. What does it mean?",
+    "options": [
+      "The end of the restriction that was previously signposted",
+      "No stopping",
+      "No entry for all vehicles",
+      "A rest area ahead"
+    ],
+    "correctIndex": 0,
+    "explanation": "The struck-through symbol ends the restriction it repeats — for example the end of an overtaking lane or a special limit. The default rules for that road resume.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-023",
+    "topic": "road-signs",
+    "text": "Which of these signs must you obey even if you believe it is unnecessary?",
+    "options": [
+      "Only warning signs",
+      "Only signs at intersections",
+      "All regulatory signs, such as stop, give way, speed limit and no entry",
+      "Only signs with times listed"
+    ],
+    "correctIndex": 2,
+    "explanation": "Regulatory signs carry the force of law regardless of your judgement about the traffic. Warning and advisory signs advise; regulatory signs bind.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-signs-024",
+    "topic": "road-signs",
+    "text": "You approach a sign showing a red circle around the numbers '2.5m'. What does it tell you?",
+    "options": [
+      "The distance to the next hazard",
+      "The road is 2.5 metres wide",
+      "A width or height limit that your vehicle must not exceed",
+      "The minimum following distance"
+    ],
+    "correctIndex": 2,
+    "explanation": "A dimension inside a red circle is a physical limit for the structure ahead — a low bridge or narrow passage. Know your vehicle's height when towing or carrying a roof load.",
+    "ruleRef": {
+      "chapter": "Road signs",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-001",
+    "topic": "line-markings",
+    "text": "What does a single unbroken (continuous) white line down the centre of the road mean?",
+    "options": [
+      "You may cross it to overtake if the road is clear",
+      "It separates traffic travelling in the same direction",
+      "You must not cross it, except to enter or leave the road",
+      "It marks the edge of the road"
+    ],
+    "correctIndex": 2,
+    "explanation": "You must not cross a continuous centre line, except to enter or leave a property or road, or to pass an obstruction where it is safe. It is placed where visibility is too poor to overtake.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-002",
+    "topic": "line-markings",
+    "text": "What does a broken centre line mean?",
+    "options": [
+      "You may cross it to overtake or turn when it is safe",
+      "It marks a bicycle lane",
+      "You must never cross it",
+      "It marks the edge of the sealed surface"
+    ],
+    "correctIndex": 0,
+    "explanation": "A broken line may be crossed when it is safe — to overtake, turn, or pass an obstruction. Safe still means you can see far enough ahead and return without cutting anyone off.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-003",
+    "topic": "line-markings",
+    "text": "There are two lines down the centre: a continuous line on your side and a broken line on the other. May you overtake?",
+    "options": [
+      "Only if you can complete the overtake within 100 metres",
+      "Only if the oncoming lane is empty",
+      "Yes, because one line is broken",
+      "No — the line nearest you is continuous, so you must not cross"
+    ],
+    "correctIndex": 3,
+    "explanation": "The line closest to you governs your movement. Continuous on your side means you stay put, even though traffic coming the other way may legally cross.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-004",
+    "topic": "line-markings",
+    "text": "What do two continuous parallel lines down the centre of the road mean?",
+    "options": [
+      "A wide road with room to overtake",
+      "Neither direction may cross the lines",
+      "A tram or bus lane",
+      "Overtaking permitted from both directions"
+    ],
+    "correctIndex": 1,
+    "explanation": "Double continuous lines mean no crossing from either direction, except to enter or leave a property or road, or to pass an obstruction where it is safe.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-005",
+    "topic": "line-markings",
+    "text": "What is a painted island — an area marked with diagonal stripes between lanes?",
+    "options": [
+      "A bicycle storage area",
+      "An overtaking lane",
+      "An area you should not drive on, used to separate traffic streams",
+      "A parking area"
+    ],
+    "correctIndex": 2,
+    "explanation": "Painted islands separate traffic and protect turning lanes. You should not drive on one, though you may drive across a painted island to enter a turning lane where it is legal and safe.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-006",
+    "topic": "line-markings",
+    "text": "What do the parallel white stripes across a road at an intersection mean?",
+    "options": [
+      "A pedestrian crossing where you must give way to pedestrians on it",
+      "A speed hump",
+      "A bicycle crossing only",
+      "A place where you may park"
+    ],
+    "correctIndex": 0,
+    "explanation": "Broad white stripes mark a pedestrian crossing. You must give way to any pedestrian on the crossing or about to step onto it, and you must not overtake a vehicle stopped at one.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-007",
+    "topic": "line-markings",
+    "text": "What does a continuous yellow line along the edge of the road mean?",
+    "options": [
+      "Parking is permitted",
+      "A bus lane",
+      "A bicycle lane",
+      "No stopping at any time along that length of road"
+    ],
+    "correctIndex": 3,
+    "explanation": "A continuous yellow edge line means no stopping at all on that length of road — not even briefly.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-008",
+    "topic": "line-markings",
+    "text": "What is the white line across your lane at an intersection called, and what must you do at it?",
+    "options": [
+      "A lane line — you may cross it freely",
+      "A stop line — stop behind it at a stop sign or red light",
+      "An edge line — it marks the road boundary",
+      "A give way line — you may drive over it at any time"
+    ],
+    "correctIndex": 1,
+    "explanation": "The stop line marks where you must stop at a red light or stop sign. Stop behind it, not on it — it is placed to keep you clear of the cross traffic's path.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-009",
+    "topic": "line-markings",
+    "text": "What does a broken line with the word 'GIVE WAY' or a triangle marked on the road mean?",
+    "options": [
+      "You must stop completely",
+      "You must give way to traffic on the road you are entering",
+      "Parking is prohibited",
+      "You have right of way"
+    ],
+    "correctIndex": 1,
+    "explanation": "A dotted give way line marks where you must give way. You need not stop if the way is clear, but you must slow enough to be able to.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-010",
+    "topic": "line-markings",
+    "text": "What does a green painted section of road with a bicycle symbol indicate?",
+    "options": [
+      "A bicycle parking area",
+      "A bicycle lane, which motor vehicles must generally keep out of",
+      "A section of road that is slippery",
+      "A pedestrian zone"
+    ],
+    "correctIndex": 1,
+    "explanation": "Green paint marks a bicycle lane, usually where it crosses a conflict point. Motor vehicles must keep out of a bicycle lane except for the short distance needed to enter or leave the road or a parking space.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-011",
+    "topic": "line-markings",
+    "text": "What does a continuous white line at the left-hand edge of the road mark?",
+    "options": [
+      "The centre of the road",
+      "The edge of the traffic lane and the limit of the sealed surface",
+      "A bicycle lane",
+      "A no-stopping zone"
+    ],
+    "correctIndex": 1,
+    "explanation": "An edge line marks the boundary of the traffic lane. In fog or heavy rain it is the most reliable reference you have — following the left edge line keeps you out of oncoming traffic.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-012",
+    "topic": "line-markings",
+    "text": "You want to turn right into a driveway but there is a continuous centre line. May you cross it?",
+    "options": [
+      "Only if you signal for at least five seconds",
+      "No, never cross a continuous line",
+      "Yes — crossing to enter or leave a property is permitted when safe",
+      "Only if there is a break in the line within 20 metres"
+    ],
+    "correctIndex": 2,
+    "explanation": "Entering or leaving a property or road is one of the permitted reasons to cross a continuous line. It must still be safe, and you must give way to oncoming traffic.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-013",
+    "topic": "line-markings",
+    "text": "What do the arrows painted in a lane at an intersection tell you?",
+    "options": [
+      "The direction of the one-way street",
+      "Where to stop for the traffic lights",
+      "The only movements permitted from that lane",
+      "Suggested directions to popular destinations"
+    ],
+    "correctIndex": 2,
+    "explanation": "A lane arrow restricts that lane to the movements shown. A left arrow alone means you must turn left from that lane, even if the lane ahead looks clear.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-014",
+    "topic": "line-markings",
+    "text": "What does a zig-zag line painted on the road approaching a pedestrian crossing mean?",
+    "options": [
+      "The road surface is uneven",
+      "You are approaching a crossing — do not overtake or park in that area",
+      "Cyclists must give way",
+      "The lane is about to end"
+    ],
+    "correctIndex": 1,
+    "explanation": "Zig-zag markings warn of a crossing ahead and mark the zone where stopping, parking and overtaking are prohibited, so that a stopped vehicle never hides a pedestrian.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-015",
+    "topic": "line-markings",
+    "text": "A broken line separates lanes travelling in the same direction. What does it mean?",
+    "options": [
+      "You must never change lanes",
+      "The road is one-way",
+      "You may change lanes when it is safe to do so",
+      "Overtaking is prohibited"
+    ],
+    "correctIndex": 2,
+    "explanation": "Broken lane lines may be crossed to change lanes when safe. You must give way to traffic already in the lane you are entering.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-016",
+    "topic": "line-markings",
+    "text": "A continuous white line separates two lanes going in the same direction. What does it mean?",
+    "options": [
+      "You are approaching a roundabout",
+      "The lane to the right is for buses",
+      "You should not change lanes across it",
+      "You may change lanes freely"
+    ],
+    "correctIndex": 2,
+    "explanation": "A continuous line between same-direction lanes marks a place where changing lanes is unsafe — usually approaching an intersection or a merge. Stay in your lane until it becomes broken again.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-017",
+    "topic": "line-markings",
+    "text": "What does the word 'KEEP CLEAR' painted in a box on the road mean?",
+    "options": [
+      "Park only in this box",
+      "Only buses may use this area",
+      "Pedestrians may cross here",
+      "Do not stop in the box, even in queued traffic"
+    ],
+    "correctIndex": 3,
+    "explanation": "A KEEP CLEAR box protects an access point — a driveway, a side street, an emergency exit. Do not enter it unless you can drive straight through.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-018",
+    "topic": "line-markings",
+    "text": "You are on a road with a continuous centre line and a cyclist is riding slowly ahead of you. What may you do?",
+    "options": [
+      "Sound your horn until the cyclist moves aside",
+      "Overtake within your own lane at any distance",
+      "Wait behind until the line becomes broken or the road widens",
+      "Cross the continuous line to overtake"
+    ],
+    "correctIndex": 2,
+    "explanation": "You must leave a safe lateral distance when passing a cyclist — typically at least one metre at low speeds and more at higher speeds. If your lane does not allow that without crossing a continuous line, wait.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-019",
+    "topic": "line-markings",
+    "text": "You are approaching an intersection and the lane lines become continuous. What does this tell you?",
+    "options": [
+      "You should already be in the lane you need — stay in it through the intersection",
+      "You may now overtake",
+      "The road is about to become one-way",
+      "The speed limit is about to change"
+    ],
+    "correctIndex": 0,
+    "explanation": "Continuous lane lines near an intersection mean the lane choice is made. Change lanes well before they start, not by cutting across at the stop line.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-lines-020",
+    "topic": "line-markings",
+    "text": "Fog has reduced visibility badly on an unfamiliar road. Which marking is safest to steer by?",
+    "options": [
+      "The left edge line",
+      "The tail lights of the vehicle ahead",
+      "The centre line, to stay clear of the verge",
+      "The right edge of the road"
+    ],
+    "correctIndex": 0,
+    "explanation": "Follow the left edge line. Steering by the centre line drifts you towards oncoming traffic, and following tail lights means you are matched to a driver who may be about to stop.",
+    "ruleRef": {
+      "chapter": "Line markings",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-001",
+    "topic": "sharing-road",
+    "text": "What is the minimum distance you should leave when passing a cyclist at 60 km/h or less?",
+    "options": [
+      "2 metres",
+      "0.5 metres",
+      "1 metre",
+      "No minimum applies"
+    ],
+    "correctIndex": 2,
+    "explanation": "At 60 km/h or less you must leave at least one metre. Above 60 km/h it is at least 1.5 metres. If you cannot give that room, wait.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-002",
+    "topic": "sharing-road",
+    "text": "What is the minimum distance you should leave when passing a cyclist at more than 60 km/h?",
+    "options": [
+      "3 metres",
+      "1 metre",
+      "The width of your vehicle",
+      "1.5 metres"
+    ],
+    "correctIndex": 3,
+    "explanation": "Above 60 km/h the minimum is 1.5 metres. At speed the air pressure from a passing vehicle alone can unbalance a rider.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-003",
+    "topic": "sharing-road",
+    "text": "A pedestrian is waiting at the kerb at a marked pedestrian crossing. What must you do?",
+    "options": [
+      "Give way only if they are elderly or a child",
+      "Slow and be ready to stop, and give way to them as they enter the crossing",
+      "Sound your horn to let them know you are coming",
+      "Continue, since they have not stepped out yet"
+    ],
+    "correctIndex": 1,
+    "explanation": "You must give way to a pedestrian on the crossing or about to step onto it. Approach at a speed that lets you stop, and never overtake a vehicle that has stopped at a crossing.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-004",
+    "topic": "sharing-road",
+    "text": "Why should you not sit close behind a heavy truck?",
+    "options": [
+      "It is illegal to follow a truck",
+      "The truck will slow down",
+      "The truck driver cannot see you, and you cannot see the road ahead",
+      "It uses more fuel"
+    ],
+    "correctIndex": 2,
+    "explanation": "Trucks have large blind spots directly behind and along both sides. If you cannot see the driver's mirrors, the driver cannot see you — and you lose your own view of what is happening in front of the truck.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-005",
+    "topic": "sharing-road",
+    "text": "You have just overtaken a heavy truck on a highway. When should you move back into the left lane?",
+    "options": [
+      "Once you can see the whole truck in your rear-view mirror",
+      "Immediately after passing the cab",
+      "After 100 metres regardless of position",
+      "When the truck flashes its lights"
+    ],
+    "correctIndex": 0,
+    "explanation": "Wait until the entire truck is visible in your interior mirror. Cutting in early leaves the truck no stopping distance, and a loaded truck needs far more room to stop than a car.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-006",
+    "topic": "sharing-road",
+    "text": "You are on a suburban street in a signposted 'give way to buses' area. A bus at a bus stop ahead switches on its right indicator to pull out. What must you do?",
+    "options": [
+      "Sound your horn to tell the bus to wait",
+      "Stop completely and wait until the bus is out of sight",
+      "Give way to the bus, allowing it to move out from the stop",
+      "Continue at the same speed — buses always give way to through traffic"
+    ],
+    "correctIndex": 2,
+    "explanation": "In signposted areas, a bus signalling to move out from a bus stop must be given way to. The rule applies on lower-speed roads; the bus driver must still pull out safely, so watch that they have seen you.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-007",
+    "topic": "sharing-road",
+    "text": "You are about to open your car door after parking on a busy street. What must you do?",
+    "options": [
+      "Open it fully and step out",
+      "Open it quickly to spend less time exposed",
+      "Nothing — approaching traffic must avoid your door",
+      "Check mirrors and over your shoulder for cyclists and traffic before opening"
+    ],
+    "correctIndex": 3,
+    "explanation": "Opening a door into the path of a cyclist is an offence and a common cause of serious injury. Check the mirror and look over your shoulder before you touch the handle.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-008",
+    "topic": "sharing-road",
+    "text": "Where may a cyclist legally ride on the road?",
+    "options": [
+      "Only on the shoulder",
+      "Only in a bicycle lane",
+      "Only where there is no footpath",
+      "In a traffic lane, and two abreast is permitted"
+    ],
+    "correctIndex": 3,
+    "explanation": "Cyclists may use a traffic lane and may ride two abreast, no more than 1.5 metres apart. They are entitled to the lane, and to move out from the kerb to avoid drains, debris and car doors.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-009",
+    "topic": "sharing-road",
+    "text": "Why are motorcycles easy to miss at intersections?",
+    "options": [
+      "Their narrow profile is easily hidden by pillars, mirrors and other vehicles, and their speed is hard to judge",
+      "They usually travel faster than the speed limit",
+      "They rarely use headlights",
+      "They are quieter than cars"
+    ],
+    "correctIndex": 0,
+    "explanation": "A motorcycle presents a narrow target that hides behind an A-pillar or another car, and its closing speed is genuinely hard to judge. Look twice for motorcycles before pulling out, and move your head to see around pillars.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-010",
+    "topic": "sharing-road",
+    "text": "A person using a mobility scooter is crossing the road ahead. How should you treat them?",
+    "options": [
+      "As a cyclist",
+      "As a vehicle, which must give way to you",
+      "As a pedestrian, giving way as you would to a person on foot",
+      "As an obstruction to drive around"
+    ],
+    "correctIndex": 2,
+    "explanation": "Motorised wheelchairs and mobility scooters are treated as pedestrians. They move slowly and may not be able to stop or change direction quickly, so give them room and time.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-011",
+    "topic": "sharing-road",
+    "text": "You are on a rural road and see livestock being moved along it. What should you do?",
+    "options": [
+      "Sound your horn to move them along",
+      "Slow right down, or stop, and follow any direction from the person in charge",
+      "Overtake quickly on the right",
+      "Drive through the mob at low speed"
+    ],
+    "correctIndex": 1,
+    "explanation": "Slow down or stop and let the animals settle. Horns and engine noise scatter stock, which is more dangerous for you than waiting. Follow the drover's directions.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-012",
+    "topic": "sharing-road",
+    "text": "A truck is turning left at an intersection and has swung out towards the centre of the road. What is the danger of moving up its left side?",
+    "options": [
+      "There is no danger if you stay in your lane",
+      "The truck may drop its load",
+      "The trailer cuts back across the inside of the turn and can crush a vehicle beside it",
+      "The truck may reverse"
+    ],
+    "correctIndex": 2,
+    "explanation": "A long vehicle's rear wheels track well inside the front, so the trailer sweeps across the space beside the cab. Never move into the gap a turning truck leaves on its inside.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-013",
+    "topic": "sharing-road",
+    "text": "You see a bus stopped ahead with children getting off. What should you do?",
+    "options": [
+      "Sound your horn as you pass",
+      "Maintain speed and pass in the other lane",
+      "Slow down and be ready to stop — children may run out from in front of or behind the bus",
+      "Stop only if a school crossing flag is displayed"
+    ],
+    "correctIndex": 2,
+    "explanation": "Children step out from in front of and behind buses without looking. Slow right down and cover the brake until you are well past.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-014",
+    "topic": "sharing-road",
+    "text": "What must you do when approaching a person with a white cane or a guide dog at the kerb?",
+    "options": [
+      "Sound your horn to alert them",
+      "Continue, as they will wait for you",
+      "Flash your headlights",
+      "Give way and allow them to cross — they may not be able to see or hear your vehicle"
+    ],
+    "correctIndex": 3,
+    "explanation": "A white cane or guide dog indicates a person who is blind or has low vision. They cannot judge your approach visually and a modern car may be nearly silent, so give way and let them cross.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-015",
+    "topic": "sharing-road",
+    "text": "You are in slow traffic and a motorcycle rides between the lanes past you. What should you do?",
+    "options": [
+      "Sound your horn",
+      "Move over to block the gap",
+      "Hold your lane position steadily and check mirrors before any lane change",
+      "Speed up to close the gap"
+    ],
+    "correctIndex": 2,
+    "explanation": "Hold your line and check mirrors and blind spot before any lane change in slow traffic. Deliberately closing a gap on a rider is dangerous and pointless.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-016",
+    "topic": "sharing-road",
+    "text": "Why do heavy vehicles need much longer to stop than cars?",
+    "options": [
+      "They always travel faster",
+      "Drivers react more slowly",
+      "Their brakes are less effective by design",
+      "Their far greater mass takes much more distance to bring to a stop"
+    ],
+    "correctIndex": 3,
+    "explanation": "A loaded truck can weigh thirty times what a car weighs, and all that momentum has to be shed through the tyres. A fully loaded truck at highway speed can need double a car's stopping distance or more.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-017",
+    "topic": "sharing-road",
+    "text": "A pedestrian steps onto the road mid-block, away from any crossing. What should you do?",
+    "options": [
+      "Maintain speed, since they are crossing illegally",
+      "Swerve into the oncoming lane",
+      "Sound your horn and continue",
+      "Slow down and avoid them — you must not hit a pedestrian regardless of who has right of way"
+    ],
+    "correctIndex": 3,
+    "explanation": "Right of way is no defence for hitting someone. Slow down, be prepared to stop, and give them room. Swerving into the oncoming lane trades one collision for a worse one.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-018",
+    "topic": "sharing-road",
+    "text": "May you drive in a bus lane?",
+    "options": [
+      "Yes, at any time",
+      "No, except for the short distance needed to enter or leave the road or turn, where permitted",
+      "Yes, if you are carrying passengers",
+      "Yes, outside peak hours only"
+    ],
+    "correctIndex": 1,
+    "explanation": "Bus lanes are for buses and any other vehicles named on the sign. Other traffic may only use them for the short distance needed to enter or leave the road or a parking space, where that is permitted.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-019",
+    "topic": "sharing-road",
+    "text": "A cyclist ahead of you moves out from the kerb towards the middle of the lane. What is the most likely reason?",
+    "options": [
+      "They are lost",
+      "They want you to overtake",
+      "They are about to turn right",
+      "They are avoiding a hazard such as a drain, debris or a parked car's door zone"
+    ],
+    "correctIndex": 3,
+    "explanation": "Riders move out to avoid drains, glass, potholes and the door zone of parked cars — hazards you may not be able to see. Give them room rather than assuming they have drifted.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-020",
+    "topic": "sharing-road",
+    "text": "You are driving past a row of parked cars in a residential street. What is the main hazard?",
+    "options": [
+      "Losing traction on the road markings",
+      "Parked cars reversing without warning only",
+      "Paint damage from close passing",
+      "A pedestrian, child or cyclist emerging from between the vehicles, and doors opening"
+    ],
+    "correctIndex": 3,
+    "explanation": "Parked cars hide people, particularly children, and their doors open without warning. Move out where you can, drop your speed, and watch under the parked cars for feet.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-021",
+    "topic": "sharing-road",
+    "text": "An emergency vehicle with lights and siren is approaching from behind on a single-lane road. What should you do?",
+    "options": [
+      "Move left and stop when it is safe, giving it a clear path",
+      "Continue at the same speed and let it find a way past",
+      "Stop immediately where you are",
+      "Speed up to keep ahead of it"
+    ],
+    "correctIndex": 0,
+    "explanation": "Move left and stop when it is safe. Stopping dead in the middle of the lane, or accelerating away, both leave the emergency vehicle nowhere to go.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-022",
+    "topic": "sharing-road",
+    "text": "You are following a vehicle towing a caravan on a winding road. What is the safest approach to overtaking?",
+    "options": [
+      "Overtake as soon as any gap appears",
+      "Wait for an overtaking lane or a long clear straight — the combined length takes far longer to pass",
+      "Overtake on the left where the road is wider",
+      "Follow closely so you can accelerate past quickly"
+    ],
+    "correctIndex": 1,
+    "explanation": "A car and caravan can be fifteen metres or more, so passing takes much longer than passing a car. Sit well back for a better view and wait for an overtaking lane or a genuinely long straight.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-023",
+    "topic": "sharing-road",
+    "text": "A vehicle displaying a large 'OVERSIZE' sign with a pilot vehicle is approaching on a narrow rural road. What should you do?",
+    "options": [
+      "Sound your horn and continue",
+      "Maintain your speed and lane position",
+      "Overtake the pilot vehicle quickly",
+      "Slow down, move as far left as safely possible, and stop if directed by the pilot vehicle"
+    ],
+    "correctIndex": 3,
+    "explanation": "Oversize loads can occupy more than their own lane. The pilot vehicle warns you and may direct you to slow or pull over — follow its instructions.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-sharing-024",
+    "topic": "sharing-road",
+    "text": "You are turning right and a pedestrian starts crossing the road you are turning into, against the pedestrian signal. What must you do?",
+    "options": [
+      "Sound your horn and continue turning",
+      "Proceed, since they are crossing against the signal",
+      "Turn behind them at speed",
+      "Give way to them and wait until they have cleared your path"
+    ],
+    "correctIndex": 3,
+    "explanation": "Whether or not the pedestrian is in the right, you must not drive into them. Give way, let them clear, and complete the turn afterwards.",
+    "ruleRef": {
+      "chapter": "Sharing the road",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-001",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "What blood alcohol concentration must a learner driver in Tasmania not exceed?",
+    "options": [
+      "0.00",
+      "0.02",
+      "0.05",
+      "0.08"
+    ],
+    "correctIndex": 0,
+    "explanation": "Learner and provisional drivers must have a blood alcohol concentration of zero. Any alcohol at all in your system while driving on an L or P licence is an offence.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-002",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "What is the general blood alcohol limit for a fully licensed driver in Australia?",
+    "options": [
+      "0.00",
+      "0.02",
+      "0.05",
+      "0.08"
+    ],
+    "correctIndex": 2,
+    "explanation": "Fully licensed drivers must stay under 0.05. Learners, provisional drivers and drivers of some commercial vehicles must be at zero.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-003",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "Which of these will reliably lower your blood alcohol concentration before driving?",
+    "options": [
+      "Eating a large meal",
+      "Drinking strong coffee",
+      "Having a cold shower",
+      "Time — nothing else speeds up how fast your body clears alcohol"
+    ],
+    "correctIndex": 3,
+    "explanation": "Only time removes alcohol from your blood, at roughly one standard drink per hour. Coffee, food and a shower may make you feel more alert while leaving you just as impaired and just as illegal.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-004",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "How does alcohol affect your driving even at low levels?",
+    "options": [
+      "It improves confidence, which makes you safer",
+      "It slows reaction time, impairs judgement and reduces your ability to divide attention",
+      "It has no effect below 0.05",
+      "It only affects vision"
+    ],
+    "correctIndex": 1,
+    "explanation": "Alcohol slows reactions, blurs judgement of speed and distance, and narrows attention — while making you feel more capable, not less. That gap between feeling fine and being impaired is what makes it so dangerous.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-005",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You have been prescribed medication that carries a warning about drowsiness. What should you do?",
+    "options": [
+      "Drive only at night",
+      "Drive as normal, since it is prescribed",
+      "Take a smaller dose and drive",
+      "Check with your doctor or pharmacist whether it is safe to drive, and do not drive if it affects you"
+    ],
+    "correctIndex": 3,
+    "explanation": "Prescription and over-the-counter medicines can impair driving as much as alcohol. A lawful prescription is not a defence for driving while impaired — ask before you drive.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-006",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "What are the early warning signs of driver fatigue?",
+    "options": [
+      "Wanting to drive faster",
+      "Feeling hungry",
+      "Yawning, heavy eyelids, drifting in the lane, and not remembering the last few kilometres",
+      "Increased alertness and faster reactions"
+    ],
+    "correctIndex": 2,
+    "explanation": "Yawning, sore eyes, drifting, missed signs and blank patches of memory all say you are already impaired. By the time you notice them you have lost meaningful reaction time.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-007",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You start feeling drowsy on a long drive. What is the only reliable remedy?",
+    "options": [
+      "Talking to a passenger",
+      "Opening the window and turning up the radio",
+      "Drinking an energy drink and continuing",
+      "Stopping somewhere safe and sleeping"
+    ],
+    "correctIndex": 3,
+    "explanation": "Sleep is the only thing that fixes fatigue. Fresh air, loud music and caffeine buy a few minutes at best and mask how impaired you are. Pull over somewhere safe and rest — a 15 minute nap is worth more than any of them.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-008",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "What is 'microsleep'?",
+    "options": [
+      "A short nap taken deliberately at a rest stop",
+      "The first stage of falling asleep at night",
+      "A brief involuntary lapse into sleep of a few seconds, often without realising it",
+      "The drowsiness felt after a meal"
+    ],
+    "correctIndex": 2,
+    "explanation": "A microsleep is an involuntary few seconds of sleep you may not even notice. At 100 km/h, four seconds covers more than 100 metres of road with nobody driving.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-009",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "When is the risk of fatigue-related crashes highest?",
+    "options": [
+      "Mid-morning",
+      "On weekends only",
+      "Late at night, early morning, and the early afternoon dip",
+      "During peak hour only"
+    ],
+    "correctIndex": 2,
+    "explanation": "Your body clock pushes hardest towards sleep between about 2am and 6am, and again in the early afternoon. Plan long drives to avoid those windows.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-010",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "How often should you take a break on a long drive?",
+    "options": [
+      "At least every two hours",
+      "Breaks are unnecessary if you slept well",
+      "Only when you feel tired",
+      "Every four hours"
+    ],
+    "correctIndex": 0,
+    "explanation": "Take a proper break at least every two hours — get out and move, not just stop. Waiting until you feel tired means waiting until you are already impaired.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-011",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You are asked to take a random breath test. What happens if you refuse?",
+    "options": [
+      "You are given a warning only",
+      "Refusing is an offence, generally treated as seriously as a high-range reading",
+      "Nothing, testing is voluntary",
+      "You may refuse if you have not been drinking"
+    ],
+    "correctIndex": 1,
+    "explanation": "Refusing a lawful breath or drug test is an offence in its own right, with penalties comparable to a high-range reading.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-012",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "How do illegal drugs such as cannabis and methamphetamine affect driving?",
+    "options": [
+      "Cannabis is harmless for driving",
+      "Stimulants make you a safer driver",
+      "They impair judgement, reaction time and perception, and roadside drug testing detects them",
+      "Only alcohol is tested for at the roadside"
+    ],
+    "correctIndex": 2,
+    "explanation": "Illegal drugs impair the judgement, coordination and perception driving depends on, and stimulants add risk-taking and a hard crash afterwards. Roadside oral fluid testing detects several of them.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-013",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You are a learner driver and drank alcohol at a party last night, stopping at 2am. You need to drive at 8am. What should you consider?",
+    "options": [
+      "It is fine as long as you feel normal",
+      "Alcohol may still be in your system, and as a learner you must be at 0.00",
+      "Six hours is always enough to be at zero",
+      "A large breakfast will clear it"
+    ],
+    "correctIndex": 1,
+    "explanation": "Your body clears roughly one standard drink an hour, so a heavy night can leave you over the limit well into the next morning. On a learner licence the limit is zero, and feeling fine tells you nothing.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-014",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "Which combination is particularly dangerous for drivers?",
+    "options": [
+      "Alcohol and coffee",
+      "Alcohol combined with medication or other drugs",
+      "Food and alcohol",
+      "Fatigue and fresh air"
+    ],
+    "correctIndex": 1,
+    "explanation": "Alcohol combined with medication or other drugs multiplies the impairment rather than adding to it. The result can be far worse than either alone, at levels that would seem modest on their own.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-015",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "How does fatigue compare with alcohol as a driving impairment?",
+    "options": [
+      "Fatigue affects only vision",
+      "Fatigue is much less dangerous",
+      "Fatigue only affects long-distance drivers",
+      "Going without sleep for about 17 hours impairs you comparably to a BAC of 0.05"
+    ],
+    "correctIndex": 3,
+    "explanation": "Around 17 hours awake produces impairment comparable to 0.05, and 24 hours awake is worse than 0.10. Unlike alcohol, there is no legal threshold for it — but the crash risk is just as real.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-016",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You are planning to drink at an event. What is the best plan?",
+    "options": [
+      "Arrange before you go how you will get home without driving",
+      "Drive there and decide later how you feel",
+      "Drink only beer, not spirits",
+      "Have your last drink an hour before leaving"
+    ],
+    "correctIndex": 0,
+    "explanation": "Decide before you drink, because judgement is the first thing alcohol takes. Arrange a lift, a taxi or a place to stay in advance.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-017",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "What effect does alcohol have on your ability to judge your own driving?",
+    "options": [
+      "It sharpens self-assessment",
+      "It makes you overly cautious",
+      "It makes you overestimate your ability while your performance drops",
+      "It has no effect on self-assessment"
+    ],
+    "correctIndex": 2,
+    "explanation": "Alcohol degrades performance and inflates confidence at the same time. That is precisely why 'I feel fine to drive' is not evidence of anything.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-018",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "You are driving at night and your eyes feel gritty and hard to focus. There is no rest area for 40 kilometres. What should you do?",
+    "options": [
+      "Push on to the rest area at the same speed",
+      "Pull over somewhere safe and legal as soon as you can, and rest before continuing",
+      "Turn on the air conditioning and continue",
+      "Increase speed to arrive sooner"
+    ],
+    "correctIndex": 1,
+    "explanation": "Do not bargain with fatigue over a distance. Stop somewhere safe and legal — a well-lit side road or service station — well clear of the traffic lane, and rest.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-019",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "A friend who has been drinking insists they are fine to drive you home. What should you do?",
+    "options": [
+      "Accept the lift, since they know their limits",
+      "Refuse the lift and arrange another way home",
+      "Accept if the trip is short",
+      "Accept but ask them to drive slowly"
+    ],
+    "correctIndex": 1,
+    "explanation": "Do not get in. A short trip is when most drink-driving crashes happen, and 'I know my limits' is the impairment talking. Arrange another way home for both of you.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-adf-020",
+    "topic": "alcohol-drugs-fatigue",
+    "text": "Which factor affects how quickly alcohol raises your blood alcohol concentration?",
+    "options": [
+      "Body size, whether you have eaten, how quickly you drink, and drink strength",
+      "Only the number of drinks",
+      "How much sleep you had the night before",
+      "The temperature of the drink"
+    ],
+    "correctIndex": 0,
+    "explanation": "Body size, food in the stomach, drinking speed and the strength of each drink all change how fast your BAC rises. This is why counting drinks is unreliable — and why zero is the only figure a learner can be sure of.",
+    "ruleRef": {
+      "chapter": "Alcohol, drugs and fatigue",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-001",
+    "topic": "learner-p-plater",
+    "text": "Where must L plates be displayed on a vehicle being driven by a learner?",
+    "options": [
+      "On the windscreen only",
+      "On the rear only",
+      "Only when driving on main roads",
+      "Clearly visible on both the front and the rear of the vehicle"
+    ],
+    "correctIndex": 3,
+    "explanation": "L plates must be displayed clearly on the front and the rear whenever a learner is driving, so other road users can see them from either direction and give you more room.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-002",
+    "topic": "learner-p-plater",
+    "text": "Who may supervise a learner driver?",
+    "options": [
+      "A driver who holds a full (not provisional) licence for that class of vehicle",
+      "Anyone who has held any licence for six months",
+      "Any licensed driver, including a provisional driver",
+      "Any adult over 21"
+    ],
+    "correctIndex": 0,
+    "explanation": "Your supervisor must hold a full licence for the class of vehicle you are driving. A provisional driver cannot supervise you, no matter how experienced they seem.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-003",
+    "topic": "learner-p-plater",
+    "text": "Where must your supervising driver be seated?",
+    "options": [
+      "In the rear seat behind you",
+      "In the front passenger seat, beside you",
+      "They may follow in another vehicle",
+      "Anywhere in the vehicle"
+    ],
+    "correctIndex": 1,
+    "explanation": "The supervisor must sit beside you in the front passenger seat, where they can see the road, reach the handbrake, and give directions in time to matter.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-004",
+    "topic": "learner-p-plater",
+    "text": "Does your supervising driver need to be under the legal alcohol limit?",
+    "options": [
+      "Yes — the supervisor must be under the legal limit and not impaired",
+      "No, only the driver's BAC matters",
+      "Only if they intend to drive later",
+      "Only on trips longer than an hour"
+    ],
+    "correctIndex": 0,
+    "explanation": "The supervisor is legally responsible for the driving and must be fit to take control, so they must be under the limit and unimpaired. A supervisor who has been drinking is committing an offence.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-005",
+    "topic": "learner-p-plater",
+    "text": "May a learner driver use a mobile phone hands-free while driving?",
+    "options": [
+      "Yes, for navigation only",
+      "Yes, hands-free is always permitted",
+      "Yes, if the supervisor holds the phone",
+      "No — learner and P1 drivers must not use a mobile phone at all while driving, including hands-free"
+    ],
+    "correctIndex": 3,
+    "explanation": "Learner and P1 drivers must not use a mobile phone while driving in any way, including hands-free and loudspeaker. Set navigation before you start, or have your supervisor handle it.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-006",
+    "topic": "learner-p-plater",
+    "text": "What must a learner driver carry while driving?",
+    "options": [
+      "Nothing in particular",
+      "Their learner licence",
+      "A copy of the road rules handbook",
+      "Proof of vehicle insurance"
+    ],
+    "correctIndex": 1,
+    "explanation": "Carry your learner licence whenever you drive and produce it if asked by police.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-007",
+    "topic": "learner-p-plater",
+    "text": "May a learner driver drive alone if the trip is short and local?",
+    "options": [
+      "Yes, if the vehicle displays L plates",
+      "Yes, for trips under two kilometres",
+      "No — a learner must always be supervised by an appropriately licensed driver",
+      "Yes, during daylight hours"
+    ],
+    "correctIndex": 2,
+    "explanation": "A learner must never drive unsupervised, regardless of distance, time of day or how familiar the route is. Driving unsupervised is a serious offence and voids your insurance.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-008",
+    "topic": "learner-p-plater",
+    "text": "What is the purpose of the learner log book?",
+    "options": [
+      "To record supervised driving hours, which must be completed before progressing",
+      "To record any traffic infringements",
+      "To record vehicle servicing",
+      "To record fuel costs"
+    ],
+    "correctIndex": 0,
+    "explanation": "The log book records your supervised driving hours, which must be completed and certified before you can progress. Record a spread of conditions — night, rain, highway, town — not just easy trips.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-009",
+    "topic": "learner-p-plater",
+    "text": "What must you pass to obtain your first learner licence in Tasmania?",
+    "options": [
+      "A hazard perception test",
+      "A vehicle maintenance assessment",
+      "The road rules knowledge test",
+      "A practical driving test"
+    ],
+    "correctIndex": 2,
+    "explanation": "The road rules knowledge test comes first — it is what this app is practice for. Practical driving and hazard perception assessments come at later stages.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-010",
+    "topic": "learner-p-plater",
+    "text": "What colour are P1 and P2 plates in Tasmania?",
+    "options": [
+      "P1 green, P2 red",
+      "Both are red",
+      "Both are green",
+      "P1 red, P2 green"
+    ],
+    "correctIndex": 3,
+    "explanation": "P1 plates are red and P2 plates are green. Like L plates, they must be displayed on the front and rear of the vehicle.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-011",
+    "topic": "learner-p-plater",
+    "text": "How do demerit point rules differ for learner and provisional drivers?",
+    "options": [
+      "Demerit points apply only to fully licensed drivers",
+      "Novice drivers face suspension after accumulating fewer demerit points than fully licensed drivers",
+      "Novice drivers are exempt from demerit points",
+      "Novice drivers may accumulate more points before suspension"
+    ],
+    "correctIndex": 1,
+    "explanation": "Novice drivers work to a lower demerit point threshold, so far fewer offences will cost you your licence. Check the current threshold with Transport Services — it is set by regulation and changes.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-012",
+    "topic": "learner-p-plater",
+    "text": "Who is responsible for making sure passengers under 16 are properly restrained?",
+    "options": [
+      "The front seat passenger",
+      "The passengers themselves",
+      "Nobody, it is a matter of choice",
+      "The driver"
+    ],
+    "correctIndex": 3,
+    "explanation": "The driver is responsible for every passenger under 16 being properly restrained in an appropriate seat or restraint. Passengers 16 and over are responsible for themselves, but the driver should still insist.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-013",
+    "topic": "learner-p-plater",
+    "text": "Your L plate falls off during a drive and you notice at your destination. What should you do before driving again?",
+    "options": [
+      "Write an L on paper and tape it inside the rear window",
+      "Drive only on quiet streets until you can buy a new one",
+      "Replace the plate before driving again — driving without them displayed is an offence",
+      "Continue driving, since it was an accident"
+    ],
+    "correctIndex": 2,
+    "explanation": "L plates must be displayed and clearly visible whenever you drive. Fit a proper replacement before the next trip; a plate inside the glass or obscured does not satisfy the requirement.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-014",
+    "topic": "learner-p-plater",
+    "text": "Why do learner and provisional drivers have a zero alcohol limit when fully licensed drivers may be under 0.05?",
+    "options": [
+      "Because novice drivers are still building the skills to manage risk, and impairment costs them more",
+      "Because novice drivers are more affected by alcohol chemically",
+      "Because their vehicles are usually older",
+      "Because it is easier to enforce"
+    ],
+    "correctIndex": 0,
+    "explanation": "Driving is not yet automatic for a novice, so more attention is spent on the basics and there is less left over for hazards. Any impairment costs a new driver disproportionately, which is why the limit is zero.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-015",
+    "topic": "learner-p-plater",
+    "text": "Your supervisor asks you to drive on a busy highway for the first time and you do not feel ready. What is the right response?",
+    "options": [
+      "Refuse to drive at all that day",
+      "Drive but stay well under the speed limit in the right lane",
+      "Say so, and build up to it with your supervisor when you are ready",
+      "Drive anyway, since the supervisor decides"
+    ],
+    "correctIndex": 2,
+    "explanation": "Supervised practice should stretch you without overwhelming you. Say what you are not ready for and build up in stages — that conversation is part of learning, not a failure.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-016",
+    "topic": "learner-p-plater",
+    "text": "What kinds of driving practice are most valuable to log as a learner?",
+    "options": [
+      "A wide range — night, rain, highways, town traffic, and unfamiliar routes",
+      "As many kilometres as possible on the same familiar route",
+      "Car park practice only",
+      "Only daytime driving in quiet streets"
+    ],
+    "correctIndex": 0,
+    "explanation": "Variety builds judgement. Hours spent on the same easy route inflate the log book without preparing you for the conditions that actually cause crashes for new drivers.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-017",
+    "topic": "learner-p-plater",
+    "text": "You are a learner and a passenger asks you to read a text message aloud to them while driving. What should you do?",
+    "options": [
+      "Decline — as a learner you must not touch or use a mobile phone while driving",
+      "Read it only while stopped at traffic lights",
+      "Read it, since you are not sending a message",
+      "Read it if your supervisor agrees"
+    ],
+    "correctIndex": 0,
+    "explanation": "The ban covers using the phone at all, and stopping at lights still counts as driving unless you are parked. Hand the phone to your supervisor.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-018",
+    "topic": "learner-p-plater",
+    "text": "What generally determines how long you must stay at each stage of the graduated licensing system?",
+    "options": [
+      "The class of vehicle you drive",
+      "Only your age",
+      "A minimum period at each stage, plus the required supervised hours and assessments",
+      "How many kilometres you have driven"
+    ],
+    "correctIndex": 2,
+    "explanation": "Each stage has a minimum holding period plus the hours and assessments you must complete. The time requirement exists because experience accrues with exposure, not just with practice volume.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-019",
+    "topic": "learner-p-plater",
+    "text": "Why do provisional licences carry restrictions such as passenger limits and phone bans?",
+    "options": [
+      "Because new drivers have worse eyesight",
+      "Because crash risk is highest in the first year of solo driving, and these conditions target the main causes",
+      "To encourage the use of public transport",
+      "To raise revenue from fines"
+    ],
+    "correctIndex": 1,
+    "explanation": "The first year of unsupervised driving carries by far the highest crash risk. Distraction and peer passengers are among the biggest contributors, so the restrictions target exactly those.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  },
+  {
+    "id": "q-novice-020",
+    "topic": "learner-p-plater",
+    "text": "Where should you check for the current rules that apply to your licence stage?",
+    "options": [
+      "Rules from another Australian state",
+      "Social media groups for learner drivers",
+      "Whatever your supervisor learned when they got their licence",
+      "Transport Services in Tasmania, or the current Tasmanian Road Rules Handbook"
+    ],
+    "correctIndex": 3,
+    "explanation": "Licensing conditions differ between states and change over time. Transport Services and the current handbook are the authority; another state's rules and a supervisor's memory of the 1990s are not.",
+    "ruleRef": {
+      "chapter": "Novice drivers",
+      "page": null
+    },
+    "verified": false
+  }
+]
