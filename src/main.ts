@@ -3,6 +3,7 @@
  */
 import { FeedView } from './views/feed.ts'
 import { ParentView } from './views/parent.ts'
+import { registerServiceWorker } from './pwa.ts'
 
 const rootNode = document.querySelector<HTMLElement>('#app')
 if (!rootNode) throw new Error('#app not found')
@@ -24,3 +25,4 @@ async function route(): Promise<void> {
 
 window.addEventListener('hashchange', () => void route())
 void route()
+registerServiceWorker()

@@ -90,6 +90,93 @@ just typecheck
 just verify-content
 ```
 
+## Installing it on an iPhone
+
+The app is a progressive web app: it can be added to the iOS home screen, opens
+without browser chrome, and caches its shell and all 216 questions and
+scenarios for offline use.
+
+**On the phone**, open the app in Safari, tap Share, then *Add to Home Screen*.
+It gets the L-plate icon and opens as its own app.
+
+### The secure-context requirement
+
+A service worker — which is what does the offline caching — only runs in a
+**secure context**: HTTPS, or `localhost`. That has a practical consequence:
+
+| How the phone reaches the app | Installs to home screen | Offline caching |
+| --- | --- | --- |
+| `http://192.168.x.x:8787` (plain LAN address) | Yes | **No** — Safari refuses to register the worker |
+| `https://…` (any trusted certificate) | Yes | Yes |
+
+So over a plain LAN address you get a home-screen app that still needs the
+laptop reachable for every screen. To get the offline shell you need HTTPS with
+a certificate the phone trusts. The least painful ways:
+
+- **Tailscale** on the laptop and the phone, then `tailscale serve` in front of
+  port 8787. You get a real certificate and a stable hostname, the phone can
+  reach it from anywhere, and nothing is exposed publicly.
+- **A tunnel** such as `cloudflared` or `ngrok`, if you only need it briefly.
+
+`src/pwa.ts` checks `window.isSecureContext` and logs a note rather than
+failing silently, so it is clear which mode you are in.
+
+### What works offline, and what does not
+
+Cached and available offline: the app shell, `questions.json`,
+`scenarios.json`, the icons, and any handbook diagrams already fetched.
+
+**Not** cached: anything under `/api`. Sessions and answers are deliberately
+never served from cache — a cached answer response would silently drop a
+learner's progress, and a cached summary would show a parent stale numbers. So
+with the server unreachable the app opens and explains the situation rather
+than letting someone practise into a void.
+
+If you want practice to work with no server at all, that is a real change of
+architecture rather than a setting: answers would have to be stored on the
+phone (IndexedDB) and either stay there or sync back later. See the note at the
+end of this section.
+
+### Building and testing it
+
+The service worker is only registered in a production build — in development
+Vite serves unhashed modules and a worker caching them fights hot reload:
+
+```sh
+just build
+just serve      # then open http://localhost:8787
+```
+
+`just build` runs `scripts/inject-sw-assets.ts` after Vite, which writes the
+content-hashed asset filenames into `dist/sw.js`. Without that step the worker
+caches the HTML but not the app bundle, and a cold offline start renders an
+empty page. The injected build id also doubles as the cache version, so each
+build evicts the previous cache automatically.
+
+`just icons` regenerates the icon set from `scripts/make-icons.py`.
+
+### iOS details that are handled
+
+- `apple-touch-icon`, `apple-mobile-web-app-capable` and
+  `apple-mobile-web-app-title` — Safari ignores the manifest's `display` mode,
+  so these are what actually give a standalone window and a proper icon.
+- `viewport-fit=cover` plus `env(safe-area-inset-*)` padding, so the header
+  clears the notch and the Next button clears the home indicator.
+- `touch-action: manipulation` on buttons and the canvas, removing the
+  double-tap-to-zoom delay. This matters most on hazard scenarios, where that
+  delay would otherwise land inside the reaction time being measured.
+- Hazard taps listen for `pointerdown` rather than `click`, for the same
+  reason — `click` can lag the actual tap on touch.
+- `overscroll-behavior-y: none`, because with no browser chrome the rubber-band
+  bounce reads as the app coming loose.
+
+### One thing to know about iOS storage
+
+iOS evicts data belonging to web apps that have not been used for a stretch
+(roughly a week). That does not affect this app today, because progress lives
+in SQLite on the server rather than on the phone — but it is the main argument
+against moving storage onto the device.
+
 ## How it fits together
 
 ```

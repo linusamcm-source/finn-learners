@@ -5,7 +5,7 @@
  * fetch the next. There is no end state and no score to chase; the session
  * ends when the learner walks away.
  */
-import { api, endSessionOnUnload } from '../api.ts'
+import { api, endSessionOnUnload, OfflineError } from '../api.ts'
 import { clear, el } from '../dom.ts'
 import { ScenarioRenderer, hazardHit } from '../scenario/renderer.ts'
 import { TOPIC_LABELS, type FeedItem, type Question, type Scenario } from '../../shared/types.ts'
@@ -80,11 +80,17 @@ export class FeedView {
   }
 
   private showError(err: unknown): void {
+    const offline = err instanceof OfflineError
     clear(this.stage)
     this.stage.append(
       el('div', { class: 'card error' }, [
-        el('h2', {}, ['Something went wrong']),
+        el('h2', {}, [offline ? 'Cannot reach the server' : 'Something went wrong']),
         el('p', {}, [err instanceof Error ? err.message : String(err)]),
+        offline
+          ? el('p', { class: 'muted' }, [
+              'The app itself is installed and its questions are cached, so this screen works offline — but answers are recorded on the server, and practising without recording it would lose the progress.',
+            ])
+          : null,
         el('button', { class: 'primary', onclick: () => void this.loop() }, ['Try again']),
       ]),
     )
@@ -275,7 +281,10 @@ export class FeedView {
         showHazardResult(false, scenario.durationMs, 'You did not tap in time.')
       }
 
-      const onCanvasClick = (event: MouseEvent): void => {
+      // pointerdown rather than click: on touch, click can lag the actual tap
+      // by a few hundred milliseconds, and this timing is the thing being
+      // measured. pointerdown fires as the finger lands.
+      const onCanvasTap = (event: PointerEvent): void => {
         if (answered || scenario.assessment.kind !== 'hazard-perception') return
         const at = lastFrameMs
         const point = renderer.toScenarioPoint(event.clientX, event.clientY)
@@ -299,7 +308,7 @@ export class FeedView {
         if (answered) return
         answered = true
         canvas.classList.remove('tappable')
-        canvas.removeEventListener('click', onCanvasClick)
+        canvas.removeEventListener('pointerdown', onCanvasTap)
         clear(controls)
         revealing = true
         renderer.draw(Math.min(atMs, scenario.durationMs), { revealHazard: true })
@@ -400,7 +409,7 @@ export class FeedView {
 
       if (isHazard) {
         canvas.classList.add('tappable')
-        canvas.addEventListener('click', onCanvasClick)
+        canvas.addEventListener('pointerdown', onCanvasTap)
         controls.append(
           el('p', { class: 'note' }, ['Tap the hazard as soon as you see it.']),
         )

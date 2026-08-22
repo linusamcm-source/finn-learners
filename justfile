@@ -23,10 +23,15 @@ serve:
 web:
     npx vite
 
-# Typecheck and build the SPA into dist/.
+# Regenerate the PWA icon set into public/.
+icons:
+    python3 scripts/make-icons.py
+
+# Typecheck and build the SPA into dist/, then wire up the service worker.
 build:
     npx tsc -p tsconfig.json --noEmit
     npx vite build
+    node --experimental-strip-types scripts/inject-sw-assets.ts
 
 # Typecheck without emitting anything.
 typecheck:

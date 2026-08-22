@@ -41,6 +41,8 @@ const MIME: Record<string, string> = {
   '.jpeg': 'image/jpeg',
   '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
+  '.ico': 'image/x-icon',
 }
 
 function sendJson(res: ServerResponse, status: number, body: unknown): void {
