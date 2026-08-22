@@ -6,6 +6,7 @@
  * trending anywhere.
  */
 import { clear, el, formatPercent } from '../dom.ts'
+import { tabBar, topBar } from './chrome.ts'
 import { loadContent } from '../content/load.ts'
 import { summarise } from '../store/derive.ts'
 import {
@@ -29,11 +30,9 @@ export class ParentView {
   async start(): Promise<void> {
     clear(this.root)
     this.root.append(
-      el('header', { class: 'bar' }, [
-        el('h1', {}, ['Progress']),
-        el('a', { class: 'link', href: '#/' }, ['Back to practice']),
-      ]),
-      el('main', { class: 'stage', id: 'stage' }, [el('p', { class: 'muted' }, ['Loading…'])]),
+      topBar({ showSound: false }),
+      el('main', { class: 'screen', id: 'stage' }, [el('p', { class: 'muted' }, ['Loading…'])]),
+      tabBar('#/progress'),
     )
 
     const stage = this.root.querySelector('#stage') as HTMLElement
@@ -159,7 +158,7 @@ export class ParentView {
 
   private render(summary: ParentSummary): HTMLElement[] {
     const cards: HTMLElement[] = [
-      el('section', { class: 'card' }, [
+      el('section', { class: 'card enter' }, [
         el('h2', {}, ['This week']),
         el('div', { class: 'stat-grid' }, [
           stat('Sessions', String(summary.sessionsThisWeek)),
@@ -202,7 +201,7 @@ export class ParentView {
     cards.push(
       el('section', { class: 'card' }, [
         el('h2', {}, ['Accuracy by topic']),
-        el('div', { class: 'bars' }, summary.byTopic.map(topicBar)),
+        el('div', { class: 'meters' }, summary.byTopic.map(topicBar)),
       ]),
       el('section', { class: 'card' }, [
         el('h2', {}, ['Last 14 days']),
@@ -260,14 +259,18 @@ function stat(label: string, value: string): HTMLElement {
 
 function topicBar(topic: TopicStat): HTMLElement {
   const percent = topic.accuracy === null ? 0 : Math.round(topic.accuracy * 100)
-  const tone = topic.accuracy === null ? 'none' : percent >= 85 ? 'good' : percent >= 70 ? 'ok' : 'bad'
-  return el('div', { class: 'bar-row' }, [
-    el('div', { class: 'bar-label' }, [topic.label]),
-    el('div', { class: 'bar-track' }, [
-      el('div', { class: `bar-fill ${tone}`, style: `width:${percent}%` }),
+  const tone =
+    topic.accuracy === null ? 'neutral' : percent >= 85 ? 'good' : percent >= 70 ? 'warning' : 'critical'
+  return el('div', {}, [
+    el('div', { class: 'meter-head' }, [
+      el('span', { class: 'meter-name' }, [topic.label]),
+      // Always spelled out — the colour is a second channel, not the only one.
+      el('span', { class: `meter-level ${tone}` }, [
+        topic.answered === 0 ? 'not seen' : `${formatPercent(topic.accuracy)} of ${topic.answered}`,
+      ]),
     ]),
-    el('div', { class: 'bar-value' }, [
-      topic.answered === 0 ? 'not seen' : `${formatPercent(topic.accuracy)} (${topic.answered})`,
+    el('div', { class: 'meter-track' }, [
+      el('div', { class: `meter-fill ${tone}`, style: `width:${percent}%` }),
     ]),
   ])
 }
@@ -300,10 +303,8 @@ function trendChart(trend: TrendPoint[]): HTMLElement {
     rect.setAttribute('width', String(slot * 0.7))
     rect.setAttribute('height', String(Math.max(point.answered > 0 ? 0.8 : 0, barHeight)))
     const accuracy = point.accuracy
-    rect.setAttribute(
-      'class',
-      accuracy === null ? 'trend-bar none' : accuracy >= 0.85 ? 'trend-bar good' : accuracy >= 0.7 ? 'trend-bar ok' : 'trend-bar bad',
-    )
+    rect.setAttribute('class', point.answered === 0 ? 'trend-bar empty' : 'trend-bar')
+    void accuracy
     const title = document.createElementNS('http://www.w3.org/2000/svg', 'title')
     title.textContent = `${point.date}: ${point.answered} answered, ${formatPercent(point.accuracy)}`
     rect.append(title)

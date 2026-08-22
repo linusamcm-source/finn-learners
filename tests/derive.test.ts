@@ -6,7 +6,10 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
 import {
+  MASTERY_SAMPLE,
   deriveHistories,
+  readiness,
+  topicMastery,
   recentTopicPerformance,
   sessionEnd,
   startOfWeek,
@@ -194,5 +197,67 @@ describe('parent summary', () => {
     const monday = startOfWeek(new Date('2026-03-16T12:00:00'))
     assert.equal(monday.getDate(), 16)
     assert.equal(monday.getHours(), 0)
+  })
+})
+
+describe('mastery and readiness', () => {
+  test('a topic with too few answers is not rated, and is not painted as failing', () => {
+    // A beginner's screen showing every topic in red is a discouraging and
+    // inaccurate way to describe having barely started.
+    const answers = Array.from({ length: 3 }, () => answer({ topic: 'turns', correct: false }))
+    const turns = topicMastery(answers).find((m) => m.topic === 'turns')!
+    assert.equal(turns.tone, 'neutral')
+    assert.match(turns.levelLabel, /to rate/)
+  })
+
+  test('enough answers at high accuracy is mastery', () => {
+    const answers = Array.from({ length: MASTERY_SAMPLE }, () => answer({ topic: 'road-signs', correct: true }))
+    const signs = topicMastery(answers).find((m) => m.topic === 'road-signs')!
+    assert.equal(signs.level, 'mastered')
+    assert.equal(signs.tone, 'good')
+    assert.equal(signs.levelLabel, 'Mastered')
+  })
+
+  test('enough answers at low accuracy needs work', () => {
+    const answers = Array.from({ length: MASTERY_SAMPLE }, (_, i) =>
+      answer({ topic: 'give-way', correct: i < 3 }),
+    )
+    const giveWay = topicMastery(answers).find((m) => m.topic === 'give-way')!
+    assert.equal(giveWay.level, 'shaky')
+    assert.equal(giveWay.tone, 'critical')
+    assert.equal(giveWay.levelLabel, 'Needs work')
+  })
+
+  test('an untouched topic reads as not started', () => {
+    const untouched = topicMastery([]).find((m) => m.topic === 'roundabouts')!
+    assert.equal(untouched.tone, 'neutral')
+    assert.equal(untouched.levelLabel, 'Not started')
+    assert.equal(untouched.fill, 0)
+  })
+
+  test('readiness does not name a weakest topic before any topic is rated', () => {
+    // Every topic touched, none of them sampled enough to judge.
+    const answers = TOPICS.flatMap((topic) =>
+      Array.from({ length: 2 }, () => answer({ topic, correct: false })),
+    )
+    const advice = readiness(topicMastery(answers)).advice
+    assert.match(advice, /no topic has/)
+  })
+
+  test('readiness points at an untouched topic first', () => {
+    const answers = Array.from({ length: MASTERY_SAMPLE }, () => answer({ topic: 'give-way', correct: true }))
+    const advice = readiness(topicMastery(answers)).advice
+    assert.match(advice, /^Start on /)
+  })
+
+  test('readiness names the weakest once topics are actually rated', () => {
+    const answers = TOPICS.flatMap((topic) =>
+      Array.from({ length: MASTERY_SAMPLE }, (_, i) =>
+        answer({ topic, correct: topic === 'roundabouts' ? i < 2 : true }),
+      ),
+    )
+    const ready = readiness(topicMastery(answers))
+    assert.match(ready.advice, /Roundabouts/)
+    assert.equal(ready.mastered, TOPICS.length - 1)
   })
 })

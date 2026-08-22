@@ -1,13 +1,18 @@
 /**
- * Phase 4 — the feed view.
+ * Practice — the endless feed.
  *
- * An endless loop: fetch an item, present it, grade the answer, report it,
- * fetch the next. There is no end state and no score to chase; the session
- * ends when the learner walks away.
+ * The loop is built around pace. A correct answer costs one tap and the feed
+ * moves on by itself after a short beat; only a wrong answer stops to explain
+ * itself, because that is the only moment the explanation is worth reading.
+ * Tapping during the beat holds it, for when you do want to read why.
+ *
+ * The streak is the reward. It is the one number on screen while practising.
  */
 import { clear, el } from '../dom.ts'
 import { PracticeSession } from '../store/practice.ts'
 import { ScenarioRenderer, hazardHit } from '../scenario/renderer.ts'
+import { sfx } from '../sound.ts'
+import { tabBar, topBar } from './chrome.ts'
 import { TOPIC_LABELS, type FeedItem, type Question, type Scenario } from '../../shared/types.ts'
 
 interface Outcome {
@@ -15,15 +20,22 @@ interface Outcome {
   responseTimeMs: number
 }
 
+/** How long a correct answer sits before the feed moves on. */
+const HOLD_MS = 900
+
+/** Streaks worth making a noise about. */
+const MILESTONES = new Set([5, 10, 20, 35, 50, 75, 100])
+
 export class FeedView {
   private readonly root: HTMLElement
   private readonly session = new PracticeSession()
   private started = false
-  private answeredThisSession = 0
-  private correctThisSession = 0
+  private answered = 0
+  private correct = 0
   private streak = 0
+  private best = 0
   private stopped = false
-  private warnedAboutStorage = false
+  private warned = false
 
   constructor(root: HTMLElement) {
     this.root = root
@@ -51,25 +63,18 @@ export class FeedView {
     }
   }
 
-  /**
-   * Closing the session on the way out is best effort — an IndexedDB write
-   * during pagehide may not finish. It does not need to: a session left open
-   * is treated as ending at its last answer, which is the honest reading
-   * anyway when someone swipes the app away mid-question.
-   */
   private handleUnload = (): void => {
     if (this.started) void this.session.end().catch(() => {})
   }
 
   private renderShell(): void {
     clear(this.root)
+    const streak = el('span', { class: 'streak', id: 'streak' }, ['🔥 0'])
     this.root.append(
-      el('header', { class: 'bar' }, [
-        el('h1', {}, ['learner-dash']),
-        el('div', { class: 'bar-stats', id: 'session-stats' }, ['—']),
-        el('a', { class: 'link', href: '#/parent' }, ['Parent view']),
-      ]),
-      el('main', { class: 'stage', id: 'stage' }, [el('p', { class: 'muted' }, ['Loading…'])]),
+      topBar({ trailing: streak }),
+      el('div', { class: 'session-progress' }, [el('div', { id: 'session-bar' })]),
+      el('main', { class: 'screen', id: 'stage' }, [el('p', { class: 'muted' }, ['Loading…'])]),
+      tabBar('#/'),
     )
   }
 
@@ -77,22 +82,29 @@ export class FeedView {
     return this.root.querySelector('#stage') as HTMLElement
   }
 
-  private updateStats(): void {
-    const node = this.root.querySelector('#session-stats')
+  private updateStreak(): void {
+    const node = this.root.querySelector('#streak')
     if (!node) return
-    const accuracy =
-      this.answeredThisSession === 0
-        ? '—'
-        : `${Math.round((this.correctThisSession / this.answeredThisSession) * 100)}%`
-    node.textContent = `${this.answeredThisSession} answered · ${accuracy} · streak ${this.streak}`
+    node.textContent = `🔥 ${this.streak}`
+    node.classList.toggle('hot', this.streak >= 5)
+    // Retrigger the pop each time rather than only on the first bump.
+    node.classList.remove('bump')
+    void (node as HTMLElement).offsetWidth
+    node.classList.add('bump')
+    setTimeout(() => node.classList.remove('bump'), 240)
+
+    const bar = this.root.querySelector('#session-bar') as HTMLElement | null
+    // No fixed session length, so the bar shows momentum towards a round
+    // number rather than progress towards an end.
+    if (bar) bar.style.width = `${Math.min(100, (this.answered % 20) * 5)}%`
   }
 
   private showError(err: unknown): void {
     clear(this.stage)
     this.stage.append(
-      el('div', { class: 'card error' }, [
+      el('div', { class: 'card error enter' }, [
         el('h2', {}, ['Something went wrong']),
-        el('p', {}, [err instanceof Error ? err.message : String(err)]),
+        el('p', { class: 'muted' }, [err instanceof Error ? err.message : String(err)]),
         el('button', { class: 'primary', onclick: () => void this.start() }, ['Try again']),
       ]),
     )
@@ -101,32 +113,28 @@ export class FeedView {
   private showNoContent(): void {
     clear(this.stage)
     this.stage.append(
-      el('div', { class: 'card error' }, [
+      el('div', { class: 'card error enter' }, [
         el('h2', {}, ['No questions loaded']),
-        el('p', {}, [
-          'content/questions.json and content/scenarios.json could not be read. If this is a fresh deployment, check they were published alongside the app.',
+        el('p', { class: 'muted' }, [
+          'The question files could not be read. If this is a fresh deployment, check they were published alongside the app.',
         ]),
         el('button', { class: 'primary', onclick: () => void this.start() }, ['Try again']),
       ]),
     )
   }
 
-  /**
-   * Shown once per session if a write fails. Repeating it after every question
-   * would bury the practice itself.
-   */
   private warnOnce(): void {
-    if (this.warnedAboutStorage) return
-    this.warnedAboutStorage = true
-    const bar = this.root.querySelector('.bar')
-    bar?.after(
-      el('div', { class: 'banner warn-banner' }, [
-        'Progress could not be saved on this device. Practice still works, but this session will not appear in the parent view.',
-      ]),
-    )
+    if (this.warned) return
+    this.warned = true
+    this.root
+      .querySelector('.session-progress')
+      ?.after(
+        el('div', { class: 'banner warn-banner' }, [
+          'Progress could not be saved on this device. Practice still works.',
+        ]),
+      )
   }
 
-  /** The endless loop itself. */
   private async loop(): Promise<void> {
     while (!this.stopped) {
       const item = this.session.nextItem()
@@ -139,14 +147,15 @@ export class FeedView {
 
       if (this.stopped) return
 
-      this.answeredThisSession += 1
+      this.answered += 1
       if (outcome.correct) {
-        this.correctThisSession += 1
+        this.correct += 1
         this.streak += 1
+        this.best = Math.max(this.best, this.streak)
       } else {
         this.streak = 0
       }
-      this.updateStats()
+      this.updateStreak()
 
       try {
         await this.session.record({
@@ -156,17 +165,77 @@ export class FeedView {
           responseTimeMs: outcome.responseTimeMs,
         })
       } catch (err) {
-        // A failed write should not end the session mid-flow, but it must not
-        // pass silently either — the learner would be practising into a void.
         console.error('[practice] could not record answer:', err)
         this.warnOnce()
       }
     }
   }
 
-  /* ---------------------------------------------------------------- *
-   * Plain and diagram questions
-   * ---------------------------------------------------------------- */
+  /**
+   * Feedback shared by plain questions and by the rules questions attached to
+   * scenarios: green on the right answer and move on; red, an explanation and
+   * a button on a wrong one.
+   */
+  private settle(options: {
+    correct: boolean
+    explanation: string
+    ruleRef?: { chapter: string; page: number | null }
+    feedback: HTMLElement
+    done: () => void
+  }): void {
+    const { correct, explanation, ruleRef, feedback, done } = options
+
+    if (correct) {
+      sfx.correct()
+      if (MILESTONES.has(this.streak + 1)) sfx.milestone()
+
+      const bar = el('div', { class: 'autoadvance' }, [el('div')])
+      bar.style.setProperty('--hold', `${HOLD_MS}ms`)
+      feedback.append(
+        el('div', { class: 'verdict good' }, ['✓ Correct']),
+        bar,
+      )
+
+      let cancelled = false
+      const timer = setTimeout(() => {
+        if (!cancelled) done()
+      }, HOLD_MS)
+
+      // Tapping during the beat holds it, for when the reasoning is wanted.
+      const hold = (): void => {
+        if (cancelled) return
+        cancelled = true
+        clearTimeout(timer)
+        bar.remove()
+        feedback.append(
+          ...[
+            el('p', { class: 'explanation' }, [explanation]),
+            ruleRef ? this.ruleRefLine(ruleRef.chapter, ruleRef.page) : null,
+            el('button', { class: 'primary', onclick: done }, ['Next']),
+          ].filter((node): node is HTMLElement => node !== null),
+        )
+      }
+      this.stage.addEventListener('click', hold, { once: true })
+      return
+    }
+
+    sfx.wrong()
+    feedback.append(
+      ...[
+        el('div', { class: 'verdict bad' }, ['✕ Not quite']),
+        el('p', { class: 'explanation' }, [explanation]),
+        ruleRef ? this.ruleRefLine(ruleRef.chapter, ruleRef.page) : null,
+        el('button', { class: 'primary', onclick: done }, ['Got it']),
+      ].filter((node): node is HTMLElement => node !== null),
+    )
+    ;(feedback.querySelector('.primary') as HTMLElement | null)?.focus()
+  }
+
+  private ruleRefLine(chapter: string, page: number | null): HTMLElement {
+    return el('p', { class: 'ruleref' }, [
+      page === null ? `Handbook: ${chapter}` : `Handbook: ${chapter}, p.${page}`,
+    ])
+  }
 
   private presentQuestion(question: Question): Promise<Outcome> {
     return new Promise((resolve) => {
@@ -176,27 +245,23 @@ export class FeedView {
       const optionList = el('div', { class: 'options' })
       const feedback = el('div', { class: 'feedback' })
 
-      const card = el('section', { class: 'card' }, [
-        el('div', { class: 'topic-chip' }, [TOPIC_LABELS[question.topic]]),
-        el('h2', { class: 'prompt' }, [question.text]),
-        question.image
-          ? el('img', { class: 'diagram', src: `/${question.image}`, alt: 'Handbook diagram' })
-          : null,
-        optionList,
-        feedback,
-      ])
-      this.stage.append(card)
+      this.stage.append(
+        el('section', { class: 'card enter' }, [
+          el('div', { class: 'topic-chip' }, [TOPIC_LABELS[question.topic]]),
+          el('h2', { class: 'prompt' }, [question.text]),
+          question.image
+            ? el('img', { class: 'diagram', src: `/${question.image}`, alt: 'Handbook diagram' })
+            : null,
+          optionList,
+          feedback,
+        ]),
+      )
 
       const buttons = question.options.map((option, index) =>
-        el(
-          'button',
-          {
-            class: 'option',
-            type: 'button',
-            onclick: () => choose(index),
-          },
-          [el('span', { class: 'option-key' }, [String.fromCharCode(65 + index)]), option],
-        ),
+        el('button', { class: 'option', type: 'button', onclick: () => choose(index) }, [
+          el('span', { class: 'option-key' }, [String.fromCharCode(65 + index)]),
+          option,
+        ]),
       )
       optionList.append(...buttons)
 
@@ -208,32 +273,16 @@ export class FeedView {
           if (i === question.correctIndex) button.classList.add('correct')
           if (i === index && !correct) button.classList.add('wrong')
         })
-        feedback.append(
-          el('div', { class: correct ? 'verdict good' : 'verdict bad' }, [
-            correct ? 'Correct' : 'Not quite',
-          ]),
-          el('p', { class: 'explanation' }, [question.explanation]),
-          this.ruleRefLine(question.ruleRef.chapter, question.ruleRef.page),
-          el(
-            'button',
-            { class: 'primary', onclick: () => resolve({ correct, responseTimeMs }) },
-            ['Next'],
-          ),
-        )
-        ;(feedback.querySelector('.primary') as HTMLElement | null)?.focus()
+        this.settle({
+          correct,
+          explanation: question.explanation,
+          ruleRef: question.ruleRef,
+          feedback,
+          done: () => resolve({ correct, responseTimeMs }),
+        })
       }
     })
   }
-
-  private ruleRefLine(chapter: string, page: number | null): HTMLElement {
-    return el('p', { class: 'ruleref' }, [
-      page === null ? `Handbook: ${chapter}` : `Handbook: ${chapter}, p.${page}`,
-    ])
-  }
-
-  /* ---------------------------------------------------------------- *
-   * Scenarios
-   * ---------------------------------------------------------------- */
 
   private presentScenario(scenario: Scenario): Promise<Outcome> {
     return new Promise((resolve) => {
@@ -243,14 +292,15 @@ export class FeedView {
       const controls = el('div', { class: 'scenario-controls' })
       const feedback = el('div', { class: 'feedback' })
 
-      const card = el('section', { class: 'card' }, [
-        el('div', { class: 'topic-chip' }, [TOPIC_LABELS[scenario.topic]]),
-        el('h2', { class: 'prompt' }, [scenario.title]),
-        el('div', { class: 'canvas-wrap' }, [canvas]),
-        controls,
-        feedback,
-      ])
-      this.stage.append(card)
+      this.stage.append(
+        el('section', { class: 'card enter' }, [
+          el('div', { class: 'topic-chip' }, [TOPIC_LABELS[scenario.topic]]),
+          el('h2', { class: 'prompt' }, [scenario.title]),
+          el('div', { class: 'canvas-wrap' }, [canvas]),
+          controls,
+          feedback,
+        ]),
+      )
 
       const renderer = new ScenarioRenderer(canvas, scenario)
       const onResize = (): void => {
@@ -286,7 +336,7 @@ export class FeedView {
           lastFrameMs = scenario.durationMs
           renderer.draw(lastFrameMs, { revealHazard: revealing })
           stopLoop()
-          if (isHazard && !answered) onHazardTimeout()
+          if (isHazard && !answered) showHazardResult(false, scenario.durationMs, 'You did not tap in time.')
           else if (!isHazard && !answered) showRulesQuestion()
           return
         }
@@ -301,15 +351,8 @@ export class FeedView {
         frame = requestAnimationFrame(tick)
       }
 
-      /* ---- hazard perception ---- */
-
-      const onHazardTimeout = (): void => {
-        showHazardResult(false, scenario.durationMs, 'You did not tap in time.')
-      }
-
-      // pointerdown rather than click: on touch, click can lag the actual tap
-      // by a few hundred milliseconds, and this timing is the thing being
-      // measured. pointerdown fires as the finger lands.
+      // pointerdown rather than click: on touch, click can lag the tap by a few
+      // hundred milliseconds, and this timing is the thing being measured.
       const onCanvasTap = (event: PointerEvent): void => {
         if (answered || scenario.assessment.kind !== 'hazard-perception') return
         const at = lastFrameMs
@@ -319,15 +362,10 @@ export class FeedView {
         const onHazard = hazardHit(scenario, point, at)
         stopLoop()
 
-        if (inWindow && onHazard) {
-          showHazardResult(true, at, 'You spotted the hazard in time.')
-        } else if (!onHazard) {
-          showHazardResult(false, at, 'That was not the hazard.')
-        } else if (at < startMs) {
-          showHazardResult(false, at, 'Too early — the hazard had not developed yet.')
-        } else {
-          showHazardResult(false, at, 'Too late — by then you would already have needed to react.')
-        }
+        if (inWindow && onHazard) showHazardResult(true, at, 'Spotted it in time.')
+        else if (!onHazard) showHazardResult(false, at, 'That was not the hazard.')
+        else if (at < startMs) showHazardResult(false, at, 'Too early — the hazard had not developed yet.')
+        else showHazardResult(false, at, 'Too late — by then you would already have needed to react.')
       }
 
       const showHazardResult = (correct: boolean, atMs: number, note: string): void => {
@@ -340,65 +378,23 @@ export class FeedView {
         renderer.draw(Math.min(atMs, scenario.durationMs), { revealHazard: true })
 
         const assessment = scenario.assessment
-        feedback.append(
-          el('div', { class: correct ? 'verdict good' : 'verdict bad' }, [
-            correct ? 'Correct' : 'Not quite',
-          ]),
-          el('p', { class: 'note' }, [note]),
-          el('p', { class: 'explanation' }, [
-            assessment.kind === 'hazard-perception' ? assessment.explanation : '',
-          ]),
-          el('div', { class: 'row' }, [
-            el(
-              'button',
-              {
-                class: 'secondary',
-                onclick: () => {
-                  clear(feedback)
-                  answered = false
-                  replayThenResult(correct, atMs, note)
-                },
-              },
-              ['Replay with the hazard shown'],
-            ),
-            el(
-              'button',
-              { class: 'primary', onclick: () => finish(correct, Math.round(atMs)) },
-              ['Next'],
-            ),
-          ]),
-        )
-        ;(feedback.querySelector('.primary') as HTMLElement | null)?.focus()
-      }
+        const explanation =
+          assessment.kind === 'hazard-perception' ? `${note} ${assessment.explanation}` : note
 
-      const replayThenResult = (correct: boolean, atMs: number, note: string): void => {
-        revealing = true
-        startedAt = performance.now()
-        stopLoop()
-        const replayTick = (now: number): void => {
-          lastFrameMs = now - startedAt
-          if (lastFrameMs >= scenario.durationMs) {
-            renderer.draw(scenario.durationMs, { revealHazard: true })
-            stopLoop()
-            showHazardResult(correct, atMs, note)
-            return
-          }
-          renderer.draw(lastFrameMs, { revealHazard: true })
-          frame = requestAnimationFrame(replayTick)
-        }
-        frame = requestAnimationFrame(replayTick)
+        this.settle({
+          correct,
+          explanation,
+          feedback,
+          done: () => finish(correct, Math.round(atMs)),
+        })
       }
-
-      /* ---- rules question over a scenario ---- */
 
       const showRulesQuestion = (): void => {
         if (scenario.assessment.kind !== 'rules-question') return
         const assessment = scenario.assessment
         const shownAt = performance.now()
         clear(controls)
-        controls.append(
-          el('button', { class: 'secondary', onclick: () => play(false) }, ['Replay']),
-        )
+        controls.append(el('button', { class: 'secondary', onclick: () => play(false) }, ['↻ Replay']))
 
         const optionList = el('div', { class: 'options' })
         feedback.append(el('p', { class: 'prompt-sub' }, [assessment.text]), optionList)
@@ -419,31 +415,24 @@ export class FeedView {
             if (i === assessment.correctIndex) button.classList.add('correct')
             if (i === index && !correct) button.classList.add('wrong')
           })
-          feedback.append(
-            el('div', { class: correct ? 'verdict good' : 'verdict bad' }, [
-              correct ? 'Correct' : 'Not quite',
-            ]),
-            el('p', { class: 'explanation' }, [assessment.explanation]),
-            this.ruleRefLine(assessment.ruleRef.chapter, assessment.ruleRef.page),
-            el('button', { class: 'primary', onclick: () => finish(correct, responseTimeMs) }, [
-              'Next',
-            ]),
-          )
-          ;(feedback.querySelector('.primary') as HTMLElement | null)?.focus()
+          this.settle({
+            correct,
+            explanation: assessment.explanation,
+            ruleRef: assessment.ruleRef,
+            feedback,
+            done: () => finish(correct, responseTimeMs),
+          })
         }
       }
 
       if (isHazard) {
         canvas.classList.add('tappable')
         canvas.addEventListener('pointerdown', onCanvasTap)
-        controls.append(
-          el('p', { class: 'note' }, ['Tap the hazard as soon as you see it.']),
-        )
+        controls.append(el('p', { class: 'note' }, ['Tap the hazard as soon as you see it.']))
       } else {
         controls.append(el('p', { class: 'note' }, ['Watch, then answer.']))
       }
 
-      // A frame at t=0 so the scene is visible before playback starts.
       renderer.draw(0)
       play(false)
     })

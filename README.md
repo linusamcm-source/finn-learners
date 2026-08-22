@@ -1,7 +1,8 @@
 # learner-dash
 
-An endless, adaptive stream of Tasmanian road-rules practice for one learner
-driver, with a parent view showing what has actually been happening.
+Tasmanian road-rules practice for one learner driver, built to be worth opening
+— an endless adaptive feed, a practice test, and a progress screen with
+something finishable in it.
 
 Local-first and installable: it is a static site with no backend. Content is
 JSON, progress lives in the browser's IndexedDB, and once installed on a phone
@@ -10,6 +11,35 @@ it works with no network at all.
 Built to the spec in [`docs/learner-dash-spec.md`](docs/learner-dash-spec.md).
 See [Departures from the spec](#departures-from-the-spec) for where it now
 differs and why.
+
+## What it is like to use
+
+Three screens, on a bottom tab bar, because this is used one-handed on a phone.
+
+**Practice** is the endless feed. A correct answer costs one tap: it flashes
+green, plays a short tone and moves on by itself after a beat. Only a wrong
+answer stops to explain itself, which is the only moment the explanation is
+worth reading — and tapping during the beat holds it if you do want the
+reasoning. The streak in the top bar is the only number on screen while you
+practise, and it makes a noise at 5, 10, 20 and so on.
+
+**Test** is 30 questions with no feedback until the end, then a score, a
+per-topic breakdown, and a collapsed list of what you missed. The questions are
+weighted the same way the feed is, so a test leans on your weak topics — it is
+not the same 30 questions every time.
+
+**Progress** is the learner's own screen: how ready you are, how many of the
+nine topics you have mastered, and which one to work on next. Nine topics to
+get on top of is a finishable goal in a way that a drifting accuracy percentage
+is not. The parent view lives behind a link here.
+
+A topic is only rated once it has ten answers behind it. Before that it reads
+"3/10 to rate" in grey rather than being marked as failing — a beginner's
+screen full of red is both discouraging and untrue.
+
+Sound is on by default and toggles from the top bar. There is no light theme:
+this is a phone app used at night as often as not, and one theme done properly
+beats two done at half effort.
 
 ## Running it
 
@@ -285,7 +315,7 @@ unit test while repeating about a quarter of a sitting.
 ## Testing
 
 ```sh
-just test        # 71 tests
+just test        # 86 tests
 just typecheck
 ```
 
@@ -297,9 +327,11 @@ seed scenarios with cars driving on the wrong side.
 
 ## Departures from the spec
 
-The spec called for SQLite via better-sqlite3 behind a minimal Node server on
-localhost. The app now stores progress in the browser's IndexedDB and has no
-server at all.
+Two, both deliberate.
+
+**Storage.** The spec called for SQLite via better-sqlite3 behind a minimal Node
+server on localhost. The app now stores progress in the browser's IndexedDB and
+has no server at all.
 
 That was a deliberate change, made so the app can be installed on a phone and
 used anywhere: an iOS home-screen app cannot reach a laptop's localhost, and
@@ -310,3 +342,9 @@ above it are unchanged — the storage layer was swapped, not the design.
 The costs are real and are covered under [Where progress is
 stored](#where-progress-is-stored): iOS may evict the data, and a parent has to
 either use the learner's phone or import an exported file.
+
+**Polish.** The spec listed "no visual polish" among its non-goals, on the
+reasonable MVP logic that looks come last. That was reversed on purpose: the
+app is for a sixteen-year-old, and one they do not want to open teaches nobody
+anything. The design work is not decoration on top of the feature set — the
+pace of the loop, the streak, and having a finishable goal are the feature set.
