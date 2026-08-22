@@ -33,8 +33,12 @@ parent view.
 
 ## Commands
 
-Everything runs through [`just`](https://just.systems). `just` on its own lists
-the recipes; this is the same list with a bit more context.
+Everything runs through [`just`](https://just.systems). If you do not have it:
+`brew install just`, or `npm install -g rust-just`, or see the install notes on
+its site.
+
+`just` on its own lists the recipes; this is the same list with a bit more
+context.
 
 ### Setup and running
 
