@@ -1,0 +1,571 @@
+/*
+ * learner-dash — visual system.
+ *
+ * Dark only, and deliberately so. This is a phone app used by a teenager, very
+ * often at night, and shipping one theme done properly beats two done at half
+ * effort.
+ *
+ * Colour has two separate jobs and they never mix:
+ *
+ *   Chrome  — L-plate yellow. Buttons, streaks, the active tab. It says
+ *             "learner driver" at a glance and carries the app's identity.
+ *   Data    — the reserved status palette below. Only ever used for progress
+ *             meters, and always alongside a text label, so meaning never rests
+ *             on colour alone.
+ *
+ * Keeping the yellow out of the data area matters: it sits close to the status
+ * warning step, and a brand colour that can be mistaken for a status is how a
+ * progress screen starts lying to people.
+ */
+
+:root {
+  /* Surfaces. --surface matches the validated dark chart surface, so the
+     status colours below keep their measured contrast. */
+  --bg: #101013;
+  --surface: #1a1a19;
+  --surface-2: #24241f;
+  --surface-3: #2e2e28;
+  --line: #34342d;
+
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --ink-3: #8c8b81;
+
+  /* Chrome accent — the L-plate. Never used as a data mark. */
+  --accent: #f2c200;
+  --accent-ink: #191900;
+  --accent-dim: rgba(242, 194, 0, 0.16);
+
+  /* Status palette: fixed, and each one always ships with a label. */
+  --good: #0ca30c;
+  --warning: #fab219;
+  --critical: #d03b3b;
+  --neutral: #4a4a44;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --tap: 52px;
+
+  --ease: cubic-bezier(0.2, 0.9, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 -apple-system, system-ui, 'Segoe UI', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ---------------------------------------------------------------- *
+ * Top bar — streak and sound, nothing else. Everything competing for
+ * attention up here is attention taken from the question.
+ * ---------------------------------------------------------------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(10px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 10px
+    calc(16px + env(safe-area-inset-left));
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.brand {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.topbar-spacer { flex: 1; }
+
+.streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: transform 220ms var(--ease), background 220ms var(--ease);
+}
+
+.streak.hot {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.streak.bump { transform: scale(1.18); }
+
+.icon-button {
+  /* 44px is the smallest reliable touch target on iOS. */
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.icon-button:active { transform: scale(0.94); }
+
+/* Session progress hairline under the top bar. */
+.session-progress {
+  height: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.session-progress > div {
+  height: 100%;
+  background: var(--accent);
+  width: 0;
+  transition: width 400ms var(--ease);
+}
+
+/* ---------------------------------------------------------------- *
+ * Screen and cards
+ * ---------------------------------------------------------------- */
+
+.screen {
+  flex: 1;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* The tab bar is sticky, so content scrolling under it would hide whatever
+     is last on the page — which is usually the button you need to press. */
+  padding: 12px calc(16px + env(safe-area-inset-right)) calc(88px + env(safe-area-inset-bottom))
+    calc(16px + env(safe-area-inset-left));
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.card h2 {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.muted { color: var(--ink-3); }
+.small { font-size: 13px; }
+
+.enter { animation: enter 260ms var(--ease) both; }
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------- *
+ * Questions
+ * ---------------------------------------------------------------- */
+
+.topic-chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+
+.prompt {
+  font-size: 21px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin: 0 0 18px;
+}
+
+.prompt-sub {
+  font-size: 18px;
+  font-weight: 650;
+  margin: 18px 0 12px;
+}
+
+.diagram {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.options { display: flex; flex-direction: column; gap: 9px; }
+
+.option {
+  display: flex;
+  /* Top-aligned: on an option that wraps to four lines, a vertically centred
+     letter floats away from the text it labels. */
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-height: var(--tap);
+  text-align: left;
+  padding: 13px 15px;
+  font: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background 140ms var(--ease), border-color 140ms var(--ease), transform 140ms var(--ease);
+}
+
+.option:active:not(:disabled) { transform: scale(0.985); }
+.option:disabled { cursor: default; }
+
+.option-key {
+  flex: 0 0 26px;
+  height: 26px;
+  margin-top: 1px;
+  border-radius: 7px;
+  background: var(--surface-3);
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transition: background 140ms var(--ease), color 140ms var(--ease);
+}
+
+.option.correct {
+  border-color: var(--good);
+  background: color-mix(in srgb, var(--good) 18%, var(--surface-2));
+}
+
+.option.correct .option-key {
+  background: var(--good);
+  color: #fff;
+}
+
+.option.wrong {
+  border-color: var(--critical);
+  background: color-mix(in srgb, var(--critical) 18%, var(--surface-2));
+  animation: shake 320ms var(--ease);
+}
+
+.option.wrong .option-key {
+  background: var(--critical);
+  color: #fff;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ---------------------------------------------------------------- *
+ * Feedback
+ * ---------------------------------------------------------------- */
+
+.feedback { margin-top: 16px; }
+
+.verdict {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 750;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.verdict.good { color: var(--good); }
+.verdict.bad { color: var(--critical); }
+
+.explanation { margin: 0 0 10px; color: var(--ink-2); }
+.ruleref { margin: 0 0 16px; color: var(--ink-3); font-size: 13px; }
+.note { color: var(--ink-3); font-size: 14px; margin: 10px 0; }
+.row { display: flex; gap: 9px; flex-wrap: wrap; }
+
+.primary, .secondary {
+  font: inherit;
+  font-weight: 650;
+  padding: 14px 22px;
+  min-height: var(--tap);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: transform 120ms var(--ease), filter 120ms var(--ease);
+}
+
+.primary { background: var(--accent); color: var(--accent-ink); border: none; }
+.secondary { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); }
+.primary:active, .secondary:active { transform: scale(0.97); }
+.secondary.danger { color: var(--critical); }
+
+/* The auto-advance timer on a correct answer, shown as a draining bar so the
+   pause is legible rather than the app just lurching onwards. */
+.autoadvance {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--surface-3);
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.autoadvance > div {
+  height: 100%;
+  background: var(--good);
+  transform-origin: left;
+  animation: drain var(--hold, 900ms) linear both;
+}
+
+@keyframes drain {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ---------------------------------------------------------------- *
+ * Scenarios
+ * ---------------------------------------------------------------- */
+
+.canvas-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #14140f;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.scenario-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.scenario-canvas.tappable { cursor: crosshair; }
+.scenario-controls { margin-top: 10px; }
+
+/* ---------------------------------------------------------------- *
+ * Bottom tab bar
+ * ---------------------------------------------------------------- */
+
+.tabbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 9px 4px 7px;
+  border: none;
+  background: none;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 160ms var(--ease);
+}
+
+.tab-glyph { font-size: 19px; line-height: 1; }
+.tab.active { color: var(--accent); }
+
+/* ---------------------------------------------------------------- *
+ * Progress — stat tiles and topic meters
+ * ---------------------------------------------------------------- */
+
+.hero {
+  text-align: center;
+  padding: 22px 18px;
+}
+
+.hero-value {
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-label { color: var(--ink-3); font-size: 14px; margin-top: 8px; }
+.hero-sub { color: var(--ink-2); font-size: 14px; margin-top: 12px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 10px; }
+.stat { background: var(--surface-2); border-radius: var(--radius-sm); padding: 13px; }
+.stat-value { font-size: 24px; font-weight: 750; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.stat-label { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+
+.meters { display: flex; flex-direction: column; gap: 13px; }
+
+.meter-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.meter-name { font-size: 14px; font-weight: 600; }
+
+/* The level is spelled out, never left to colour alone. */
+.meter-level { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.meter-level.good { color: var(--good); }
+.meter-level.warning { color: var(--warning); }
+.meter-level.critical { color: var(--critical); }
+.meter-level.neutral { color: var(--ink-3); }
+
+.meter-track { height: 7px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 4px; transition: width 500ms var(--ease); }
+.meter-fill.good { background: var(--good); }
+.meter-fill.warning { background: var(--warning); }
+.meter-fill.critical { background: var(--critical); }
+.meter-fill.neutral { background: var(--neutral); }
+
+.trend { width: 100%; height: 78px; }
+.trend-bar { fill: var(--accent); }
+.trend-bar.empty { fill: var(--surface-3); }
+.trend-axis { display: flex; justify-content: space-between; color: var(--ink-3); font-size: 12px; margin-top: 4px; }
+
+.sessions { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sessions th, .sessions td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+.sessions th { color: var(--ink-3); font-weight: 600; font-size: 12px; }
+.sessions td { font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- *
+ * Test mode
+ * ---------------------------------------------------------------- */
+
+.test-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pips { display: flex; gap: 3px; flex-wrap: wrap; }
+.pip { width: 7px; height: 7px; border-radius: 2px; background: var(--surface-3); }
+.pip.done { background: var(--accent); }
+
+.score-ring { display: block; margin: 0 auto 6px; }
+
+.banner { padding: 11px 16px; font-size: 14px; text-align: center; }
+.warn-banner { background: color-mix(in srgb, var(--critical) 18%, var(--bg)); color: var(--ink); }
+
+.error { border-color: var(--critical); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Test review — collapsed by default, because a test with twenty wrong
+   answers expanded in full is a page nobody scrolls to the end of. */
+.review { display: flex; flex-direction: column; gap: 2px; }
+
+.review-item {
+  border-top: 1px solid var(--line);
+  padding: 12px 0 10px;
+}
+
+.review-item:first-child { border-top: none; }
+
+.review-item > summary {
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.4;
+  list-style: none;
+  padding-right: 22px;
+  position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.review-item > summary::-webkit-details-marker { display: none; }
+
+.review-item > summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: var(--ink-3);
+  font-weight: 700;
+}
+
+.review-item[open] > summary::after { content: '−'; }

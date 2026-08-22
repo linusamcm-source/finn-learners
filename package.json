@@ -1,0 +1,19 @@
+{
+  "name": "learner-dash",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first adaptive road-rules practice for a Tasmanian learner driver",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}
