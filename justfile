@@ -11,27 +11,25 @@ setup:
     npm install
     cd ingest && uv sync
 
-# Run the API server and the Vite dev server together.
+# Run the app in development, on :5173.
 dev:
-    npx concurrently -n api,web -c blue,green "just serve" "npx vite"
-
-# API server only, on :8787.
-serve:
-    node --experimental-strip-types server/index.ts
-
-# SPA dev server only, on :5173.
-web:
     npx vite
 
 # Regenerate the PWA icon set into public/.
 icons:
     python3 scripts/make-icons.py
 
-# Typecheck and build the SPA into dist/, then wire up the service worker.
+# Typecheck and build the static site into dist/, ready to host anywhere.
 build:
     npx tsc -p tsconfig.json --noEmit
     npx vite build
+    node --experimental-strip-types scripts/copy-static.ts
     node --experimental-strip-types scripts/inject-sw-assets.ts
+
+# Serve the built site on :4173. This is the one to test the PWA against,
+# since the service worker only registers in a production build.
+preview: build
+    npx vite preview
 
 # Typecheck without emitting anything.
 typecheck:
@@ -65,10 +63,6 @@ reconcile-refs:
 # Everything the app reads, checked.
 content: verify-content
 
-# Remove the session database. Destroys all progress.
-reset-db:
-    rm -f data/learner-dash.db data/learner-dash.db-wal data/learner-dash.db-shm
-
-# Fill the database with demo practice history, so the parent view has data.
+# Write demo-progress.json, importable from the parent view for development.
 seed-demo:
     node --experimental-strip-types scripts/seed-demo.ts

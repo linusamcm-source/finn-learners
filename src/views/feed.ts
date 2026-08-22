@@ -5,8 +5,8 @@
  * fetch the next. There is no end state and no score to chase; the session
  * ends when the learner walks away.
  */
-import { api, endSessionOnUnload, OfflineError } from '../api.ts'
 import { clear, el } from '../dom.ts'
+import { PracticeSession } from '../store/practice.ts'
 import { ScenarioRenderer, hazardHit } from '../scenario/renderer.ts'
 import { TOPIC_LABELS, type FeedItem, type Question, type Scenario } from '../../shared/types.ts'
 
@@ -17,11 +17,13 @@ interface Outcome {
 
 export class FeedView {
   private readonly root: HTMLElement
-  private sessionId: number | null = null
+  private readonly session = new PracticeSession()
+  private started = false
   private answeredThisSession = 0
   private correctThisSession = 0
   private streak = 0
   private stopped = false
+  private warnedAboutStorage = false
 
   constructor(root: HTMLElement) {
     this.root = root
@@ -31,8 +33,8 @@ export class FeedView {
     this.stopped = false
     this.renderShell()
     try {
-      const session = await api.startSession()
-      this.sessionId = session.id
+      await this.session.start()
+      this.started = true
       window.addEventListener('pagehide', this.handleUnload)
     } catch (err) {
       return this.showError(err)
@@ -43,14 +45,20 @@ export class FeedView {
   stop(): void {
     this.stopped = true
     window.removeEventListener('pagehide', this.handleUnload)
-    if (this.sessionId !== null) {
-      void api.endSession(this.sessionId).catch(() => {})
-      this.sessionId = null
+    if (this.started) {
+      this.started = false
+      void this.session.end().catch(() => {})
     }
   }
 
+  /**
+   * Closing the session on the way out is best effort — an IndexedDB write
+   * during pagehide may not finish. It does not need to: a session left open
+   * is treated as ending at its last answer, which is the honest reading
+   * anyway when someone swipes the app away mid-question.
+   */
   private handleUnload = (): void => {
-    if (this.sessionId !== null) endSessionOnUnload(this.sessionId)
+    if (this.started) void this.session.end().catch(() => {})
   }
 
   private renderShell(): void {
@@ -80,18 +88,40 @@ export class FeedView {
   }
 
   private showError(err: unknown): void {
-    const offline = err instanceof OfflineError
     clear(this.stage)
     this.stage.append(
       el('div', { class: 'card error' }, [
-        el('h2', {}, [offline ? 'Cannot reach the server' : 'Something went wrong']),
+        el('h2', {}, ['Something went wrong']),
         el('p', {}, [err instanceof Error ? err.message : String(err)]),
-        offline
-          ? el('p', { class: 'muted' }, [
-              'The app itself is installed and its questions are cached, so this screen works offline — but answers are recorded on the server, and practising without recording it would lose the progress.',
-            ])
-          : null,
-        el('button', { class: 'primary', onclick: () => void this.loop() }, ['Try again']),
+        el('button', { class: 'primary', onclick: () => void this.start() }, ['Try again']),
+      ]),
+    )
+  }
+
+  private showNoContent(): void {
+    clear(this.stage)
+    this.stage.append(
+      el('div', { class: 'card error' }, [
+        el('h2', {}, ['No questions loaded']),
+        el('p', {}, [
+          'content/questions.json and content/scenarios.json could not be read. If this is a fresh deployment, check they were published alongside the app.',
+        ]),
+        el('button', { class: 'primary', onclick: () => void this.start() }, ['Try again']),
+      ]),
+    )
+  }
+
+  /**
+   * Shown once per session if a write fails. Repeating it after every question
+   * would bury the practice itself.
+   */
+  private warnOnce(): void {
+    if (this.warnedAboutStorage) return
+    this.warnedAboutStorage = true
+    const bar = this.root.querySelector('.bar')
+    bar?.after(
+      el('div', { class: 'banner warn-banner' }, [
+        'Progress could not be saved on this device. Practice still works, but this session will not appear in the parent view.',
       ]),
     )
   }
@@ -99,12 +129,8 @@ export class FeedView {
   /** The endless loop itself. */
   private async loop(): Promise<void> {
     while (!this.stopped) {
-      let item: FeedItem
-      try {
-        item = await api.nextItem()
-      } catch (err) {
-        return this.showError(err)
-      }
+      const item = this.session.nextItem()
+      if (!item) return this.showNoContent()
 
       const outcome =
         item.kind === 'question'
@@ -122,18 +148,18 @@ export class FeedView {
       }
       this.updateStats()
 
-      if (this.sessionId !== null) {
-        await api
-          .recordAnswer({
-            sessionId: this.sessionId,
-            itemId: item.id,
-            topic: item.topic,
-            correct: outcome.correct,
-            responseTimeMs: outcome.responseTimeMs,
-          })
-          .catch(() => {
-            // A dropped answer should not end the session — the learner keeps going.
-          })
+      try {
+        await this.session.record({
+          itemId: item.id,
+          topic: item.topic,
+          correct: outcome.correct,
+          responseTimeMs: outcome.responseTimeMs,
+        })
+      } catch (err) {
+        // A failed write should not end the session mid-flow, but it must not
+        // pass silently either — the learner would be practising into a void.
+        console.error('[practice] could not record answer:', err)
+        this.warnOnce()
       }
     }
   }

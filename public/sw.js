@@ -1,21 +1,14 @@
 /**
  * Service worker for learner-dash.
  *
- * Scope of what this does and does not do:
- *
- *   - It caches the app shell and the content files, so the app opens and can
- *     serve questions with no network. That is what makes it usable on a phone
- *     in a car park with one bar of signal.
- *   - It never caches /api. Session and answer data must be live: a cached
- *     answer response would silently lose a learner's progress, and a cached
- *     summary would show a parent stale numbers. API requests offline fail,
- *     and the app surfaces that rather than pretending.
+ * The app has no backend: content is static JSON and progress lives in the
+ * browser's IndexedDB. So everything the app fetches is cacheable, and once
+ * this worker has installed, the app runs with no network at all — which is
+ * the whole point of it being installable on a phone.
  *
  * A service worker only runs in a secure context: HTTPS, or localhost. Over a
- * plain-HTTP LAN address iOS will not register it, so the app still works but
- * without offline caching. See the PWA section of the README.
- *
- * Bump CACHE whenever the shell changes, so old entries are dropped.
+ * plain-HTTP LAN address iOS will not register it, so the app still loads but
+ * has no offline support. See the PWA section of the README.
  */
 
 /*
@@ -30,29 +23,40 @@ const BUILD_ASSETS = []
 
 const CACHE = `learner-dash-${BUILD_ID}`
 
-/** Cached on install so a cold, offline start still works. */
-const SHELL = [
+/**
+ * Without every one of these the app cannot start offline, so installation
+ * must fail rather than half-succeed: a worker that activates with an
+ * incomplete cache deletes the previous one and leaves the app unable to
+ * open at all. That is not hypothetical — it is what happens when someone
+ * opens the app just as a new version is published and then loses signal.
+ */
+const CRITICAL = [
   '/',
   '/index.html',
-  '/manifest.webmanifest',
-  '/apple-touch-icon.png',
-  '/icon-192.png',
-  '/icon-512.png',
   '/content/questions.json',
   '/content/scenarios.json',
   ...BUILD_ASSETS,
 ]
 
+/** Nice to have offline, but not worth failing an install over. */
+const OPTIONAL = [
+  '/manifest.webmanifest',
+  '/apple-touch-icon.png',
+  '/icon-192.png',
+  '/icon-512.png',
+]
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE).then(async (cache) => {
-      // addAll rejects the whole batch if any single request fails, and a
-      // missing optional file should not block installation.
-      await Promise.all(
-        SHELL.map((url) => cache.add(url).catch(() => undefined)),
-      )
+    (async () => {
+      const cache = await caches.open(CACHE)
+      // addAll is atomic: if any of these fail the install fails, the old
+      // worker stays in charge, and its cache is left alone.
+      await cache.addAll(CRITICAL)
+      await Promise.all(OPTIONAL.map((url) => cache.add(url).catch(() => undefined)))
+      // Only now is it safe to take over from the previous worker.
       await self.skipWaiting()
-    }),
+    })(),
   )
 })
 
@@ -66,6 +70,20 @@ self.addEventListener('activate', (event) => {
   )
 })
 
+/**
+ * Cache lookup, ignoring Vary.
+ *
+ * This matters more than it looks. Static hosts commonly send `Vary: Origin`
+ * on assets. The worker's own precache fetch carries no Origin header, but the
+ * page's module-script request does — so a strict match misses a file that is
+ * definitely cached, and the app fails to start offline with its bundle
+ * sitting right there. There is only one origin here and one variant of each
+ * file, so ignoring Vary is correct as well as convenient.
+ */
+function matchCached(cache, request) {
+  return cache.match(request, { ignoreVary: true })
+}
+
 /** Network first, falling back to whatever was cached. */
 async function networkFirst(request, fallbackUrl) {
   const cache = await caches.open(CACHE)
@@ -74,12 +92,15 @@ async function networkFirst(request, fallbackUrl) {
     if (response.ok) cache.put(request, response.clone())
     return response
   } catch {
-    const cached = await cache.match(request)
+    const cached = await matchCached(cache, request)
     if (cached) return cached
-    if (fallbackUrl) {
-      const fallback = await cache.match(fallbackUrl)
+    // '/' and '/index.html' are the same page but distinct cache keys, so a
+    // miss on one should still find the other.
+    for (const url of ['/index.html', '/']) {
+      const fallback = await matchCached(cache, url)
       if (fallback) return fallback
     }
+    void fallbackUrl
     throw new Error('offline and nothing cached')
   }
 }
@@ -87,7 +108,7 @@ async function networkFirst(request, fallbackUrl) {
 /** Serve from cache immediately, refresh in the background for next time. */
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE)
-  const cached = await cache.match(request)
+  const cached = await matchCached(cache, request)
   const network = fetch(request)
     .then((response) => {
       if (response.ok) cache.put(request, response.clone())
@@ -103,9 +124,6 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url)
   if (url.origin !== self.location.origin) return
-
-  // Never cache the API. Stale progress data is worse than an honest failure.
-  if (url.pathname.startsWith('/api/')) return
 
   // Navigations: try the network so a redeploy is picked up, fall back to the
   // cached shell so the app opens offline.
@@ -133,7 +151,7 @@ self.addEventListener('fetch', (event) => {
   if (url.pathname.startsWith('/assets/')) {
     event.respondWith(
       caches.open(CACHE).then(async (cache) => {
-        const cached = await cache.match(request)
+        const cached = await matchCached(cache, request)
         if (cached) return cached
         const response = await fetch(request)
         if (response.ok) cache.put(request, response.clone())

@@ -3,28 +3,33 @@
 An endless, adaptive stream of Tasmanian road-rules practice for one learner
 driver, with a parent view showing what has actually been happening.
 
-Local only: no accounts, no cloud, no deployment. It runs on localhost against
-a SQLite file.
+Local-first and installable: it is a static site with no backend. Content is
+JSON, progress lives in the browser's IndexedDB, and once installed on a phone
+it works with no network at all.
 
 Built to the spec in [`docs/learner-dash-spec.md`](docs/learner-dash-spec.md).
+See [Departures from the spec](#departures-from-the-spec) for where it now
+differs and why.
 
 ## Running it
 
 ```sh
 just setup     # npm install, plus uv sync for the ingestion script
-just dev       # API on :8787, app on :5173
+just dev       # http://localhost:5173
 ```
 
-Then open http://localhost:5173. The parent view is at `#/parent`.
+The parent view is at `#/parent`.
 
-For a single-process run, `just build && just serve` serves the built app and
-the API together on :8787.
-
-To see the parent view with data in it before any real practice has happened:
+To test the installable app — the service worker only registers in a
+production build:
 
 ```sh
-just seed-demo
+just preview   # builds, then serves dist/ on http://localhost:4173
 ```
+
+To see the parent view with data in it before any real practice has happened,
+run `just seed-demo` and import the resulting `demo-progress.json` from the
+parent view.
 
 ## Commands
 
@@ -36,16 +41,16 @@ the recipes; this is the same list with a bit more context.
 | Command | What it does |
 | --- | --- |
 | `just setup` | `npm install`, plus `uv sync` for the ingestion script. Run once. |
-| `just dev` | API on :8787 and the Vite dev server on :5173, together. The usual way to work. |
-| `just serve` | API server only, on :8787. Also serves `dist/` if you have built it. |
-| `just web` | Vite dev server only, on :5173. Needs `just serve` running alongside it. |
-| `just build` | Typecheck, then build the SPA into `dist/`. |
+| `just dev` | Vite dev server on :5173. The usual way to work. |
+| `just build` | Typecheck, build to `dist/`, copy content and assets in, wire up the service worker. |
+| `just preview` | Builds, then serves `dist/` on :4173. Use this to test the PWA. |
+| `just icons` | Regenerate the PWA icon set from `scripts/make-icons.py`. |
 
 ### Checks
 
 | Command | What it does |
 | --- | --- |
-| `just test` | The full suite — feed engine, scenario geometry, stats, and content invariants. |
+| `just test` | The full suite — feed engine, scenario geometry, derived stats, content invariants. |
 | `just typecheck` | TypeScript only, no build. |
 | `just verify-content` | Checks the question bank and scenarios: schema, duplicate ids, topic coverage, answer key balance, and whether each `ruleRef` resolves against an ingested handbook. Exits non-zero only on something the app would serve wrongly. |
 | `just content` | Alias for `verify-content`. |
@@ -56,14 +61,8 @@ the recipes; this is the same list with a bit more context.
 | --- | --- |
 | `just ingest` | Phase 1. Downloads the Tasmanian Road Rules Handbook and extracts it to `content/handbook.json` plus diagrams in `assets/handbook/`. Needs network access to transport.tas.gov.au. |
 | `just ingest-local <pdf>` | Same extraction from a PDF you already have — use this when the download fails. Example: `just ingest-local ~/Downloads/handbook.pdf`. |
-| `just reconcile-refs` | Fills in `ruleRef` page numbers from `content/handbook.json` where a section matches unambiguously, and leaves the rest null. Writes back to `content/questions.json`. Run `just ingest` first. |
-
-### Database
-
-| Command | What it does |
-| --- | --- |
-| `just seed-demo` | Fills the database with plausible practice history so the parent view has something to draw. Development aid — it writes to the same database the app uses. |
-| `just reset-db` | Deletes `data/learner-dash.db`. **Destroys all progress**, so run it before `just seed-demo` if you want the demo data on its own. |
+| `just reconcile-refs` | Fills in `ruleRef` page numbers from `content/handbook.json` where a section matches unambiguously, and leaves the rest null. Run `just ingest` first. |
+| `just seed-demo` | Writes `demo-progress.json` in the app's own export format. Import it from the parent view. Development aid. |
 
 ### Typical sequences
 
@@ -92,68 +91,22 @@ just verify-content
 
 ## Installing it on an iPhone
 
-The app is a progressive web app: it can be added to the iOS home screen, opens
-without browser chrome, and caches its shell and all 216 questions and
-scenarios for offline use.
-
-**On the phone**, open the app in Safari, tap Share, then *Add to Home Screen*.
-It gets the L-plate icon and opens as its own app.
+`dist/` is a plain static site. Put it on any static host — or open
+`just preview` over HTTPS — then in Safari tap Share, then *Add to Home
+Screen*. It gets the L-plate icon and opens as its own app, and after the
+first load it needs no network for anything.
 
 ### The secure-context requirement
 
 A service worker — which is what does the offline caching — only runs in a
-**secure context**: HTTPS, or `localhost`. That has a practical consequence:
-
-| How the phone reaches the app | Installs to home screen | Offline caching |
-| --- | --- | --- |
-| `http://192.168.x.x:8787` (plain LAN address) | Yes | **No** — Safari refuses to register the worker |
-| `https://…` (any trusted certificate) | Yes | Yes |
-
-So over a plain LAN address you get a home-screen app that still needs the
-laptop reachable for every screen. To get the offline shell you need HTTPS with
-a certificate the phone trusts. The least painful ways:
-
-- **Tailscale** on the laptop and the phone, then `tailscale serve` in front of
-  port 8787. You get a real certificate and a stable hostname, the phone can
-  reach it from anywhere, and nothing is exposed publicly.
-- **A tunnel** such as `cloudflared` or `ngrok`, if you only need it briefly.
+**secure context**: HTTPS, or `localhost`. Over a plain-HTTP LAN address
+Safari will add the app to the home screen but refuse to register the worker,
+so it will need the network every time. Any HTTPS static host solves this;
+so does a tunnel such as `cloudflared`, or Tailscale Serve if you would rather
+not publish it.
 
 `src/pwa.ts` checks `window.isSecureContext` and logs a note rather than
 failing silently, so it is clear which mode you are in.
-
-### What works offline, and what does not
-
-Cached and available offline: the app shell, `questions.json`,
-`scenarios.json`, the icons, and any handbook diagrams already fetched.
-
-**Not** cached: anything under `/api`. Sessions and answers are deliberately
-never served from cache — a cached answer response would silently drop a
-learner's progress, and a cached summary would show a parent stale numbers. So
-with the server unreachable the app opens and explains the situation rather
-than letting someone practise into a void.
-
-If you want practice to work with no server at all, that is a real change of
-architecture rather than a setting: answers would have to be stored on the
-phone (IndexedDB) and either stay there or sync back later. See the note at the
-end of this section.
-
-### Building and testing it
-
-The service worker is only registered in a production build — in development
-Vite serves unhashed modules and a worker caching them fights hot reload:
-
-```sh
-just build
-just serve      # then open http://localhost:8787
-```
-
-`just build` runs `scripts/inject-sw-assets.ts` after Vite, which writes the
-content-hashed asset filenames into `dist/sw.js`. Without that step the worker
-caches the HTML but not the app bundle, and a cold offline start renders an
-empty page. The injected build id also doubles as the cache version, so each
-build evicts the previous cache automatically.
-
-`just icons` regenerates the icon set from `scripts/make-icons.py`.
 
 ### iOS details that are handled
 
@@ -169,34 +122,86 @@ build evicts the previous cache automatically.
   reason — `click` can lag the actual tap on touch.
 - `overscroll-behavior-y: none`, because with no browser chrome the rubber-band
   bounce reads as the app coming loose.
+- Export uses the iOS share sheet when it is available; a plain download link
+  often just opens the JSON in a tab instead of saving it.
 
-### One thing to know about iOS storage
+### Two things the service worker gets right that are easy to get wrong
 
-iOS evicts data belonging to web apps that have not been used for a stretch
-(roughly a week). That does not affect this app today, because progress lives
-in SQLite on the server rather than on the phone — but it is the main argument
-against moving storage onto the device.
+Both of these were real failures caught while testing, not theoretical:
+
+1. **Installation is atomic.** `cache.addAll()` is used for the files without
+   which the app cannot start, so a partial precache fails the install and the
+   previous worker stays in charge with its cache intact. Best-effort caching
+   would let a worker activate with an incomplete cache, delete the old one,
+   and leave the app unable to open — which is exactly what happens if someone
+   opens it as a new version publishes and then loses signal.
+
+2. **Cache lookups ignore `Vary`.** Static hosts commonly send `Vary: Origin`
+   on assets. The worker's own precache fetch sends no `Origin` header but the
+   page's module-script request does, so a strict `cache.match()` misses a
+   bundle that is definitely cached, and the app fails to start offline with
+   its own JavaScript sitting right there.
+
+## Where progress is stored
+
+In this browser, on this device, in IndexedDB — two object stores mirroring
+the spec's two tables:
+
+- `sessions` — `id, startedAt, endedAt, itemCount`
+- `answers` — `id, sessionId, itemId, topic, correct, responseTimeMs, answeredAt`
+
+There is no server and no sync. That has two consequences worth understanding:
+
+**iOS evicts web app storage that goes unused**, on the order of a week. The
+app asks for persistent storage on first use, which Safari grants far more
+readily to an installed home-screen app than to a tab, but it is a request and
+not a guarantee.
+
+**A parent has to look at the learner's phone**, unless progress is moved.
+
+The parent view therefore offers **Export progress**, **Import a file** and
+**Erase all progress**. Export writes the app's own JSON format; import merges
+it back. Answers carry a stable client-generated id, so importing the same
+file twice adds nothing the second time, and importing an older backup
+alongside newer practice merges rather than overwrites. Exporting occasionally
+is the backup strategy, and it is also how a parent gets the numbers onto their
+own device.
+
+Sessions are re-keyed on import, because their ids autoincrement and would
+otherwise collide with sessions recorded since the export.
 
 ## How it fits together
 
 ```
-ingest/          Python + uv + pdfplumber: handbook PDF -> content/handbook.json
-content/         questions.json, scenarios.json, handbook.json — what the app serves
-assets/handbook/ diagrams cropped out of the handbook PDF
-shared/types.ts  the data contract shared by the server, the app and the scripts
-server/          Node API, SQLite storage, feed selection, parent stats
-src/             the SPA: feed view, parent view, canvas scenario renderer
-scripts/         content verification, rule-reference reconciliation, demo seed
-tests/           feed engine, geometry, stats, and checks over the content itself
+ingest/            Python + uv + pdfplumber: handbook PDF -> content/handbook.json
+content/           questions.json, scenarios.json, handbook.json — what the app serves
+assets/handbook/   diagrams cropped out of the handbook PDF
+public/            manifest, icons, service worker
+shared/types.ts    the data contract shared by the app and the scripts
+src/content/       validate.ts (pure, shared with the scripts) and load.ts (fetch)
+src/feed/          item selection: topic weighting and spaced repetition
+src/store/         derive.ts (pure), idb.ts (IndexedDB), practice.ts (session)
+src/scenario/      geometry and the canvas renderer
+src/views/         feed view, parent view
+scripts/           content verification, ref reconciliation, icons, build steps
+tests/             feed engine, geometry, derived stats, and checks over the content
 ```
-
-Every task is listed under [Commands](#commands) above.
 
 ### Plain TypeScript, no framework
 
 The spec allowed React, Preact, or plain TypeScript with a small router. There
 are two screens and one canvas, so plain TypeScript with a hash router is the
-smaller thing to maintain — the whole SPA is about 20 kB.
+smaller thing to maintain — the whole app is about 34 kB.
+
+### Pure functions, thin storage
+
+Everything computed from the answer history — streaks, dueness, topic accuracy,
+the parent summary — lives in `src/store/derive.ts` as pure functions over
+plain arrays. `idb.ts` does nothing but read and write rows.
+
+That split is what keeps the logic testable in Node, where there is no
+IndexedDB, and it means nothing derived is ever persisted: no cached streak or
+mastery score can fall out of step with the answers it came from.
 
 ## The content pipeline
 
@@ -212,15 +217,11 @@ perception and 8 rules questions. The renderer reads only the schema, so a new
 scenario is a JSON entry and never a code change. `scripts/make-seed-scenarios.ts`
 laid out the seeds; the JSON is the source of truth once generated.
 
-Check both at any time:
-
-```sh
-just verify-content
-```
+Check both at any time with `just verify-content`.
 
 ## Read this before using it to study
 
-**Every question and scenario currently has `"verified": false`.** They were
+**Every question and scenario currently has `"verified": false.`** They were
 written from the Australian Road Rules and general road-safety knowledge, not
 transcribed from the Tasmanian handbook, because the handbook could not be
 downloaded in the environment where this was built.
@@ -250,7 +251,7 @@ you confirm each item. The parent view shows how many are still outstanding.
 
 ## How the feed chooses what to show next
 
-Two things multiply together, in `server/feed.ts`:
+Two things multiply together, in `src/feed/select.ts`:
 
 **Topic weight**, from recent per-topic accuracy. A mastered topic bottoms out
 at 0.5 and a topic being got wrong every time tops out at 2.5, so the weakest
@@ -266,13 +267,10 @@ The result is a weighted random draw rather than a strict maximum, so the feed
 does not march through the pool in the same order every session. Recently seen
 items are held back, and two scenarios never appear back to back.
 
-Spaced repetition state is derived from the `answers` table rather than cached
-in its own table, so it cannot drift out of step with the answer history.
-
 ## Testing
 
 ```sh
-just test        # 64 tests: feed engine, geometry, stats, content invariants
+just test        # 71 tests
 just typecheck
 ```
 
@@ -282,11 +280,18 @@ every hazard is actually visible during its response window, and that vehicles
 in scenarios are on the correct side of the road. That last one caught four
 seed scenarios with cars driving on the wrong side.
 
-## Storage
+## Departures from the spec
 
-`data/learner-dash.db`, created on first run. Two tables, per the spec:
+The spec called for SQLite via better-sqlite3 behind a minimal Node server on
+localhost. The app now stores progress in the browser's IndexedDB and has no
+server at all.
 
-- `sessions` — `id, startedAt, endedAt, itemCount`
-- `answers` — `id, sessionId, itemId, topic, correct, responseTimeMs, answeredAt`
+That was a deliberate change, made so the app can be installed on a phone and
+used anywhere: an iOS home-screen app cannot reach a laptop's localhost, and
+requiring the laptop to be awake and on the same network would have meant no
+practice on the bus. The schema, the two-table shape and every piece of logic
+above it are unchanged — the storage layer was swapped, not the design.
 
-`just reset-db` deletes it and all progress with it.
+The costs are real and are covered under [Where progress is
+stored](#where-progress-is-stored): iOS may evict the data, and a parent has to
+either use the learner's phone or import an exported file.

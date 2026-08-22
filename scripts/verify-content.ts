@@ -11,11 +11,11 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { loadContent } from '../server/content.ts'
+import { readContent } from './lib/read-content.ts'
 import { TOPICS, type Handbook, type RuleRef } from '../shared/types.ts'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const content = loadContent(root)
+const content = readContent(root)
 
 let failed = false
 const say = (line = ''): void => console.log(line)

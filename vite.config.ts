@@ -1,18 +1,19 @@
 import { defineConfig } from 'vite'
 
-// The Node API server owns /api, /content and /assets; Vite proxies them in dev
-// so the SPA sees the same URL shape in dev and in a built run.
-const API = 'http://localhost:8787'
-
+/**
+ * The app is entirely static: content is fetched as JSON and progress lives in
+ * the browser's IndexedDB, so there is no server to proxy to. `content/` and
+ * `assets/` sit outside `public/` because they are also read by the Python
+ * ingestion pipeline and the verification scripts, so they are published as
+ * extra static roots rather than copied.
+ */
 export default defineConfig({
   server: {
     port: 5173,
-    proxy: {
-      '/api': API,
-      '/content': API,
-      '/assets': API,
-    },
+    fs: { allow: ['..'] },
   },
+  preview: { port: 4173 },
+  publicDir: 'public',
   build: {
     outDir: 'dist',
     emptyOutDir: true,

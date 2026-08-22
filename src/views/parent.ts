@@ -5,8 +5,18 @@
  * this week, how much all up, which topics are weak, and whether it is
  * trending anywhere.
  */
-import { api } from '../api.ts'
 import { clear, el, formatPercent } from '../dom.ts'
+import { loadContent } from '../content/load.ts'
+import { summarise } from '../store/derive.ts'
+import {
+  allAnswers,
+  allSessions,
+  exportProgress,
+  importProgress,
+  isPersisted,
+  requestPersistentStorage,
+  resetProgress,
+} from '../store/idb.ts'
 import type { ParentSummary, TopicStat, TrendPoint } from '../../shared/types.ts'
 
 export class ParentView {
@@ -28,9 +38,19 @@ export class ParentView {
 
     const stage = this.root.querySelector('#stage') as HTMLElement
     try {
-      const summary = await api.summary()
+      const [content, sessions, answers, persisted] = await Promise.all([
+        loadContent(),
+        allSessions(),
+        allAnswers(),
+        isPersisted(),
+      ])
+      const summary = summarise(sessions, answers, {
+        questions: content.questions.length,
+        scenarios: content.scenarios.length,
+        unverified: content.unverified,
+      })
       clear(stage)
-      stage.append(...this.render(summary))
+      stage.append(...this.render(summary), this.dataCard(persisted))
     } catch (err) {
       clear(stage)
       stage.append(
@@ -43,6 +63,98 @@ export class ParentView {
 
   stop(): void {
     // Nothing to tear down — the view holds no timers or listeners.
+  }
+
+  /**
+   * Progress lives only on this device, so the parent view owns backing it up.
+   *
+   * Two reasons this matters more than it would with a server: iOS evicts data
+   * belonging to web apps that go unused for a stretch, and a parent otherwise
+   * has to pick up the learner's phone to see any of this.
+   */
+  private dataCard(persisted: boolean): HTMLElement {
+    const status = el('p', { class: 'muted' }, [])
+
+    const card = el('section', { class: 'card' }, [
+      el('h2', {}, ['This device holds the only copy']),
+      el('p', { class: 'muted' }, [
+        persisted
+          ? 'The browser has been asked to keep this data and agreed. It is still worth exporting a copy now and then.'
+          : 'The browser has not guaranteed to keep this data, and iOS clears web app storage that goes unused for a while. Export a copy to be safe.',
+      ]),
+      el('div', { class: 'row' }, [
+        el('button', { class: 'secondary', onclick: () => void this.doExport(status) }, [
+          'Export progress',
+        ]),
+        el('button', { class: 'secondary', onclick: () => void this.doImport(status) }, [
+          'Import a file',
+        ]),
+        el('button', { class: 'secondary danger', onclick: () => void this.doReset(status) }, [
+          'Erase all progress',
+        ]),
+      ]),
+      status,
+    ])
+    return card
+  }
+
+  private async doExport(status: HTMLElement): Promise<void> {
+    try {
+      const data = await exportProgress()
+      const stamp = data.exportedAt.slice(0, 10)
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+      const file = `learner-dash-progress-${stamp}.json`
+
+      // On iOS the share sheet is how a file actually leaves the phone; a
+      // download link often just opens the JSON in a tab.
+      const shareable = typeof File !== 'undefined' ? new File([blob], file, { type: 'application/json' }) : null
+      if (shareable && navigator.canShare?.({ files: [shareable] })) {
+        await navigator.share({ files: [shareable], title: 'learner-dash progress' })
+        status.textContent = `Shared ${data.answers.length} answers.`
+        return
+      }
+
+      const url = URL.createObjectURL(blob)
+      const link = el('a', { href: url, download: file })
+      link.click()
+      URL.revokeObjectURL(url)
+      status.textContent = `Exported ${data.answers.length} answers across ${data.sessions.length} sessions.`
+    } catch (err) {
+      status.textContent = `Export failed: ${err instanceof Error ? err.message : String(err)}`
+    }
+  }
+
+  private async doImport(status: HTMLElement): Promise<void> {
+    const input = el('input', { type: 'file', accept: 'application/json,.json' })
+    input.addEventListener('change', () => {
+      void (async () => {
+        const file = input.files?.[0]
+        if (!file) return
+        try {
+          const result = await importProgress(JSON.parse(await file.text()))
+          status.textContent =
+            `Imported ${result.answersAdded} answers` +
+            (result.answersSkipped > 0 ? `, skipped ${result.answersSkipped} already present.` : '.')
+          await this.start()
+        } catch (err) {
+          status.textContent = `Import failed: ${err instanceof Error ? err.message : String(err)}`
+        }
+      })()
+    })
+    input.click()
+  }
+
+  private async doReset(status: HTMLElement): Promise<void> {
+    if (!window.confirm('Erase all recorded sessions and answers on this device? This cannot be undone.')) {
+      return
+    }
+    try {
+      await resetProgress()
+      void requestPersistentStorage()
+      await this.start()
+    } catch (err) {
+      status.textContent = `Could not erase: ${err instanceof Error ? err.message : String(err)}`
+    }
   }
 
   private render(summary: ParentSummary): HTMLElement[] {

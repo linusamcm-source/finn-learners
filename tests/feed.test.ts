@@ -11,7 +11,7 @@ import {
   topicWeight,
   type HistoryEntry,
   type SelectionState,
-} from '../server/feed.ts'
+} from '../src/feed/select.ts'
 import type { FeedItem, Question, Scenario, Topic } from '../shared/types.ts'
 
 const NOW = 1_700_000_000_000

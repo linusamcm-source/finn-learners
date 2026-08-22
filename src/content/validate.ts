@@ -1,7 +1,16 @@
-import { readFileSync, existsSync } from 'node:fs'
-import { join } from 'node:path'
-import { repoRoot } from './db.ts'
-import { isTopic, type FeedItem, type Question, type Scenario } from '../shared/types.ts'
+/**
+ * Content validation, shared by the app and by `just verify-content`.
+ *
+ * Pure: it takes already-parsed arrays and returns what is safe to serve. The
+ * browser fetches the JSON and the verification script reads it off disk, but
+ * both judge it by exactly these rules — a question that would mislead a
+ * learner should never be servable from one path and rejected by the other.
+ *
+ * Anything that would teach something wrong (a correctIndex past the end of
+ * the options, a duplicate id shadowing another item) is dropped rather than
+ * served, and the reason is collected for reporting.
+ */
+import { isTopic, type FeedItem, type Question, type Scenario } from '../../shared/types.ts'
 
 export interface ContentPack {
   questions: Question[]
@@ -11,22 +20,10 @@ export interface ContentPack {
   problems: string[]
 }
 
-function readJson<T>(path: string, fallback: T): T {
-  if (!existsSync(path)) return fallback
-  return JSON.parse(readFileSync(path, 'utf8')) as T
-}
-
-/**
- * Load and validate the question bank and scenario set.
- *
- * Validation is deliberately strict about anything that would mislead the
- * learner — a correctIndex pointing past the end of the options, a duplicate
- * id shadowing another item — and those items are dropped rather than served.
- * Problems are collected so `just verify-content` can report them.
- */
-export function loadContent(root: string = repoRoot): ContentPack {
-  const questions = readJson<Question[]>(join(root, 'content', 'questions.json'), [])
-  const scenarios = readJson<Scenario[]>(join(root, 'content', 'scenarios.json'), [])
+export function validateContent(
+  questions: readonly Question[],
+  scenarios: readonly Scenario[],
+): ContentPack {
   const problems: string[] = []
   const seen = new Set<string>()
 

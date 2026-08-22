@@ -247,3 +247,29 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Destructive action: visually distinct, but not so loud it reads as an
+   error state on a screen a parent looks at regularly. */
+.secondary.danger {
+  color: var(--bad);
+  border-color: #e6c3bd;
+}
+
+.secondary.danger:hover {
+  border-color: var(--bad);
+  background: #fbecea;
+}
+
+/* Shown across the top when something needs saying without interrupting
+   practice — currently only a failure to write progress to this device. */
+.banner {
+  padding: 10px calc(16px + env(safe-area-inset-right)) 10px calc(16px + env(safe-area-inset-left));
+  font-size: 14px;
+  text-align: center;
+}
+
+.warn-banner {
+  background: #fbecea;
+  color: var(--bad);
+  border-bottom: 1px solid #e6c3bd;
+}

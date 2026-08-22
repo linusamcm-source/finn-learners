@@ -4,11 +4,11 @@
  */
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
-import { loadContent } from '../server/content.ts'
+import { readContent } from '../scripts/lib/read-content.ts'
 import { TOPICS, type Topic } from '../shared/types.ts'
 import { actorPlacement, egoPlacement } from '../src/scenario/geometry.ts'
 
-const content = loadContent()
+const content = readContent()
 
 describe('the question bank', () => {
   test('loads without rejecting anything', () => {

@@ -22,7 +22,7 @@
  * the certain one, or the feed marches through the pool in lockstep.
  */
 
-import type { FeedItem, Topic } from '../shared/types.ts'
+import type { FeedItem, Topic } from '../../shared/types.ts'
 
 export interface HistoryEntry {
   attempts: number
