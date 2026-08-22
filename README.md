@@ -259,13 +259,24 @@ topic comes up about five times as often as the strongest. A topic with fewer
 than four answers gets an exploration boost instead of a judgement.
 
 **Dueness**, per item. Each consecutive correct answer moves an item up a
-ladder of intervals — 90 seconds, 10 minutes, an hour, a day, three days, a
+ladder of intervals — 10 minutes, half an hour, an hour, a day, three days, a
 week, three weeks. A wrong answer drops it straight back to the bottom, so a
 missed question returns within the same sitting.
 
+Unseen questions are weighted above a review that has merely come due, but
+below one that is badly overdue. That ordering is what stops a session
+becoming the same handful of items on a loop while most of the bank has never
+been shown, without starving review.
+
 The result is a weighted random draw rather than a strict maximum, so the feed
 does not march through the pool in the same order every session. Recently seen
-items are held back, and two scenarios never appear back to back.
+items are held back — a quarter of the pool, so 54 items with the bank as it
+stands — and two scenarios never appear back to back.
+
+`tests/feed.test.ts` simulates a half-hour sitting and asserts the outcome
+rather than only the rules: at least 110 of 120 questions distinct, and
+nothing repeating inside 20 questions. An earlier tuning passed every
+unit test while repeating about a quarter of a sitting.
 
 ## Testing
 

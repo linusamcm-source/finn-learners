@@ -47,8 +47,18 @@ export interface SelectionState {
 }
 
 export interface SelectionOptions {
-  /** How many recently served items are excluded from the next draw. */
+  /**
+   * Minimum number of recently served items excluded from the next draw. The
+   * effective cooldown scales with the pool (see cooldownFor), so this is a
+   * floor for small banks rather than the usual value.
+   */
   cooldown: number
+  /**
+   * Fraction of the pool held back after being served. With a few hundred
+   * items a flat cooldown is far too permissive: blocking only the last dozen
+   * lets a question return while most of the bank is still unseen.
+   */
+  cooldownFraction: number
   /** Answers in a topic before its real accuracy is trusted. */
   minTopicSample: number
   /** Scenarios are slower to work through, so they are damped down. */
@@ -58,6 +68,7 @@ export interface SelectionOptions {
 
 export const DEFAULT_OPTIONS: SelectionOptions = {
   cooldown: 12,
+  cooldownFraction: 0.25,
   minTopicSample: 4,
   scenarioWeight: 0.45,
   rng: Math.random,
@@ -69,8 +80,8 @@ export const DEFAULT_OPTIONS: SelectionOptions = {
  * inside 90 seconds; a mastered one falls to roughly once every three weeks.
  */
 export const INTERVALS_MS = [
-  90_000, //  0 — just missed
-  600_000, //  1 — ten minutes
+  600_000, //  0 — just missed: later in this sitting, not six questions later
+  1_800_000, //  1 — half an hour
   3_600_000, //  2 — an hour
   86_400_000, //  3 — a day
   259_200_000, //  4 — three days
@@ -85,10 +96,16 @@ export function intervalFor(streak: number): number {
 
 /**
  * How overdue an item is, as a multiple of its own interval. 1.0 means due
- * now. Unseen items sit just above 1 so new material mixes in readily while
- * still yielding to something badly overdue.
+ * now.
+ *
+ * Unseen items sit well above 1 deliberately. With a couple of hundred
+ * questions, most of which the learner has never seen, a question that has
+ * merely come due should not outrank new material — that is what makes a
+ * session feel like the same handful of items on a loop. Something badly
+ * overdue (approaching the cap) still wins, which is the behaviour the spec
+ * asks for: missed items resurface sooner.
  */
-export const UNSEEN_DUENESS = 1.2
+export const UNSEEN_DUENESS = 2.5
 const DUENESS_CAP = 4
 const NOT_DUE_FLOOR = 0.15
 
@@ -135,6 +152,16 @@ export function scoreItems(
   })
 }
 
+/**
+ * How many recently served items to hold back. Scales with the pool, but never
+ * so far that it empties it — with a small bank the cooldown shrinks rather
+ * than leaving nothing to draw from.
+ */
+export function cooldownFor(poolSize: number, options: SelectionOptions = DEFAULT_OPTIONS): number {
+  const scaled = Math.max(options.cooldown, Math.floor(poolSize * options.cooldownFraction))
+  return Math.min(scaled, Math.max(0, poolSize - 1))
+}
+
 /** Weighted draw without replacement. Returns null for an empty list. */
 function weightedPick<T extends { score: number }>(scored: T[], rng: () => number): T | null {
   const total = scored.reduce((sum, s) => sum + s.score, 0)
@@ -161,7 +188,7 @@ export function selectNextItem(
 ): FeedItem | null {
   if (pool.length === 0) return null
 
-  const cooldown = Math.min(options.cooldown, Math.max(0, pool.length - 1))
+  const cooldown = cooldownFor(pool.length, options)
   const blocked = new Set(state.recentItemIds.slice(0, cooldown))
 
   // Two scenarios back to back make for a slow, samey stretch of feed.

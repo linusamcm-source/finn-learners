@@ -4,6 +4,7 @@ import {
   DEFAULT_OPTIONS,
   INTERVALS_MS,
   UNSEEN_DUENESS,
+  cooldownFor,
   duenessFor,
   intervalFor,
   scoreItems,
@@ -12,7 +13,7 @@ import {
   type HistoryEntry,
   type SelectionState,
 } from '../src/feed/select.ts'
-import type { FeedItem, Question, Scenario, Topic } from '../shared/types.ts'
+import { TOPICS, type FeedItem, type Question, type Scenario, type Topic } from '../shared/types.ts'
 
 const NOW = 1_700_000_000_000
 
@@ -72,7 +73,11 @@ function seededRng(values: number[]): () => number {
 
 describe('spaced repetition intervals', () => {
   test('a missed item comes back within the same sitting', () => {
-    assert.equal(intervalFor(0), 90_000)
+    // Ten minutes: later in the same sitting, but not six questions later.
+    // Anything shorter and a handful of missed items crowd out a bank the
+    // learner has mostly never seen.
+    assert.equal(intervalFor(0), 600_000)
+    assert.ok(intervalFor(0) <= 15 * 60_000, 'should still return inside a typical session')
   })
 
   test('intervals grow with each consecutive correct answer', () => {
@@ -100,7 +105,7 @@ describe('dueness', () => {
   })
 
   test('a missed item becomes due far sooner than a mastered one', () => {
-    const elapsed = 5 * 60_000 // five minutes
+    const elapsed = 20 * 60_000 // twenty minutes
     const missed = duenessFor(history({ streak: 0, lastCorrect: false, lastAnsweredAt: NOW - elapsed }), NOW)
     const mastered = duenessFor(history({ streak: 5, lastAnsweredAt: NOW - elapsed }), NOW)
     assert.ok(missed > 1, 'missed item should be due')
@@ -199,15 +204,29 @@ describe('selectNextItem', () => {
     assert.ok(share < 1, 'the mastered topic should still appear sometimes')
   })
 
-  test('a missed item outranks an unseen one in the same topic', () => {
+  test('unseen material beats a review that has only just come due', () => {
+    // This is what stops a session becoming the same handful of questions on
+    // a loop while most of the bank has never been shown.
     const pool = [question('missed', 'give-way'), question('fresh', 'give-way')]
     const histories = new Map([
-      ['missed', history({ streak: 0, lastCorrect: false, lastAnsweredAt: NOW - 10 * 60_000 })],
+      ['missed', history({ streak: 0, lastCorrect: false, lastAnsweredAt: NOW - intervalFor(0) })],
     ])
     const scored = scoreItems(pool, state({ histories }))
     const missed = scored.find((s) => s.item.id === 'missed')!
     const fresh = scored.find((s) => s.item.id === 'fresh')!
-    assert.ok(missed.score > fresh.score, 'a recently missed item should be the more urgent')
+    assert.ok(fresh.score > missed.score, 'a barely-due review should yield to a question never seen')
+  })
+
+  test('a badly overdue item still outranks unseen material', () => {
+    // The other half of the same rule: review must not be starved either.
+    const pool = [question('overdue', 'give-way'), question('fresh', 'give-way')]
+    const histories = new Map([
+      ['overdue', history({ streak: 0, lastCorrect: false, lastAnsweredAt: NOW - 20 * intervalFor(0) })],
+    ])
+    const scored = scoreItems(pool, state({ histories }))
+    const overdue = scored.find((s) => s.item.id === 'overdue')!
+    const fresh = scored.find((s) => s.item.id === 'fresh')!
+    assert.ok(overdue.score > fresh.score, 'a long-overdue miss should come back ahead of new material')
   })
 
   test('scenarios are damped relative to questions of equal dueness', () => {
@@ -217,5 +236,104 @@ describe('selectNextItem', () => {
     const s = scored.find((s) => s.item.id === 's')!
     assert.ok(s.score < q.score)
     assert.equal(s.score / q.score, DEFAULT_OPTIONS.scenarioWeight)
+  })
+})
+
+describe('cooldown scales with the pool', () => {
+  test('a large bank holds back a meaningful fraction of it', () => {
+    // A flat cooldown of a dozen items is far too permissive here: it would
+    // let a question return while most of the bank is still unseen.
+    assert.equal(cooldownFor(216), 54)
+    assert.equal(cooldownFor(400), 100)
+  })
+
+  test('a small bank keeps the floor rather than shrinking to nothing', () => {
+    assert.equal(cooldownFor(20), 12)
+  })
+
+  test('the cooldown never empties the pool', () => {
+    for (const size of [1, 2, 3, 5, 13]) {
+      assert.ok(cooldownFor(size) < size, `pool of ${size} left nothing to draw from`)
+    }
+  })
+})
+
+describe('what a sitting actually feels like', () => {
+  /**
+   * The unit tests above check each rule in isolation, but "the feed keeps
+   * repeating questions" is a property of the whole loop over time. This runs
+   * a realistic sitting and measures it.
+   */
+  function simulate(poolSize: number, draws: number, accuracy: number) {
+    const pool = Array.from({ length: poolSize }, (_, i) =>
+      question(`q${i}`, TOPICS[i % TOPICS.length]!),
+    )
+    const histories = new Map<string, HistoryEntry>()
+    const performance = new Map<Topic, { answered: number; correct: number }>()
+    const recent: string[] = []
+    const served: string[] = []
+
+    let seed = 7
+    const rng = () => ((seed = (seed * 1103515245 + 12345) % 2147483648), seed / 2147483648)
+
+    let now = NOW
+    for (let i = 0; i < draws; i++) {
+      const item = selectNextItem(pool, { histories, topicPerformance: performance, recentItemIds: recent, now }, { ...DEFAULT_OPTIONS, rng })
+      assert.ok(item, 'the feed must always be able to serve something')
+      served.push(item.id)
+      recent.unshift(item.id)
+      recent.length = Math.min(recent.length, 80)
+
+      const correct = rng() < accuracy
+      const prev = histories.get(item.id)
+      histories.set(item.id, {
+        attempts: (prev?.attempts ?? 0) + 1,
+        lastCorrect: correct,
+        streak: correct ? (prev?.streak ?? 0) + 1 : 0,
+        lastAnsweredAt: now,
+      })
+      const perf = performance.get(item.topic) ?? { answered: 0, correct: 0 }
+      performance.set(item.topic, { answered: perf.answered + 1, correct: perf.correct + (correct ? 1 : 0) })
+
+      now += 15_000 // a brisk fifteen seconds per question
+    }
+
+    const gaps: number[] = []
+    const lastSeen = new Map<string, number>()
+    served.forEach((id, i) => {
+      const prev = lastSeen.get(id)
+      if (prev !== undefined) gaps.push(i - prev)
+      lastSeen.set(id, i)
+    })
+    return { served, distinct: new Set(served).size, gaps }
+  }
+
+  test('a half-hour sitting on a full bank is almost all fresh questions', () => {
+    const { distinct } = simulate(200, 120, 0.7)
+    assert.ok(
+      distinct >= 110,
+      `only ${distinct}/120 distinct — the feed is repeating itself when it has 200 items to draw on`,
+    )
+  })
+
+  test('nothing comes back within twenty questions', () => {
+    const { gaps } = simulate(200, 120, 0.7)
+    const tooSoon = gaps.filter((g) => g < 20)
+    assert.equal(tooSoon.length, 0, `${tooSoon.length} item(s) repeated within 20 questions (gaps: ${tooSoon})`)
+  })
+
+  test('a learner getting everything wrong still sees the whole bank', () => {
+    // Worst case for the old tuning: every item is due for review immediately,
+    // so review could crowd out material never seen before.
+    const { distinct } = simulate(200, 120, 0)
+    assert.ok(distinct >= 100, `only ${distinct}/120 distinct when getting everything wrong`)
+  })
+
+  test('over a long haul, missed items do come back', () => {
+    const { served } = simulate(60, 400, 0.5)
+    const counts = new Map<string, number>()
+    for (const id of served) counts.set(id, (counts.get(id) ?? 0) + 1)
+    const repeated = [...counts.values()].filter((n) => n > 1).length
+    assert.ok(repeated > 30, `only ${repeated} items were revisited over 400 draws — review has stopped working`)
   })
 })
